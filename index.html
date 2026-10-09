@@ -212,31 +212,6 @@ body {
 .note-nav { flex: none; height: 46px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; }
 .note-nav .nb { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer; }
 .note-nav .r { display: flex; gap: 16px; font-size: 22px; color: var(--c-text-2); }
-.note-body { padding: 4px 16px 0; }
-.note-cover { border-radius: 12px; background: linear-gradient(160deg, #34343B, #2A2A30); height: 210px; position: relative; }
-.note-cover .cover-tag { position: absolute; left: 12px; bottom: 12px; font-size: 12px; color: #fff; background: rgba(0,0,0,.4); border-radius: 999px; padding: 4px 12px; }
-.note-title { font-size: 20px; font-weight: 800; color: #F2F2F4; margin-top: 14px; line-height: 1.4; }
-.note-author { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
-.note-author .avatar { width: 36px; height: 36px; border-radius: 50%; background: #3A3A41; }
-.note-author .nm { font-size: 14px; font-weight: 700; color: #F2F2F4; }
-.note-author .sub { font-size: 11px; color: #8E8E95; margin-top: 2px; }
-.note-author .follow { margin-left: auto; border: 1px solid var(--c-primary); color: var(--c-primary); border-radius: 999px; padding: 4px 14px; font-size: 13px; font-weight: 600; }
-.note-content { font-size: 15px; line-height: 1.8; color: #E8E8EA; margin-top: 14px; }
-.note-content p + p { margin-top: 8px; }
-.note-comment-head { font-size: 14px; font-weight: 700; color: #F2F2F4; margin: 22px 0 6px; }
-.note-comment { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #1E1E23; }
-.note-comment .avatar { width: 30px; height: 30px; border-radius: 50%; background: #34343B; flex: none; }
-.note-comment .body { flex: 1; }
-.note-comment .nm { font-size: 12px; color: #8E8E95; }
-.note-comment .txt { font-size: 13px; color: #E8E8EA; margin-top: 4px; line-height: 1.6; }
-.note-comment .txt .hl { color: #FF5C6C; }
-.note-bar { flex: none; height: 56px; border-top: 1px solid #1E1E23; display: flex; align-items: center; padding: 0 14px; gap: 4px; background: var(--c-bg); }
-.note-bar .nb { flex: 1; height: 40px; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; color: var(--c-text-2); cursor: pointer; }
-.note-bar .nb .ic { font-size: 22px; }
-.note-bar .nb.heart.on { color: var(--c-primary); }
-.note-bar .nb.heart.on .ic { fill: var(--c-primary); }
-.note-bar .nb.star.on { color: #FFC83D; }
-.note-bar .nb.star.on .ic { fill: #FFC83D; }
 
 /* ---------- 分享面板（底部弹层） ---------- */
 .sheet-mask { position: absolute; inset: 0; background: rgba(0,0,0,.5); z-index: 40; display: none; }
@@ -296,6 +271,105 @@ body {
 .dd-input .ph { flex: 1; font-size: 16px; color: var(--c-text-3); }
 .dd-input .ic { font-size: 26px; }
 .dd-foot { flex: none; text-align: center; font-size: 12px; color: var(--c-text-3); padding: 12px 0 18px; }
+
+/* ==================== 增量层 v3：笔记详情页（展开样式，依据截图 1/2） ==================== */
+.np-nav { flex: none; height: 48px; display: flex; align-items: center; gap: 8px; padding: 0 12px 0 8px; }
+.np-nav .nb { width: 34px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; flex: none; }
+.np-author { flex: 1; display: flex; align-items: center; gap: 8px; min-width: 0; }
+.np-author .avatar { width: 32px; height: 32px; border-radius: 50%; background: #3A3A41; flex: none; }
+.np-author .nm { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.np-follow { border: 1px solid var(--c-primary); color: var(--c-primary); border-radius: 999px; padding: 4px 14px; font-size: 14px; font-weight: 600; flex: none; cursor: pointer; }
+.np-follow.on { border-color: #3A3A41; color: var(--c-text-2); }
+.np-cover { position: relative; background: linear-gradient(160deg, #3A3A42, #26262B); overflow: hidden; }
+.np-cover .cnt, .np-cover .live { position: absolute; top: 12px; background: rgba(0,0,0,.5); border-radius: 999px; font-size: 12px; padding: 2px 10px; color: #fff; z-index: 2; }
+.np-cover .cnt { right: 12px; } .np-cover .live { left: 12px; }
+.np-cover .mock { padding: 12px 14px 0; } .np-cover .mock .sk { background: #4A4A52; height: 9px; margin-top: 8px; }
+.np-cover .band { margin: 22px 0 0; padding: 18px 14px; text-align: center; font-size: 28px; font-weight: 900; color: #fff; background: #9A2A36; letter-spacing: 1px; }
+.np-cover .band2 { padding: 10px 14px; text-align: center; font-size: 20px; font-weight: 800; color: #FFD15C; }
+.np-dots { display: flex; justify-content: center; gap: 5px; padding: 10px 0 0; }
+.np-dots i { width: 5px; height: 5px; border-radius: 50%; background: #3A3A41; } .np-dots i:first-child { background: var(--c-primary); }
+.np-body { padding: 14px 16px 0; }
+.np-title { font-size: 17px; font-weight: 700; line-height: 1.5; }
+.np-text { font-size: 15px; line-height: 1.75; color: #DCDCE0; margin-top: 12px; }
+.np-text p + p { margin-top: 10px; }
+.np-text .sec { font-weight: 700; color: #F2F2F4; }
+.np-text .cash { color: #FF5C6C; font-weight: 700; }
+.np-text .tags { color: #6B9BD2; }
+.np-chip { display: flex; align-items: center; gap: 8px; border: 1px solid #2E2E34; border-radius: 10px; padding: 9px 12px; font-size: 14px; color: #D8D8DC; margin-top: 12px; }
+.np-chip .ic { font-size: 16px; color: var(--c-text-2); } .np-chip b { font-weight: 600; }
+.np-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--c-text-3); margin-top: 14px; padding-bottom: 14px; border-bottom: 1px solid #1E1E23; }
+.np-cm-head { font-size: 14px; color: var(--c-text-2); padding: 14px 0 12px; }
+.np-cm-input { display: flex; align-items: center; gap: 10px; padding-bottom: 8px; }
+.np-cm-input .avatar { width: 32px; height: 32px; border-radius: 50%; background: #3A3A41; flex: none; }
+.np-cm-input .f { flex: 1; height: 36px; border-radius: 18px; background: #202025; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; font-size: 14px; color: var(--c-text-3); }
+.np-c { display: flex; gap: 10px; padding: 12px 0 4px; }
+.np-c .avatar { width: 34px; height: 34px; border-radius: 50%; background: #34343B; flex: none; }
+.np-c.rp { margin-left: 44px; padding-top: 6px; } .np-c.rp .avatar { width: 28px; height: 28px; }
+.np-c .bd { flex: 1; min-width: 0; }
+.np-c .nm { font-size: 13px; color: var(--c-text-2); display: flex; align-items: center; }
+.np-c .au { font-size: 10px; color: var(--c-primary); background: #3A2429; border-radius: 4px; padding: 0 4px; margin-left: 6px; }
+.np-c .tx { font-size: 15px; line-height: 1.6; margin-top: 3px; }
+.np-c .tx .hl { color: #FF5C6C; }
+.np-c .ft { font-size: 12px; color: var(--c-text-3); margin-top: 6px; display: flex; gap: 12px; }
+.np-c .lk { display: flex; align-items: center; gap: 4px; color: var(--c-text-3); font-size: 13px; margin-top: 4px; align-self: flex-start; }
+.np-more { margin: 4px 0 0 44px; font-size: 13px; color: var(--c-text-2); padding: 6px 0; }
+.np-bar { flex: none; height: 74px; border-top: 1px solid #1E1E23; display: flex; align-items: flex-start; padding: 9px 14px 0 12px; gap: 16px; background: var(--c-bg); }
+.np-say { flex: 1; height: 38px; border-radius: 19px; background: #202025; display: flex; align-items: center; gap: 6px; padding: 0 14px; color: var(--c-text-2); font-size: 14px; }
+.np-act { display: flex; align-items: center; gap: 4px; height: 38px; font-size: 15px; cursor: pointer; }
+.np-act .ic { font-size: 25px; }
+.np-act.heart.on { color: var(--c-primary); } .np-act.heart.on .ic { fill: var(--c-primary); }
+.np-act.star.on { color: #FFC83D; } .np-act.star.on .ic { fill: #FFC83D; }
+
+/* ==================== 增量层 v3：搜索结果页 + 点点摘要（依据截图 3） ==================== */
+.sr-nav { flex: none; height: 52px; display: flex; align-items: center; gap: 4px; padding: 0 12px 0 6px; }
+.sr-nav .nb { width: 34px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer; flex: none; }
+.sr-field { flex: 1; height: 40px; border-radius: 20px; background: #202025; display: flex; align-items: center; padding: 0 14px 0 16px; gap: 8px; font-size: 16px; min-width: 0; }
+.sr-field .q { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sr-field .clr { width: 18px; height: 18px; border-radius: 50%; background: #55555C; color: #202025; display: flex; align-items: center; justify-content: center; font-size: 12px; flex: none; }
+.sr-field .go { border-left: 1px solid #34343A; padding-left: 12px; font-weight: 600; flex: none; }
+.sr-tabs { flex: none; height: 44px; display: flex; align-items: center; gap: 26px; padding: 0 16px; font-size: 16px; color: var(--c-text-2); }
+.sr-tabs .on { color: var(--c-text); font-weight: 700; position: relative; }
+.sr-tabs .on::after { content: ""; position: absolute; left: 0; bottom: -9px; width: 24px; height: 3px; background: var(--c-primary); border-radius: 2px; }
+.sr-tabs .dd { margin-left: auto; display: flex; align-items: center; gap: 6px; color: var(--c-text); font-weight: 600; cursor: pointer; }
+.sr-tabs .dd .dd-ghost { font-size: 18px; }
+.sr-sum { margin: 14px 12px 0; border-radius: 18px; background: #1F1F24; padding: 16px 16px 14px; position: relative; }
+.sr-sum::before { content: ""; position: absolute; top: -8px; right: 30px; border: 8px solid transparent; border-top: 0; border-bottom-color: #1F1F24; }
+.sm-fade { max-height: 236px; overflow: hidden; position: relative; }
+.sm-fade::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 70px; background: linear-gradient(transparent, #1F1F24); }
+.sm-t { font-size: 16px; line-height: 1.7; }
+.hl-g { background: rgba(47,165,140,.35); border-radius: 3px; padding: 0 2px; }
+.sm-h { font-size: 16px; font-weight: 700; margin: 12px 0 6px; display: flex; align-items: center; gap: 8px; }
+.sm-h i { width: 20px; height: 14px; border-radius: 3px; background: var(--c-primary); display: inline-block; }
+.sm-ul { list-style: none; } .sm-ul li { position: relative; padding-left: 16px; font-size: 15px; line-height: 1.7; margin-bottom: 6px; }
+.sm-ul li::before { content: ""; position: absolute; left: 2px; top: 11px; width: 5px; height: 5px; border-radius: 50%; background: #55555C; }
+.sm-ul li b { font-weight: 700; }
+.sm-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; font-size: 14px; color: var(--c-text-2); }
+.sm-foot .l { display: flex; align-items: center; gap: 8px; }
+.sm-foot .avs { display: flex; } .sm-foot .avs i { width: 24px; height: 24px; border-radius: 50%; background: #3A3A41; border: 2px solid #1F1F24; margin-left: -8px; } .sm-foot .avs i:first-child { margin-left: 0; background: #34546B; }
+.sm-foot .go { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #3A3A41; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; }
+.sr-filter { display: flex; gap: 8px; padding: 14px 12px 4px; overflow: hidden; white-space: nowrap; }
+.sr-filter span { background: #202025; border-radius: 8px; padding: 8px 14px; font-size: 15px; color: var(--c-text-2); flex: none; }
+.sr-filter span.on { color: #fff; font-weight: 700; background: #2A2A30; }
+.sr-card { cursor: pointer; }
+.sr-card .tt { font-size: 15px; line-height: 1.5; font-weight: 600; padding: 10px 10px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.sr-card .au { display: flex; align-items: center; gap: 8px; padding: 10px 10px 12px; }
+.sr-card .au .avatar { width: 28px; height: 28px; border-radius: 50%; background: #3A3A41; flex: none; }
+.sr-card .au .who { flex: 1; min-width: 0; } .sr-card .au .who b { display: block; font-size: 13px; font-weight: 500; color: var(--c-text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .sr-card .au .who span { font-size: 11px; color: var(--c-text-3); }
+.sr-card .au .lk { display: flex; align-items: center; gap: 3px; font-size: 13px; color: var(--c-text-2); }
+
+/* ==================== 增量层 v3：收藏页 · 专辑（依据截图 4） ==================== */
+.fav-create { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #1A1A1E; border-bottom: 1px solid #26262C; font-size: 17px; cursor: pointer; }
+.fav-create .ico { width: 44px; height: 44px; border-radius: 12px; background: #2A2A2F; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--c-text-2); }
+.fav-create .tx { flex: 1; } .fav-create .arrow { color: var(--c-text-2); font-size: 18px; }
+.fab { margin-top: 8px; background: #1A1A1E; padding: 16px 14px 18px; cursor: pointer; }
+.fab .h { display: flex; align-items: flex-start; justify-content: space-between; }
+.fab .t { font-size: 20px; font-weight: 600; }
+.fab .m { display: flex; align-items: center; gap: 14px; font-size: 14px; color: var(--c-text-2); margin-top: 8px; }
+.fab .m .avs { display: flex; } .fab .m .avs i { width: 28px; height: 28px; border-radius: 50%; background: #3A3A41; border: 2px solid #55555C; margin-left: -8px; } .fab .m .avs i:first-child { margin-left: 4px; }
+.fab .lockic { color: var(--c-text-2); font-size: 20px; }
+.fab .th { display: flex; gap: 12px; margin-top: 16px; }
+.fab .th i { flex: 1; aspect-ratio: 1; border-radius: 8px; background: linear-gradient(160deg, #3E3E46, #2B2B31); }
+.fab .th i.e { background: #202025; }
 
 /* ==================== 基座层：点点设置页 ==================== */
 .set-logo { text-align: center; padding: 34px 0 10px; } .set-logo .dd-ghost { font-size: 44px; }
@@ -615,16 +689,18 @@ body {
           <!-- 收藏 -->
           <div class="me-panel" data-p="fav">
             <div class="fav-sub" id="fav-sub">
-              <span data-f="fnote">笔记 55</span>
-              <span data-f="falbum"><svg class="ic"><use href="#i-lock"/></svg>专辑 1</span>
+              <span data-f="fnote">笔记 355</span>
+              <span data-f="falbum" id="fav-album-tab">专辑 2</span>
               <span data-f="fdd" class="on"><svg class="ic"><use href="#i-lock"/></svg>点点 1</span>
               <!-- ★ 增量层 v3：「链路」分类 tab -->
               <span id="fav-guide-tab-slot" data-slot="fav-guide-tab" data-f="fchain"><svg class="ic"><use href="#i-link"/></svg>链路 1</span>
             </div>
             <div class="fav-panel" data-fp="fnote"><div class="waterfall" id="waterfall-fav"></div></div>
             <div class="fav-panel" data-fp="falbum">
-              <div class="fav-album-list" id="fav-album-list">
-                <div class="empty" id="album-empty">还没有合集<br>把帖子分享给点点，可自动帮你建合集</div>
+              <div class="fav-album-list" id="fav-album-list" style="padding:0">
+                <div class="fav-create" id="fav-create"><span class="ico"><svg class="ic"><use href="#i-plus"/></svg></span><span class="tx">创建新专辑</span><svg class="ic arrow"><use href="#i-right"/></svg></div>
+                <div class="fab"><div class="h"><div><div class="t">周末探店</div><div class="m"><span>笔记 · 45</span><span>共享人 · 3</span><span class="avs"><i></i><i></i><i></i></span></div></div><svg class="ic lockic"><use href="#i-lock"/></svg></div><div class="th"><i></i><i></i><i></i><i class="e"></i></div></div>
+                <div class="fab"><div class="h"><div><div class="t">家常菜谱</div><div class="m"><span>笔记 · 38</span><span>共享人 · 3</span><span class="avs"><i></i><i></i><i></i></span></div></div><svg class="ic lockic"><use href="#i-lock"/></svg></div><div class="th"><i></i><i></i><i></i><i></i></div></div>
               </div>
             </div>
             <div class="fav-panel show" data-fp="fdd">
@@ -647,44 +723,62 @@ body {
       </div>
     </section>
 
-    <!-- ========== 页面：笔记详情页（增量层 v3；入口：首页瀑布流第一张卡片） ========== -->
+    <!-- ========== 页面：笔记详情页（增量层 v3；入口：首页瀑布流前两张卡片 / 搜索结果页；内容由 JS 按 NOTES 数据渲染） ========== -->
     <section class="page note-page" id="page-note">
-      <div class="note-nav">
-        <span class="nb" onclick="XHS.go('home')"><svg class="ic"><use href="#i-left"/></svg></span>
-        <div class="r"><svg class="ic"><use href="#i-share"/></svg><svg class="ic"><use href="#i-more"/></svg></div>
+      <div class="np-nav">
+        <span class="nb" id="np-back"><svg class="ic"><use href="#i-left"/></svg></span>
+        <div class="np-author"><span class="avatar"></span><span class="nm" id="np-nm"></span></div>
+        <span class="np-follow" id="np-follow">关注</span>
+        <span class="nb" id="np-share"><svg class="ic"><use href="#i-share"/></svg></span>
       </div>
+      <div class="scroll" id="np-scroll"></div>
+      <div class="np-bar">
+        <div class="np-say"><svg class="ic"><use href="#i-edit"/></svg>说点什么...</div>
+        <div class="np-act heart" id="nb-heart"><svg class="ic"><use href="#i-heart"/></svg><span id="np-n1"></span></div>
+        <div class="np-act star" id="nb-star"><svg class="ic"><use href="#i-star"/></svg><span id="np-n2"></span></div>
+        <div class="np-act"><svg class="ic"><use href="#i-bubble"/></svg><span id="np-n3"></span></div>
+      </div>
+    </section>
+
+    <!-- ========== 页面：搜索结果页（增量层 v3；入口：首页右上角搜索图标；含「问点点」摘要卡） ========== -->
+    <section class="page" id="page-search">
+      <div class="sr-nav">
+        <span class="nb" id="sr-back"><svg class="ic"><use href="#i-left"/></svg></span>
+        <div class="sr-field"><span class="q">博尔盖塞美术馆门票</span><span class="clr"><svg class="ic" style="stroke-width:3"><use href="#i-close"/></svg></span><span class="go">搜索</span></div>
+      </div>
+      <div class="sr-tabs"><span class="on">全部</span><span>用户</span><span>商品</span><span>图片</span><span class="dd" id="sr-dd"><i class="dd-ghost"></i>问点点</span></div>
       <div class="scroll">
-        <div class="note-body">
-          <div class="note-cover"><span class="cover-tag">意大利 · 旅行攻略</span></div>
-          <div class="note-title">博尔盖塞美术馆订票全攻略：这几个坑千万避开</div>
-          <div class="note-author">
-            <div class="avatar"></div>
-            <div><div class="nm">@罗马土著</div><div class="sub">3 天前 · 关注 1.2w</div></div>
-            <span class="follow">关注</span>
+        <div class="sr-sum">
+          <div class="sm-fade">
+            <div class="sm-t">想进博尔盖塞美术馆，<span class="hl-g">建议提前预约</span>，旺季现场很难碰到余票。</div>
+            <div class="sm-h"><i></i>门票与预约</div>
+            <ul class="sm-ul">
+              <li><b>预约方式：</b>通过官方渠道按时段预订，含预约费约 18 欧/人。</li>
+              <li><b>入场规则：</b>分时段入场，每个时段约 2 小时，需提前到场。</li>
+              <li><b>现场情况：</b>偶有退票，建议开馆前排队，并带好现金备用。</li>
+            </ul>
           </div>
-          <div class="note-content">
-            <p>博尔盖塞美术馆是罗马最值得去的博物馆之一，但订票和现场有不少坑，整理给大家。</p>
-            <p>① 门票一定要提前预约，现场基本买不到当天的票；</p>
-            <p>② 现场有 POS 机可以刷卡，但**最近 POS 机坏了只收现金**，记得带够现金；</p>
-            <p>③ 建议约早场，人少光线好。</p>
-          </div>
-          <div class="note-comment-head">精选评论</div>
-          <div class="note-comment">
-            <div class="avatar"></div>
-            <div class="body"><div class="nm">@旅行小马</div><div class="txt">补充一下：<span class="hl">上周去现场 POS 机真的坏了</span>，只收现金，差点没进去，大家一定带现金！</div></div>
-          </div>
-          <div class="note-comment">
-            <div class="avatar"></div>
-            <div class="body"><div class="nm">@去过的人</div><div class="txt">约早场 +1，下午人巨多。</div></div>
-          </div>
-          <div style="height:20px"></div>
+          <div class="sm-foot"><span class="l">总结 36 篇笔记生成 <span class="avs"><i></i><i></i></span></span><span class="go" id="sr-go"><svg class="ic"><use href="#i-right"/></svg></span></div>
         </div>
-      </div>
-      <div class="note-bar">
-        <div class="nb heart" id="nb-heart"><svg class="ic"><use href="#i-heart"/></svg>1.2w</div>
-        <div class="nb star" id="nb-star"><svg class="ic"><use href="#i-star"/></svg>收藏</div>
-        <div class="nb"><svg class="ic"><use href="#i-bubble"/></svg>评论</div>
-        <div class="nb" id="nb-share"><svg class="ic"><use href="#i-share"/></svg>分享</div>
+        <div class="sr-filter"><span class="on">综合</span><span>最新</span><span>购买攻略</span><span>官网预约</span><span>放票时间</span></div>
+        <div class="waterfall">
+          <div class="wf-col">
+            <div class="card sr-card" data-note="b">
+              <div class="cover" style="height:260px"></div>
+              <div class="tt">没提前约上也进了博尔盖塞？现场实测流程</div>
+              <div class="au"><span class="avatar"></span><div class="who"><b>慢游罗马的阿蓝</b><span>09-29</span></div><span class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>246</span></div>
+            </div>
+            <div class="card sr-card"><div class="cover" style="height:170px"></div><div class="tt">罗马三天两晚路线与预算</div><div class="au"><span class="avatar"></span><div class="who"><b>用户 C</b><span>08-12</span></div><span class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>87</span></div></div>
+          </div>
+          <div class="wf-col">
+            <div class="card sr-card" data-note="a">
+              <div class="cover" style="height:260px"><div class="poster-t"><div class="sk" style="width:85%"></div><div class="sk" style="width:70%"></div><div class="sk" style="width:50%"></div></div></div>
+              <div class="tt">「博尔盖塞美术馆」订票攻略｜一图看懂预约流程❗</div>
+              <div class="au"><span class="avatar"></span><div class="who"><b>罗马土著</b><span>03-09</span></div><span class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>1.2w</span></div>
+            </div>
+            <div class="card sr-card"><div class="cover" style="height:200px"></div><div class="tt">罗马周边一日游清单</div><div class="au"><span class="avatar"></span><div class="who"><b>用户 D</b><span>07-30</span></div><span class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>312</span></div></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -873,7 +967,7 @@ body {
   /* 页面切换：问一问/点点设置/链路编辑/发布/笔记/合集 属于子页面，Tab 高亮保持「首页」或「我」 */
   function go(name) {
     $$('.page').forEach(function (p) { p.classList.toggle('active', p.id === 'page-' + name); });
-    var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album'];
+    var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album', 'search'];
     document.getElementById('phone').classList.toggle('full', subPages.indexOf(name) >= 0);
     var tabName;
     if (subPages.indexOf(name) >= 0) {
@@ -908,40 +1002,121 @@ body {
     // 避免重复添加
     if (!document.getElementById('album-italy')) {
       var card = document.createElement('div');
-      card.className = 'fav-album-card';
+      card.className = 'fab';
       card.id = 'album-italy';
       card.setAttribute('onclick', "XHS.go('album')");
-      card.innerHTML = '<div class="cover">🖼</div>' +
-        '<div class="info"><div class="t">意大利旅行</div><div class="m">1 篇笔记 · 由点点创建</div></div>' +
-        '<div class="arrow"><svg class="ic"><use href="#i-right"/></svg></div>';
-      list.appendChild(card);
+      card.innerHTML = '<div class="h"><div><div class="t">意大利旅行</div><div class="m"><span>笔记 · 1</span><span>共享人 · 1</span><span class="avs"><i></i></span></div></div><svg class="ic lockic"><use href="#i-lock"/></svg></div>' +
+        '<div class="th"><i></i><i class="e"></i><i class="e"></i><i class="e"></i></div>';
+      list.insertBefore(card, document.getElementById('fav-create').nextSibling);
+      document.getElementById('fav-album-tab').textContent = '专辑 3';
     }
   };
   window.declineAlbum = function () {
     document.getElementById('dd-ask-bubble').style.display = 'none';
     document.getElementById('dd-decline-bubble').style.display = 'block';
   };
-  /* 笔记详情页：点赞 / 收藏 交互 */
-  document.getElementById('nb-heart').addEventListener('click', function () { this.classList.toggle('on'); });
-  document.getElementById('nb-star').addEventListener('click', function () { this.classList.toggle('on'); });
-  document.getElementById('nb-share').addEventListener('click', openShare);
-  /* 笔记详情页右上角分享图标也打开分享面板 */
-  var noteShareIcon = document.querySelector('.note-nav .r svg use[href="#i-share"]');
-  if (noteShareIcon) { noteShareIcon.parentElement.parentElement.addEventListener('click', openShare); }
+  /* ============ 笔记详情页（截图 1/2）：两篇示例笔记，内容均为原创编写 ============ */
+  var NOTES = {
+    a: {
+      author: '罗马土著', follow: '关注', n: ['1.2w', '3421', '128'], cover: 'poster', count: '1/7', coverH: 360,
+      title: '「博尔盖塞美术馆」订票攻略｜一图看懂预约流程❗',
+      text: [
+        '大家好，我是罗马土著，常驻罗马的旅行向导。这几天被问得最多的就是博尔盖塞，干脆把流程整理成一篇。',
+        '<span class="sec">🗓【放票时间】</span><br>提前 1-2 个月的名额会陆续放出，旺季建议每周一上午多刷新几次官网。',
+        '<span class="sec">🎫【票价】</span><br>成人票含预约费约 18 欧，部分人群有优惠，以官网公布为准。',
+        '<span class="sec">🌐【官方渠道】</span><br>只认官方预约入口，第三方加价代订的不建议买。',
+        '<span class="sec">⏰【入场规则】</span><br>按时段入场，每个时段约 2 小时，提前 15 分钟到场，迟到可能不让进。',
+        '<span class="sec">💳【现场付款】</span><br><span class="cash">近期现场 POS 机故障，只收现金</span>，记得带足欧元现金。',
+        '<span class="sec">🤔【没约到怎么办】</span><br>① 每天清晨有少量退票；② 工作日比周末好约；③ 换成下午时段。'
+      ],
+      tags: '#罗马 #博尔盖塞美术馆 #意大利旅行 #欧洲旅游 #罗马攻略 #订票攻略',
+      album: '罗马攻略合集', sug: '博尔盖塞美术馆门票', date: '03-09 北京 · 已声明原创', total: 128,
+      comments: [
+        { n: '旅行小马', t: '补充一下：<span class="hl">上周去现场 POS 机真的坏了</span>，只收现金，差点没进去，大家一定带现金！', d: '03-25', loc: '罗马', lk: 32,
+          rp: [{ n: '罗马土著', au: 1, t: '对对对，感谢补充，已经加到正文了～', d: '03-25', loc: '北京', lk: 5 }], more: 3 },
+        { n: '去过的人', t: '约早场 +1，下午人巨多。', d: '03-24', loc: '广东', lk: 12 },
+        { n: '小鹿不迷路', t: '请问 4 个人的票，要分开买还是一起买？', d: '03-22', loc: '上海', lk: 3,
+          rp: [{ n: '罗马土著', au: 1, t: '选同一个时段一起买就行，一次最多可以买 5 张。', d: '03-22', loc: '北京', lk: 2 }] },
+        { n: '栗子ing', t: '官网刷新的时候一直转圈，有没有人遇到过？', d: '03-20', loc: '浙江', lk: 1,
+          rp: [{ n: '阿木', t: '换个浏览器试试，我是无痕窗口约到的。', d: '03-20', loc: '江苏', lk: 0 }], more: 2 }
+      ]
+    },
+    b: {
+      author: '慢游罗马的阿蓝', follow: '关注', n: ['246', '98', '66'], cover: 'photo', count: '1/3', live: true, coverH: 400,
+      title: '没提前约上也进了博尔盖塞？现场实测流程',
+      text: [
+        '出发前一周翻遍官网都显示已售罄，抱着试试看的心态去了现场，结果进去了！整理一下我的经过，给同样没约上的朋友参考。',
+        '<span class="sec">‼️重点‼️</span><br>现场有窗口专门放当天的退票和余票，不是早起排队就一定有，要看运气和时间点。',
+        '我的做法：开馆前 1 小时到，排在队伍前 20 人以内，最后拿到了下午场的票。如果前面的人都买完了，就只能等下一轮放票。',
+        '<span class="sec">💡Tips：</span>一个人最多可以买两张，如果前后有同行的旅客，可以互相问问有没有人需要多出来的名额。'
+      ],
+      tags: '#罗马 #博尔盖塞美术馆 #意大利旅行 #攻略 #国庆节旅游',
+      album: '意大利碎片记录', sug: '博尔盖塞美术馆预约入口', date: '09-29 意大利 · 已声明原创', total: 66,
+      comments: [
+        { n: '海边的风', t: '请问排队的时候需要自带现金吗？', d: '09-30', loc: '意大利', lk: 4,
+          rp: [{ n: '慢游罗马的阿蓝', au: 1, t: '窗口可以刷卡，不过还是建议带点现金备用。', d: '09-30', loc: '意大利', lk: 3 }] },
+        { n: 'Momo', t: '工作日去会好很多，周末基本没戏。', d: '09-29', loc: '广东', lk: 9 },
+        { n: '一粒米', t: '感谢分享！下周去，准备早点到。', d: '3 天前', loc: '四川', lk: 1,
+          rp: [{ n: '慢游罗马的阿蓝', au: 1, t: '加油，天气热记得带水～', d: '3 天前', loc: '意大利', lk: 0 }] },
+        { n: '行者无疆', t: '免费日是不是也能这样排队进？', d: '昨天', loc: '陕西', lk: 0,
+          rp: [{ n: '慢游罗马的阿蓝', au: 1, t: '免费日规则不太一样，建议先看官网公告。', d: '昨天', loc: '意大利', lk: 0 }], more: 1 }
+      ]
+    }
+  };
+  var noteFrom = 'home';
+  function cmHtml(c, rp) {
+    return '<div class="np-c' + (rp ? ' rp' : '') + '"><div class="avatar"></div><div class="bd"><div class="nm">' + c.n + (c.au ? '<span class="au">作者</span>' : '') + '</div>' +
+      '<div class="tx">' + c.t + '</div><div class="ft"><span>' + c.d + ' ' + c.loc + '</span><span>回复</span></div></div>' +
+      '<div class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>' + (c.lk || '') + '</div></div>';
+  }
+  function renderNote(key) {
+    var d = NOTES[key];
+    $('#np-nm').textContent = d.author;
+    var f = $('#np-follow'); f.textContent = '关注'; f.classList.remove('on');
+    $('#np-n1').textContent = d.n[0]; $('#np-n2').textContent = d.n[1]; $('#np-n3').textContent = d.n[2];
+    $('#nb-heart').classList.remove('on'); $('#nb-star').classList.remove('on');
+    var cover = d.cover === 'poster'
+      ? '<div class="mock"><div class="sk" style="width:90%"></div><div class="sk" style="width:70%"></div><div class="sk" style="width:80%"></div></div><div class="band">预订流程 一图看懂</div><div class="band2">官方渠道 · 分时段 · 带现金</div>'
+      : '';
+    var html = '<div class="np-cover" style="height:' + d.coverH + 'px">' + (d.live ? '<span class="live">实况</span>' : '') + '<span class="cnt">' + d.count + '</span>' + cover + '</div>' +
+      '<div class="np-dots"><i></i><i></i><i></i></div>' +
+      '<div class="np-body"><div class="np-title">' + d.title + '</div>' +
+      '<div class="np-text">' + d.text.map(function (t) { return '<p>' + t + '</p>'; }).join('') + '<p class="tags">' + d.tags + '</p></div>' +
+      '<div class="np-chip"><svg class="ic"><use href="#i-star"/></svg><span>合集 <b>' + d.album + '</b></span></div>' +
+      '<div class="np-chip"><svg class="ic"><use href="#i-search"/></svg><span>猜你想搜 <b>' + d.sug + '</b></span></div>' +
+      '<div class="np-meta"><span>' + d.date + '</span><span>不喜欢</span></div>' +
+      '<div class="np-cm-head">共 ' + d.total + ' 条评论</div>' +
+      '<div class="np-cm-input"><span class="avatar"></span><div class="f"><span>让大家听到你的声音</span><svg class="ic" style="font-size:20px"><use href="#i-camera"/></svg></div></div>' +
+      d.comments.map(function (c) {
+        return cmHtml(c, false) + (c.rp || []).map(function (r) { return cmHtml(r, true); }).join('') + (c.more ? '<div class="np-more">展开 ' + c.more + ' 条回复 ﹀</div>' : '');
+      }).join('') + '<div style="height:24px"></div></div>';
+    var sc = $('#np-scroll'); sc.innerHTML = html; sc.scrollTop = 0;
+  }
+  window.openNote = function (key, from) { noteFrom = from || 'home'; renderNote(key); go('note'); };
+  $('#np-back').addEventListener('click', function () { go(noteFrom); });
+  $('#np-follow').addEventListener('click', function () { this.classList.toggle('on'); this.textContent = this.classList.contains('on') ? '已关注' : '关注'; });
+  $('#np-share').addEventListener('click', openShare);
+  $('#nb-heart').addEventListener('click', function () { this.classList.toggle('on'); });
+  $('#nb-star').addEventListener('click', function () { this.classList.toggle('on'); });
+
+  /* ============ 搜索结果页（截图 3） ============ */
+  $('#sr-back').addEventListener('click', function () { go('home'); });
+  $('#sr-dd').addEventListener('click', function () { go('ask'); });
+  $('#sr-go').addEventListener('click', function () { go('ask'); });
+  $$('#page-search .sr-card[data-note]').forEach(function (c) { c.addEventListener('click', function () { openNote(c.dataset.note, 'search'); }); });
 
   /* 首页瀑布流第一张卡片 → 笔记详情页（给首张卡片加点击） */
   function makeFirstCardClickable() {
-    var firstCard = document.querySelector('#waterfall .card');
-    if (firstCard) {
-      firstCard.style.cursor = 'pointer';
-      firstCard.addEventListener('click', function () { go('note'); });
-    }
+    var cols = $$('#waterfall .wf-col');
+    [[cols[0] && cols[0].firstChild, 'a'], [cols[1] && cols[1].firstChild, 'b']].forEach(function (x) {
+      if (x[0]) { x[0].style.cursor = 'pointer'; x[0].addEventListener('click', function () { openNote(x[1], 'home'); }); }
+    });
   }
 
   $$('.tab[data-page]').forEach(function (t) { t.addEventListener('click', function () { go(t.dataset.page); }); });
   /* 首页左上角气泡图标 / 右上角搜索图标 → 点点对话页（问一问）；右上角 ··· → 点点设置；X / 返回 逐级退出 */
   $('#chat-entry').addEventListener('click', function () { go('ask'); });
-  $('#search-entry').addEventListener('click', function () { go('ask'); });
+  $('#search-entry').addEventListener('click', function () { go('search'); });   // 搜索图标 → 搜索结果页（含「问点点」）
   $('#ask-more').addEventListener('click', function () { go('ddset'); });
   $('#set-back').addEventListener('click', function () { go('ask'); });
   $$('.tg').forEach(function (t) { t.addEventListener('click', function () { t.classList.toggle('on'); }); });
@@ -990,7 +1165,7 @@ body {
    - page-chain-edit        链路编辑页（AI 骨架 + citation 卡片）
    - page-chain-pub         发布回流页（读者 + 作者「被真实使用」通知）
    收藏页：「专辑」tab 新建后出现「意大利旅行」合集；「链路」tab 展示已发布链路。
-   可调用 window.XHS.go('home'|'ask'|'ddset'|'market'|'msg'|'me'|'note'|'album'|'chain-edit'|'chain-pub')。
+   可调用 window.XHS.go('home'|'search'|'ask'|'ddset'|'market'|'msg'|'me'|'note'|'album'|'chain-edit'|'chain-pub')。
    核心原则：引用是「指向」（citation），不是「搬运」——卡片文字是用户自己的话，原帖只挂链接。
 =========================================================================== */
 </script>
