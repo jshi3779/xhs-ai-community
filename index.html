@@ -213,22 +213,23 @@ body {
 .note-nav .nb { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer; }
 .note-nav .r { display: flex; gap: 16px; font-size: 22px; color: var(--c-text-2); }
 
-/* ---------- 分享面板（底部弹层） ---------- */
-.sheet-mask { position: absolute; inset: 0; background: rgba(0,0,0,.5); z-index: 40; display: none; }
+/* ---------- 分享面板（底部弹层，依据截图：分享至 / 好友 / 渠道 / 工具） ---------- */
+.sheet-mask { position: absolute; inset: 0; background: rgba(0,0,0,.55); z-index: 40; display: none; }
 .sheet-mask.show { display: block; }
-.share-sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 41; background: #1D1D22; border-radius: 16px 16px 0 0; padding: 18px 20px 26px; display: none; }
+.share-sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 41; background: #0F0F12; border-radius: 16px 16px 0 0; padding: 14px 0 30px; display: none; }
 .share-sheet.show { display: block; }
-.share-sheet .s-title { font-size: 16px; font-weight: 700; color: #F2F2F4; text-align: center; margin-bottom: 18px; }
-.share-sheet .s-row { display: flex; gap: 20px; }
-.share-sheet .s-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
-.share-sheet .s-item .ico { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; }
-.share-sheet .s-item .lbl { font-size: 12px; color: #8E8E95; }
-.share-sheet .s-item .lbl.dd { color: #3DDC84; font-weight: 600; }
-.share-sheet .s-item .ico.dd { background: linear-gradient(135deg,#9BF7E0,#46DDBB); color: #12453B; }
-.share-sheet .s-item .ico.wx { background: #1B3A2E; color: #3DDC84; }
-.share-sheet .s-item .ico.link { background: #34343B; color: #D8D8DC; }
-.share-sheet .s-item .ico.more { background: #34343B; color: #D8D8DC; }
-.share-sheet .s-cancel { margin-top: 20px; height: 46px; border-radius: 999px; background: #2A2A2F; color: #F2F2F4; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; cursor: pointer; }
+.share-sheet .s-title { position: relative; text-align: center; font-size: 16px; color: var(--c-text-2); padding: 4px 0 14px; }
+.share-sheet .s-title .x { position: absolute; right: 16px; top: 2px; font-size: 22px; color: var(--c-text); cursor: pointer; display: flex; }
+.share-sheet .s-row { display: flex; gap: 8px; padding: 14px 8px; border-top: 1px solid #1E1E23; overflow: hidden; }
+.share-sheet .s-row:first-of-type { border-top: 0; }
+.share-sheet .s-item { width: 72px; flex: none; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; text-align: center; }
+.share-sheet .ico { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; position: relative; color: #fff; }
+.share-sheet .ico.ct { background: #3A3A41; }
+.share-sheet .ico .on { position: absolute; right: 0; bottom: 0; width: 13px; height: 13px; border-radius: 50%; background: #34C759; border: 2px solid #0F0F12; }
+.share-sheet .ico.red { background: #E8344B; } .share-sheet .ico.wx { background: #1FB16A; } .share-sheet .ico.pyq { background: #4CB82F; }
+.share-sheet .ico.tool { background: #26262B; color: #D8D8DC; }
+.share-sheet .lbl { font-size: 12px; color: var(--c-text-2); line-height: 1.3; }
+.share-sheet .lbl small { display: block; font-size: 10px; color: var(--c-text-3); }
 
 /* ---------- 点点询问建合集（对话内的动作气泡） ---------- */
 .dd-question { margin-top: 12px; background: #1F1F24; border: 1px solid #2B2B31; border-radius: 14px; padding: 12px 14px; }
@@ -507,6 +508,10 @@ body {
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></symbol>
   <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a4 4 0 0 0 6 .5l3-3a4 4 0 0 0-6-6l-1.5 1.5M14 11a4 4 0 0 0-6-.5l-3 3a4 4 0 0 0 6 6l1.5-1.5"/></symbol>
   <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.9 2.6L22.5 18.5l-2.6.9L19 22l-.9-2.6-2.6-.9 2.6-.9z"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L3 10.500l7 3 3 7z"/><path d="M10 13.500L21 3"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.500"/><path d="M4 17l5-5 4 4 3-3 4 4"/></symbol>
+  <symbol id="i-quote" viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-7l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M9 9v3M14 9v3"/></symbol>
+  <symbol id="i-group" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.500"/><path d="M2.500 20c0-3.500 3-6 6.500-6s6.500 2.500 6.500 6"/><path d="M16 5a3 3 0 0 1 0 6M18 14c2 .8 3.500 2.800 3.500 6"/></symbol>
 </svg>
 
 <div class="phone" id="phone">
@@ -935,17 +940,27 @@ body {
   <!-- 分享面板（全局覆盖层，增量层 v3） -->
   <div class="sheet-mask" id="share-mask" onclick="closeShare()"></div>
   <div class="share-sheet" id="share-sheet">
-    <div class="s-title">分享到</div>
+    <div class="s-title">分享至<span class="x" onclick="closeShare()"><svg class="ic"><use href="#i-close"/></svg></span></div>
     <div class="s-row">
-      <div class="s-item" onclick="shareToDD()">
-        <div class="ico dd"><i class="dd-ghost"></i></div>
-        <div class="lbl dd">发给点点</div>
-      </div>
-      <div class="s-item"><div class="ico wx"><svg class="ic"><use href="#i-bubble"/></svg></div><div class="lbl">微信</div></div>
-      <div class="s-item"><div class="ico link"><svg class="ic"><use href="#i-link"/></svg></div><div class="lbl">复制链接</div></div>
-      <div class="s-item"><div class="ico more"><svg class="ic"><use href="#i-more"/></svg></div><div class="lbl">更多</div></div>
+      <div class="s-item"><div class="ico ct"><svg class="ic fill"><use href="#i-person"/></svg></div><div class="lbl">用户<small>10 分钟内在线</small></div></div>
+      <div class="s-item"><div class="ico ct"><svg class="ic fill"><use href="#i-group"/></svg></div><div class="lbl">用户的群聊</div></div>
+      <div class="s-item"><div class="ico ct"><svg class="ic fill"><use href="#i-person"/></svg><span class="on"></span></div><div class="lbl">用户</div></div>
+      <div class="s-item"><div class="ico ct"><svg class="ic fill"><use href="#i-person"/></svg><span class="on"></span></div><div class="lbl">用户</div></div>
+      <div class="s-item"><div class="ico ct"><svg class="ic fill"><use href="#i-person"/></svg></div><div class="lbl">用户</div></div>
     </div>
-    <div class="s-cancel" onclick="closeShare()">取消</div>
+    <div class="s-row">
+      <div class="s-item"><div class="ico red"><svg class="ic fill"><use href="#i-send"/></svg></div><div class="lbl">私信好友</div></div>
+      <div class="s-item"><div class="ico wx"><svg class="ic fill"><use href="#i-chat-dots"/></svg></div><div class="lbl">微信好友</div></div>
+      <div class="s-item"><div class="ico pyq"><svg class="ic"><use href="#i-sparkle"/></svg></div><div class="lbl">朋友圈</div></div>
+    </div>
+    <div class="s-row">
+      <!-- 「问点点」= 把这篇笔记发给点点（增量层入口：收集归集） -->
+      <div class="s-item" onclick="shareToDD()"><div class="ico tool"><svg class="ic"><use href="#i-bubble"/></svg></div><div class="lbl" style="color:#3DDC84">问点点</div></div>
+      <div class="s-item"><div class="ico tool"><svg class="ic"><use href="#i-link"/></svg></div><div class="lbl">复制链接</div></div>
+      <div class="s-item"><div class="ico tool"><svg class="ic"><use href="#i-image"/></svg></div><div class="lbl">生成分享图</div></div>
+      <div class="s-item"><div class="ico tool"><svg class="ic"><use href="#i-quote"/></svg></div><div class="lbl">引用发笔记</div></div>
+      <div class="s-item"><div class="ico tool"><svg class="ic"><use href="#i-group"/></svg></div><div class="lbl">建群分享</div></div>
+    </div>
   </div>
 </div>
 
@@ -1018,48 +1033,34 @@ body {
   /* ============ 笔记详情页（截图 1/2）：两篇示例笔记，内容均为原创编写 ============ */
   var NOTES = {
     a: {
-      author: '用户', follow: '关注', n: ['1.2w', '3421', '128'], cover: 'poster', count: '1/7', coverH: 360,
-      title: '「博尔盖塞美术馆」订票攻略｜一图看懂预约流程❗',
+      author: '用户', n: ['1.2w', '3421', '3'], cover: 'poster', count: '1/7', coverH: 360,
+      title: '「博尔盖塞美术馆」订票攻略｜预约流程',
       text: [
-        '大家好，我是常驻罗马的旅行向导。这几天被问得最多的就是博尔盖塞，干脆把流程整理成一篇。',
-        '<span class="sec">🗓【放票时间】</span><br>提前 1-2 个月的名额会陆续放出，旺季建议每周一上午多刷新几次官网。',
-        '<span class="sec">🎫【票价】</span><br>成人票含预约费约 18 欧，部分人群有优惠，以官网公布为准。',
-        '<span class="sec">🌐【官方渠道】</span><br>只认官方预约入口，第三方加价代订的不建议买。',
-        '<span class="sec">⏰【入场规则】</span><br>按时段入场，每个时段约 2 小时，提前 15 分钟到场，迟到可能不让进。',
-        '<span class="sec">💳【现场付款】</span><br><span class="cash">近期现场 POS 机故障，只收现金</span>，记得带足欧元现金。',
-        '<span class="sec">🤔【没约到怎么办】</span><br>① 每天清晨有少量退票；② 工作日比周末好约；③ 换成下午时段。'
+        '提前 1-2 个月放票，建议多刷新官网。',
+        '<span class="sec">💳【现场付款】</span><br><span class="cash">近期 POS 机故障，只收现金</span>，记得带欧元。',
+        '没约到的话，可以试试清晨的退票。'
       ],
-      tags: '#罗马 #博尔盖塞美术馆 #意大利旅行 #欧洲旅游 #罗马攻略 #订票攻略',
-      album: '罗马攻略合集', sug: '博尔盖塞美术馆门票', date: '03-09 北京 · 已声明原创', total: 128,
+      tags: '#罗马 #博尔盖塞美术馆 #订票攻略',
+      album: '罗马攻略合集', sug: '博尔盖塞美术馆门票', date: '03-09 · 已声明原创', total: 3,
       comments: [
-        { n: '用户', t: '补充一下：<span class="hl">上周去现场 POS 机真的坏了</span>，只收现金，差点没进去，大家一定带现金！', d: '03-25', loc: '罗马', lk: 32,
-          rp: [{ n: '用户', au: 1, t: '对对对，感谢补充，已经加到正文了～', d: '03-25', loc: '北京', lk: 5 }], more: 3 },
-        { n: '用户', t: '约早场 +1，下午人巨多。', d: '03-24', loc: '广东', lk: 12 },
-        { n: '用户', t: '请问 4 个人的票，要分开买还是一起买？', d: '03-22', loc: '上海', lk: 3,
-          rp: [{ n: '用户', au: 1, t: '选同一个时段一起买就行，一次最多可以买 5 张。', d: '03-22', loc: '北京', lk: 2 }] },
-        { n: '用户', t: '官网刷新的时候一直转圈，有没有人遇到过？', d: '03-20', loc: '浙江', lk: 1,
-          rp: [{ n: '用户', t: '换个浏览器试试，我是无痕窗口约到的。', d: '03-20', loc: '江苏', lk: 0 }], more: 2 }
+        { n: '用户', t: '<span class="hl">上周现场 POS 机真的坏了</span>，只收现金！', d: '03-25', loc: '罗马', lk: 32,
+          rp: [{ n: '用户', au: 1, t: '谢谢补充～', d: '03-25', loc: '北京', lk: 5 }] },
+        { n: '用户', t: '约早场 +1。', d: '03-24', loc: '广东', lk: 12 }
       ]
     },
     b: {
-      author: '用户', follow: '关注', n: ['246', '98', '66'], cover: 'photo', count: '1/3', live: true, coverH: 400,
-      title: '没提前约上也进了博尔盖塞？现场实测流程',
+      author: '用户', n: ['246', '98', '2'], cover: 'photo', count: '1/3', live: true, coverH: 400,
+      title: '没提前约上也进了博尔盖塞？',
       text: [
-        '出发前一周翻遍官网都显示已售罄，抱着试试看的心态去了现场，结果进去了！整理一下我的经过，给同样没约上的朋友参考。',
-        '<span class="sec">‼️重点‼️</span><br>现场有窗口专门放当天的退票和余票，不是早起排队就一定有，要看运气和时间点。',
-        '我的做法：开馆前 1 小时到，排在队伍前 20 人以内，最后拿到了下午场的票。如果前面的人都买完了，就只能等下一轮放票。',
-        '<span class="sec">💡Tips：</span>一个人最多可以买两张，如果前后有同行的旅客，可以互相问问有没有人需要多出来的名额。'
+        '官网显示售罄，但现场窗口有当天退票。',
+        '开馆前 1 小时到，排在前 20 位左右就有机会。'
       ],
-      tags: '#罗马 #博尔盖塞美术馆 #意大利旅行 #攻略 #国庆节旅游',
-      album: '意大利碎片记录', sug: '博尔盖塞美术馆预约入口', date: '09-29 意大利 · 已声明原创', total: 66,
+      tags: '#罗马 #博尔盖塞美术馆 #攻略',
+      album: '意大利碎片记录', sug: '博尔盖塞美术馆预约入口', date: '09-29 · 已声明原创', total: 2,
       comments: [
-        { n: '用户', t: '请问排队的时候需要自带现金吗？', d: '09-30', loc: '意大利', lk: 4,
-          rp: [{ n: '用户', au: 1, t: '窗口可以刷卡，不过还是建议带点现金备用。', d: '09-30', loc: '意大利', lk: 3 }] },
-        { n: '用户', t: '工作日去会好很多，周末基本没戏。', d: '09-29', loc: '广东', lk: 9 },
-        { n: '用户', t: '感谢分享！下周去，准备早点到。', d: '3 天前', loc: '四川', lk: 1,
-          rp: [{ n: '用户', au: 1, t: '加油，天气热记得带水～', d: '3 天前', loc: '意大利', lk: 0 }] },
-        { n: '用户', t: '免费日是不是也能这样排队进？', d: '昨天', loc: '陕西', lk: 0,
-          rp: [{ n: '用户', au: 1, t: '免费日规则不太一样，建议先看官网公告。', d: '昨天', loc: '意大利', lk: 0 }], more: 1 }
+        { n: '用户', t: '需要带现金吗？', d: '09-30', loc: '意大利', lk: 4,
+          rp: [{ n: '用户', au: 1, t: '窗口可刷卡，带点备用。', d: '09-30', loc: '意大利', lk: 3 }] },
+        { n: '用户', t: '周末基本没戏。', d: '09-29', loc: '广东', lk: 9 }
       ]
     }
   };
