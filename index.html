@@ -117,6 +117,174 @@ body {
 /* ★ 增量层：攻略地图卡片挂载点（基座仅提供空容器，为空时隐藏） */
 #guide-map-slot { margin-top: 12px; }
 #guide-map-slot:empty { display: none; }
+
+/* ============================================================
+   增量层 v3：验证过的链路（收集→使用→产出→回流）
+   ============================================================ */
+
+/* ---------- 入口卡片（问一问里「生成验证链」） ---------- */
+.chain-entry {
+  margin-top: 12px; border-radius: 14px; background: #1F1F24;
+  border: 1px solid #2B2B31; padding: 12px 14px; cursor: pointer;
+}
+.chain-entry .ce-head { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #F2F2F4; }
+.chain-entry .ce-head .badge { font-size: 11px; font-weight: 600; color: #FF5C6C; background: #3A2429; border-radius: 4px; padding: 1px 6px; }
+.chain-entry .ce-desc { font-size: 12px; color: #8E8E95; margin-top: 6px; line-height: 1.6; }
+.chain-entry .ce-cta { margin-top: 10px; display: flex; align-items: center; justify-content: space-between; }
+.chain-entry .ce-cta .go-btn { background: #FF2442; color: #fff; font-size: 13px; font-weight: 700; border-radius: 999px; padding: 7px 18px; }
+.chain-entry .ce-cta .hint { font-size: 11px; color: #55555C; }
+
+/* ---------- 链路编辑页（全屏子页面） ---------- */
+.page.chain-page { background: var(--c-bg); }
+.chain-nav { flex: none; height: 46px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; }
+.chain-nav .nb { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer; }
+.chain-nav .tt { font-size: 17px; font-weight: 700; }
+.chain-nav .done { font-size: 15px; font-weight: 700; color: #FF2442; cursor: pointer; padding: 6px 8px; }
+.chain-top { padding: 4px 16px 8px; }
+.chain-top .title-input { font-size: 18px; font-weight: 700; color: #F2F2F4; padding: 8px 0; border-bottom: 1px solid #26262C; }
+.chain-top .ai-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #3DDC84; margin-top: 10px; }
+.chain-top .ai-tag .ai-dot { width: 14px; height: 14px; border-radius: 5px 5px 5px 2px; background: linear-gradient(135deg,#9BF7E0,#46DDBB); display: inline-flex; align-items: center; justify-content: center; }
+.chain-top .ai-note { font-size: 12px; color: #8E8E95; margin-top: 8px; line-height: 1.6; }
+
+/* 链路天分组 */
+.chain-day { margin: 6px 12px 10px; }
+.chain-day .day-h { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #F2F2F4; padding: 2px 4px 8px; }
+.chain-day .day-h .dot { width: 8px; height: 8px; border-radius: 50%; background: #FF2442; }
+.chain-day .day-h .day-sub { font-size: 11px; font-weight: 500; color: #8E8E95; }
+
+/* citation 卡片 */
+.cite { background: #202025; border-radius: 12px; padding: 12px; margin-bottom: 8px; position: relative; }
+.cite .c-top { display: flex; align-items: center; gap: 8px; }
+.cite .c-thumb { width: 44px; height: 44px; border-radius: 8px; background: #34343B; flex: none; }
+.cite .c-meta { flex: 1; min-width: 0; }
+.cite .c-title { font-size: 14px; font-weight: 600; color: #F2F2F4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cite .c-author { font-size: 11px; color: #8E8E95; margin-top: 3px; display: flex; align-items: center; gap: 4px; }
+.cite .c-author .avatar { width: 14px; height: 14px; border-radius: 50%; background: #3A3A41; flex: none; }
+.cite .c-my { margin-top: 10px; font-size: 13px; color: #E8E8EA; line-height: 1.6; background: #26262C; border-radius: 8px; padding: 8px 10px; border-left: 3px solid #FF2442; }
+.cite .c-my .my-label { font-size: 11px; color: #FF5C6C; font-weight: 600; margin-right: 6px; }
+.cite .c-foot { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.cite .c-foot .verify { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #3DDC84; background: #1B3A2E; border-radius: 999px; padding: 3px 8px; }
+.cite .c-foot .verify .ic { font-size: 12px; }
+.cite .c-foot .link { font-size: 11px; color: #4C9BFF; display: inline-flex; align-items: center; gap: 3px; }
+.cite .c-foot .drag { margin-left: auto; color: #55555C; font-size: 15px; }
+
+/* 添加自己的话 / 添加点 */
+.chain-add { margin: 10px 16px 20px; display: flex; flex-direction: column; gap: 8px; }
+.chain-add .add-btn { height: 44px; border-radius: 12px; border: 1px dashed #3A3A41; color: #8E8E95; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; }
+
+/* ---------- 发布回流页（读者视角 + 作者通知） ---------- */
+.pub-page { background: var(--c-bg); }
+.pub-hero { padding: 6px 16px 12px; }
+.pub-card { background: #202025; border-radius: 14px; padding: 14px; }
+.pub-card .p-title { font-size: 16px; font-weight: 700; color: #F2F2F4; }
+.pub-card .p-owner { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+.pub-card .p-owner .avatar { width: 28px; height: 28px; border-radius: 50%; background: #3A3A41; }
+.pub-card .p-owner .nm { font-size: 13px; font-weight: 600; color: #F2F2F4; }
+.pub-card .p-owner .tag { font-size: 11px; color: #3DDC84; background: #1B3A2E; border-radius: 4px; padding: 1px 6px; }
+.pub-stat { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 12px; color: #8E8E95; }
+.pub-stat .stat-badge { display: inline-flex; align-items: center; gap: 4px; color: #3DDC84; background: #1B3A2E; border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 600; }
+
+/* 作者侧通知卡片 */
+.notif { margin: 12px 16px; background: #1F1F24; border: 1px solid #2B2B31; border-radius: 14px; padding: 14px; }
+.notif .n-head { display: flex; align-items: center; gap: 8px; }
+.notif .n-head .bell { color: #FFC83D; font-size: 18px; }
+.notif .n-head .t { font-size: 14px; font-weight: 700; color: #F2F2F4; }
+.notif .n-body { font-size: 13px; color: #8E8E95; line-height: 1.7; margin-top: 10px; }
+.notif .n-body b { color: #F2F2F4; }
+.notif .n-cta { margin-top: 12px; display: flex; gap: 10px; }
+.notif .n-cta .btn { flex: 1; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
+.notif .n-cta .btn.primary { background: #FF2442; color: #fff; }
+.notif .n-cta .btn.ghost { border: 1px solid #3A3A41; color: #F2F2F4; }
+
+/* ---------- 收藏「链路」tab 面板 ---------- */
+.chain-list { padding: 6px 12px 20px; }
+.chain-list .cl-item { background: #202025; border-radius: 12px; padding: 12px; margin-bottom: 8px; }
+.chain-list .cl-title { font-size: 14px; font-weight: 700; color: #F2F2F4; }
+.chain-list .cl-meta { font-size: 12px; color: #8E8E95; margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+.chain-list .cl-meta .verify { color: #3DDC84; }
+
+/* ============================================================
+   增量层 v3 追加：收集归集（分享给点点 → 询问建合集 → 收藏页合集）
+   ============================================================ */
+
+/* ---------- 笔记详情页 ---------- */
+.page.note-page { background: var(--c-bg); }
+.note-nav { flex: none; height: 46px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; }
+.note-nav .nb { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer; }
+.note-nav .r { display: flex; gap: 16px; font-size: 22px; color: var(--c-text-2); }
+.note-body { padding: 4px 16px 0; }
+.note-cover { border-radius: 12px; background: linear-gradient(160deg, #34343B, #2A2A30); height: 210px; position: relative; }
+.note-cover .cover-tag { position: absolute; left: 12px; bottom: 12px; font-size: 12px; color: #fff; background: rgba(0,0,0,.4); border-radius: 999px; padding: 4px 12px; }
+.note-title { font-size: 20px; font-weight: 800; color: #F2F2F4; margin-top: 14px; line-height: 1.4; }
+.note-author { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+.note-author .avatar { width: 36px; height: 36px; border-radius: 50%; background: #3A3A41; }
+.note-author .nm { font-size: 14px; font-weight: 700; color: #F2F2F4; }
+.note-author .sub { font-size: 11px; color: #8E8E95; margin-top: 2px; }
+.note-author .follow { margin-left: auto; border: 1px solid var(--c-primary); color: var(--c-primary); border-radius: 999px; padding: 4px 14px; font-size: 13px; font-weight: 600; }
+.note-content { font-size: 15px; line-height: 1.8; color: #E8E8EA; margin-top: 14px; }
+.note-content p + p { margin-top: 8px; }
+.note-comment-head { font-size: 14px; font-weight: 700; color: #F2F2F4; margin: 22px 0 6px; }
+.note-comment { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #1E1E23; }
+.note-comment .avatar { width: 30px; height: 30px; border-radius: 50%; background: #34343B; flex: none; }
+.note-comment .body { flex: 1; }
+.note-comment .nm { font-size: 12px; color: #8E8E95; }
+.note-comment .txt { font-size: 13px; color: #E8E8EA; margin-top: 4px; line-height: 1.6; }
+.note-comment .txt .hl { color: #FF5C6C; }
+.note-bar { flex: none; height: 56px; border-top: 1px solid #1E1E23; display: flex; align-items: center; padding: 0 14px; gap: 4px; background: var(--c-bg); }
+.note-bar .nb { flex: 1; height: 40px; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; color: var(--c-text-2); cursor: pointer; }
+.note-bar .nb .ic { font-size: 22px; }
+.note-bar .nb.heart.on { color: var(--c-primary); }
+.note-bar .nb.heart.on .ic { fill: var(--c-primary); }
+.note-bar .nb.star.on { color: #FFC83D; }
+.note-bar .nb.star.on .ic { fill: #FFC83D; }
+
+/* ---------- 分享面板（底部弹层） ---------- */
+.sheet-mask { position: absolute; inset: 0; background: rgba(0,0,0,.5); z-index: 40; display: none; }
+.sheet-mask.show { display: block; }
+.share-sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 41; background: #1D1D22; border-radius: 16px 16px 0 0; padding: 18px 20px 26px; display: none; }
+.share-sheet.show { display: block; }
+.share-sheet .s-title { font-size: 16px; font-weight: 700; color: #F2F2F4; text-align: center; margin-bottom: 18px; }
+.share-sheet .s-row { display: flex; gap: 20px; }
+.share-sheet .s-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
+.share-sheet .s-item .ico { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; }
+.share-sheet .s-item .lbl { font-size: 12px; color: #8E8E95; }
+.share-sheet .s-item .lbl.dd { color: #3DDC84; font-weight: 600; }
+.share-sheet .s-item .ico.dd { background: linear-gradient(135deg,#9BF7E0,#46DDBB); color: #12453B; }
+.share-sheet .s-item .ico.wx { background: #1B3A2E; color: #3DDC84; }
+.share-sheet .s-item .ico.link { background: #34343B; color: #D8D8DC; }
+.share-sheet .s-item .ico.more { background: #34343B; color: #D8D8DC; }
+.share-sheet .s-cancel { margin-top: 20px; height: 46px; border-radius: 999px; background: #2A2A2F; color: #F2F2F4; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; cursor: pointer; }
+
+/* ---------- 点点询问建合集（对话内的动作气泡） ---------- */
+.dd-question { margin-top: 12px; background: #1F1F24; border: 1px solid #2B2B31; border-radius: 14px; padding: 12px 14px; }
+.dd-question .q-text { font-size: 14px; color: #F2F2F4; line-height: 1.6; }
+.dd-question .q-text b { color: #FF5C6C; }
+.dd-question .q-hint { font-size: 11px; color: #55555C; margin-top: 6px; }
+.dd-question .q-btns { display: flex; gap: 10px; margin-top: 12px; }
+.dd-question .q-btns .btn { flex: 1; height: 38px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; cursor: pointer; }
+.dd-question .q-btns .btn.yes { background: var(--c-primary); color: #fff; }
+.dd-question .q-btns .btn.no { border: 1px solid #3A3A41; color: #F2F2F4; }
+
+/* ---------- 合集页 ---------- */
+.album-page { background: var(--c-bg); }
+.album-head { padding: 4px 16px 14px; }
+.album-title { font-size: 20px; font-weight: 800; color: #F2F2F4; }
+.album-meta { font-size: 12px; color: #8E8E95; margin-top: 6px; }
+.album-grid { display: flex; gap: 6px; padding: 0 12px; flex-wrap: wrap; }
+.album-grid .cell { width: calc(50% - 3px); border-radius: 10px; background: #202025; overflow: hidden; margin-bottom: 6px; }
+.album-grid .cell .thumb { height: 110px; background: linear-gradient(160deg,#34343B,#2A2A30); }
+.album-grid .cell .t { font-size: 12px; color: #E8E8EA; padding: 8px 10px; line-height: 1.4; }
+.album-dd-btn { position: absolute; top: 6px; right: 12px; z-index: 5; display: flex; align-items: center; gap: 5px; background: #1F1F24; border: 1px solid #2B2B31; border-radius: 999px; padding: 5px 12px; font-size: 12px; color: #3DDC84; cursor: pointer; }
+.album-dd-btn .dd-ghost { font-size: 12px; }
+
+/* ---------- 收藏页：合集卡片（新增） ---------- */
+.fav-album-list { padding: 10px 12px; }
+.fav-album-card { display: flex; gap: 12px; align-items: center; background: #202025; border-radius: 12px; padding: 12px; margin-bottom: 8px; cursor: pointer; }
+.fav-album-card .cover { width: 62px; height: 62px; border-radius: 10px; background: linear-gradient(160deg,#34343B,#2A2A30); flex: none; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.fav-album-card .info { flex: 1; }
+.fav-album-card .info .t { font-size: 15px; font-weight: 700; color: #F2F2F4; }
+.fav-album-card .info .m { font-size: 12px; color: #8E8E95; margin-top: 5px; }
+.fav-album-card .arrow { color: var(--c-text-3); }
 .act-row { display: flex; justify-content: space-between; margin-top: 14px; }
 .act-row div { display: flex; gap: 8px; }
 .act-row span { width: 38px; height: 38px; border-radius: 10px; background: #34343A; display: flex; align-items: center; justify-content: center; font-size: 19px; color: var(--c-text-2); }
@@ -262,6 +430,9 @@ body {
   <symbol id="i-split" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M10 4v16M13 12h5M16 10l2 2-2 2"/></symbol>
   <symbol id="i-feedback" viewBox="0 0 24 24"><path d="M5 4h14a1 1 0 0 1 1 1v8M5 4v15a1 1 0 0 0 1 1h8M9 9h7M9 13h4M15 19l2.500-.5 4-4-2-2-4 4z"/></symbol>
   <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a4 4 0 0 0 6 .5l3-3a4 4 0 0 0-6-6l-1.5 1.5M14 11a4 4 0 0 0-6-.5l-3 3a4 4 0 0 0 6 6l1.5-1.5"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.9 2.6L22.5 18.5l-2.6.9L19 22l-.9-2.6-2.6-.9 2.6-.9z"/></symbol>
 </svg>
 
 <div class="phone" id="phone">
@@ -301,24 +472,34 @@ body {
         <span class="nb" id="ask-more"><svg class="ic fill"><use href="#i-more"/></svg></span>
       </div>
       <div class="scroll">
-        <div class="chat">
-          <div class="msg user"><div class="bubble">意大利旅游怎么安排比较好？</div></div>
-          <div class="bubble">
-            <p>意大利适合按「北—中—南」串联：米兰/威尼斯 → 佛罗伦萨/罗马 → 那不勒斯/阿马尔菲。</p>
-            <p>先把需求说给我，我再帮你细化每天的行程与预订提醒。</p>
-            <span class="tag">行程规划</span><span class="tag">美食</span><span class="tag">交通</span>
-
-            <!-- ★★★ 增量层：攻略地图卡片（预留挂载点，基座阶段保持为空） ★★★ -->
-            <div id="guide-map-slot" data-slot="guide-map-card"></div>
-
-            <div class="ref">以上内容基于站内笔记生成，仅供参考</div>
-            <div class="act-row">
-              <div><span><svg class="ic"><use href="#i-copy"/></svg></span><span><svg class="ic"><use href="#i-star"/></svg></span><span><svg class="ic"><use href="#i-share"/></svg></span></div>
-              <div><span><svg class="ic"><use href="#i-thumb"/></svg></span><span><svg class="ic"><use href="#i-refresh"/></svg></span></div>
+        <div class="chat" id="dd-chat">
+          <!-- 用户分享笔记 -->
+          <div class="msg user"><div class="bubble">[分享笔记] 博尔盖塞美术馆订票全攻略</div></div>
+          <!-- 点点询问建合集（默认显示） -->
+          <div class="bubble" id="dd-ask-bubble">
+            <p>收到这篇「博尔盖塞美术馆订票全攻略」。</p>
+            <div class="dd-question">
+              <div class="q-text">要不要帮你建一个<b>「意大利旅行」</b>合集，把这类的笔记都归到一起？</div>
+              <div class="q-hint">建好后，会在你的收藏页出现，之后分享的同类笔记都会自动放进这个合集。</div>
+              <div class="q-btns">
+                <div class="btn yes" onclick="buildAlbum()">好的，建一个</div>
+                <div class="btn no" onclick="declineAlbum()">先不用</div>
+              </div>
             </div>
           </div>
+          <!-- 建合集后的反馈（初始隐藏） -->
+          <div class="bubble" id="dd-done-bubble" style="display:none">
+            <p>已帮你建好合集 <b style="color:#3DDC84">「意大利旅行」</b> 🎉</p>
+            <p>以后分享的同类笔记会自动归进去。去收藏页看看吧。</p>
+            <div class="chain-entry" style="margin-top:10px" onclick="XHS.go('me')">
+              <div class="ce-cta" style="margin-top:0"><span class="go-btn">去收藏页查看</span><span class="hint">合集内有「专属点点」</span></div>
+            </div>
+          </div>
+          <!-- 拒绝后的反馈（初始隐藏） -->
+          <div class="bubble" id="dd-decline-bubble" style="display:none">
+            <p>好的，那先不建。这篇笔记我先帮你记住，之后想整理成合集随时说。</p>
+          </div>
           <div class="dd-divider">聊聊新话题</div>
-          <div class="bubble welcome">😊 欢迎回来！快把问题丢给我吧，不管是总结、推荐还是规划，我都能帮。</div>
           <div class="chips-q"><span>意大利 7 天 6 晚怎么排更顺？</span><span>推荐问题占位二</span><span>推荐问题占位三</span></div>
         </div>
       </div>
@@ -437,20 +618,210 @@ body {
               <span data-f="fnote">笔记 55</span>
               <span data-f="falbum"><svg class="ic"><use href="#i-lock"/></svg>专辑 1</span>
               <span data-f="fdd" class="on"><svg class="ic"><use href="#i-lock"/></svg>点点 1</span>
-              <!-- ★ 增量层：「攻略」分类 tab 占位（后续在此插入 <span data-f="fguide">攻略</span>） -->
-              <span id="fav-guide-tab-slot" data-slot="fav-guide-tab"></span>
+              <!-- ★ 增量层 v3：「链路」分类 tab -->
+              <span id="fav-guide-tab-slot" data-slot="fav-guide-tab" data-f="fchain"><svg class="ic"><use href="#i-link"/></svg>链路 1</span>
             </div>
             <div class="fav-panel" data-fp="fnote"><div class="waterfall" id="waterfall-fav"></div></div>
-            <div class="fav-panel" data-fp="falbum"><div class="empty">专辑占位</div></div>
+            <div class="fav-panel" data-fp="falbum">
+              <div class="fav-album-list" id="fav-album-list">
+                <div class="empty" id="album-empty">还没有合集<br>把帖子分享给点点，可自动帮你建合集</div>
+              </div>
+            </div>
             <div class="fav-panel show" data-fp="fdd">
               <div class="saved-chat"><div class="tx"><div class="sk"></div><div class="sk"></div><div class="sk" style="width:80%"></div></div><div class="th"></div></div>
             </div>
-            <!-- ★ 增量层：「攻略」面板挂载点 -->
-            <div id="fav-guide-panel-slot" data-slot="fav-guide-panel"></div>
+            <!-- ★ 增量层 v3：「链路」面板 -->
+            <div id="fav-guide-panel-slot" data-slot="fav-guide-panel" class="fav-panel" data-fp="fchain">
+              <div class="chain-list">
+                <div class="cl-item" onclick="XHS.go('chain-pub')">
+                  <div class="cl-title">意大利 5 日游 · 我走过的路</div>
+                  <div class="cl-meta"><span class="verify">3 篇被真实引用</span><span>· 8 人收藏</span><span>· 已发布</span></div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="me-panel" data-p="cmt"><div class="empty">暂无内容</div></div>
           <div class="me-panel" data-p="like"><div class="empty">暂无内容</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 页面：笔记详情页（增量层 v3；入口：首页瀑布流第一张卡片） ========== -->
+    <section class="page note-page" id="page-note">
+      <div class="note-nav">
+        <span class="nb" onclick="XHS.go('home')"><svg class="ic"><use href="#i-left"/></svg></span>
+        <div class="r"><svg class="ic"><use href="#i-share"/></svg><svg class="ic"><use href="#i-more"/></svg></div>
+      </div>
+      <div class="scroll">
+        <div class="note-body">
+          <div class="note-cover"><span class="cover-tag">意大利 · 旅行攻略</span></div>
+          <div class="note-title">博尔盖塞美术馆订票全攻略：这几个坑千万避开</div>
+          <div class="note-author">
+            <div class="avatar"></div>
+            <div><div class="nm">@罗马土著</div><div class="sub">3 天前 · 关注 1.2w</div></div>
+            <span class="follow">关注</span>
+          </div>
+          <div class="note-content">
+            <p>博尔盖塞美术馆是罗马最值得去的博物馆之一，但订票和现场有不少坑，整理给大家。</p>
+            <p>① 门票一定要提前预约，现场基本买不到当天的票；</p>
+            <p>② 现场有 POS 机可以刷卡，但**最近 POS 机坏了只收现金**，记得带够现金；</p>
+            <p>③ 建议约早场，人少光线好。</p>
+          </div>
+          <div class="note-comment-head">精选评论</div>
+          <div class="note-comment">
+            <div class="avatar"></div>
+            <div class="body"><div class="nm">@旅行小马</div><div class="txt">补充一下：<span class="hl">上周去现场 POS 机真的坏了</span>，只收现金，差点没进去，大家一定带现金！</div></div>
+          </div>
+          <div class="note-comment">
+            <div class="avatar"></div>
+            <div class="body"><div class="nm">@去过的人</div><div class="txt">约早场 +1，下午人巨多。</div></div>
+          </div>
+          <div style="height:20px"></div>
+        </div>
+      </div>
+      <div class="note-bar">
+        <div class="nb heart" id="nb-heart"><svg class="ic"><use href="#i-heart"/></svg>1.2w</div>
+        <div class="nb star" id="nb-star"><svg class="ic"><use href="#i-star"/></svg>收藏</div>
+        <div class="nb"><svg class="ic"><use href="#i-bubble"/></svg>评论</div>
+        <div class="nb" id="nb-share"><svg class="ic"><use href="#i-share"/></svg>分享</div>
+      </div>
+    </section>
+
+    <!-- ========== 页面：合集页（增量层 v3；建合集后从收藏页进入） ========== -->
+    <section class="page album-page" id="page-album">
+      <div class="note-nav">
+        <span class="nb" onclick="XHS.go('me')"><svg class="ic"><use href="#i-left"/></svg></span>
+        <div class="r"><svg class="ic"><use href="#i-more"/></svg></div>
+      </div>
+      <!-- ★ 专属点点入口（暂放右上角占位按钮） -->
+      <div class="album-dd-btn" onclick="alert('专属点点：下一步接入（只基于本合集内容回答）')">
+        <i class="dd-ghost"></i> 专属点点
+      </div>
+      <div class="scroll">
+        <div class="album-head">
+          <div class="album-title">意大利旅行</div>
+          <div class="album-meta">共 1 篇笔记 · 刚由点点创建</div>
+        </div>
+        <div class="album-grid">
+          <div class="cell"><div class="thumb"></div><div class="t">博尔盖塞美术馆订票全攻略</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 页面：验证链编辑页（增量层 v3；入口：问一问里的验证链入口卡片） ========== -->
+    <section class="page chain-page" id="page-chain-edit">
+      <div class="chain-nav">
+        <span class="nb" onclick="XHS.go('ask')"><svg class="ic"><use href="#i-left"/></svg></span>
+        <span class="tt">验证过的链路</span>
+        <span class="done" onclick="XHS.go('chain-pub')">发布</span>
+      </div>
+      <div class="scroll">
+        <div class="chain-top">
+          <div class="title-input">意大利 5 日游 · 我走过的路</div>
+          <div class="ai-tag"><span class="ai-dot"><svg class="ic" style="font-size:9px;color:#12453B"><use href="#i-sparkle"/></svg></span> AI 已按行程搭好骨架，共 8 个点</div>
+          <div class="ai-note">AI 只帮你排结构和去重，取舍和判断交给你。每个点都是一条引用（链接指向原笔记），你可以删掉没用上的、补上自己的话。</div>
+        </div>
+
+        <div class="chain-day">
+          <div class="day-h"><span class="dot"></span>第 1 天 · 落地米兰 <span class="day-sub">交通</span></div>
+          <div class="cite">
+            <div class="c-top">
+              <div class="c-thumb"></div>
+              <div class="c-meta">
+                <div class="c-title">米兰机场大巴 & 火车打票攻略</div>
+                <div class="c-author"><span class="avatar"></span>@旅行小马</div>
+              </div>
+            </div>
+            <div class="c-my"><span class="my-label">我的经验</span>火车票一定要打票，不打会被罚 50 欧，上车前记得在黄色机器上打孔。</div>
+            <div class="c-foot">
+              <span class="verify"><svg class="ic"><use href="#i-check"/></svg>实地走过</span>
+              <span class="link"><svg class="ic"><use href="#i-link"/></svg>查看原笔记</span>
+              <span class="drag">≡</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chain-day">
+          <div class="day-h"><span class="dot"></span>第 2 天 · 罗马博物馆 <span class="day-sub">买票</span></div>
+          <div class="cite">
+            <div class="c-top">
+              <div class="c-thumb"></div>
+              <div class="c-meta">
+                <div class="c-title">博尔盖塞美术馆订票全攻略</div>
+                <div class="c-author"><span class="avatar"></span>@罗马土著</div>
+              </div>
+            </div>
+            <div class="c-my"><span class="my-label">我的经验</span>现场 POS 机坏了只收现金，记得带现金，门票要提前 3 天约。</div>
+            <div class="c-foot">
+              <span class="verify"><svg class="ic"><use href="#i-check"/></svg>实地走过</span>
+              <span class="link"><svg class="ic"><use href="#i-link"/></svg>查看原笔记</span>
+              <span class="drag">≡</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chain-day">
+          <div class="day-h"><span class="dot"></span>第 3 天 · 佛罗伦萨 <span class="day-sub">美食</span></div>
+          <div class="cite">
+            <div class="c-top">
+              <div class="c-thumb"></div>
+              <div class="c-meta">
+                <div class="c-title">佛罗伦萨牛排馆不踩雷清单</div>
+                <div class="c-author"><span class="avatar"></span>@吃货小鹿</div>
+              </div>
+            </div>
+            <div class="c-my"><span class="my-label">我的经验</span>这家排 2 小时，提前 3 天约；隔壁那家不用排队更实在。</div>
+            <div class="c-foot">
+              <span class="verify"><svg class="ic"><use href="#i-check"/></svg>实地走过</span>
+              <span class="link"><svg class="ic"><use href="#i-link"/></svg>查看原笔记</span>
+              <span class="drag">≡</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chain-add">
+          <div class="add-btn"><svg class="ic"><use href="#i-plus-c"/></svg>从收藏中添加笔记</div>
+          <div class="add-btn"><svg class="ic"><use href="#i-plus-c"/></svg>加上我自己的一段经验</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 页面：发布回流（增量层 v3；读者视角 + 作者通知） ========== -->
+    <section class="page pub-page" id="page-chain-pub">
+      <div class="chain-nav">
+        <span class="nb" onclick="XHS.go('chain-edit')"><svg class="ic"><use href="#i-left"/></svg></span>
+        <span class="tt">已发布</span>
+        <span class="nb" onclick="XHS.go('home')"><svg class="ic"><use href="#i-close"/></svg></span>
+      </div>
+      <div class="scroll">
+        <div class="pub-hero">
+          <div class="pub-card">
+            <div class="p-title">意大利 5 日游 · 我走过的路</div>
+            <div class="p-owner"><span class="avatar"></span><span class="nm">你的昵称</span><span class="tag">实地走过</span></div>
+            <div class="pub-stat">
+              <span class="stat-badge"><svg class="ic"><use href="#i-check"/></svg> 3 篇笔记被真实引用</span>
+              <span>· 8 人已收藏这条链路</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="notif">
+          <div class="n-head"><span class="bell"><svg class="ic fill"><use href="#i-bell"/></svg></span><span class="t">你被「真实使用」了</span></div>
+          <div class="n-body">你 3 篇笔记被引用进了 <b>「意大利 5 日游 · 我走过的路」</b>，已有 <b>8 人</b> 跟着这条链路规划行程。</div>
+          <div class="n-cta">
+            <div class="btn primary">查看引用</div>
+            <div class="btn ghost">不接收引用通知</div>
+          </div>
+        </div>
+
+        <div class="pub-hero">
+          <div class="pub-card">
+            <div class="p-title" style="font-size:14px;color:#8E8E95">作者侧 · 引用通知（切换视角演示）</div>
+            <div class="p-owner" style="margin-top:12px"><span class="avatar"></span><span class="nm">@旅行小马</span><span class="tag" style="color:#4C9BFF;background:#1D2D4B">原笔记作者</span></div>
+            <div class="pub-stat"><span class="stat-badge"><svg class="ic"><use href="#i-check"/></svg>你的笔记被 8 人真实用进行程</span></div>
+            <div class="pub-stat" style="margin-top:8px"><span>比一个赞更有分量——因为有人真的照着走了。</span></div>
+          </div>
         </div>
       </div>
     </section>
@@ -466,6 +837,22 @@ body {
     <div class="tab" data-page="me">我</div>
     <div class="home-ind"></div>
   </nav>
+
+  <!-- 分享面板（全局覆盖层，增量层 v3） -->
+  <div class="sheet-mask" id="share-mask" onclick="closeShare()"></div>
+  <div class="share-sheet" id="share-sheet">
+    <div class="s-title">分享到</div>
+    <div class="s-row">
+      <div class="s-item" onclick="shareToDD()">
+        <div class="ico dd"><i class="dd-ghost"></i></div>
+        <div class="lbl dd">发给点点</div>
+      </div>
+      <div class="s-item"><div class="ico wx"><svg class="ic"><use href="#i-bubble"/></svg></div><div class="lbl">微信</div></div>
+      <div class="s-item"><div class="ico link"><svg class="ic"><use href="#i-link"/></svg></div><div class="lbl">复制链接</div></div>
+      <div class="s-item"><div class="ico more"><svg class="ic"><use href="#i-more"/></svg></div><div class="lbl">更多</div></div>
+    </div>
+    <div class="s-cancel" onclick="closeShare()">取消</div>
+  </div>
 </div>
 
 <script>
@@ -483,14 +870,73 @@ body {
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  /* 页面切换：问一问属于「首页」下的子页面，Tab 高亮保持「首页」 */
+  /* 页面切换：问一问/点点设置/链路编辑/发布/笔记/合集 属于子页面，Tab 高亮保持「首页」或「我」 */
   function go(name) {
     $$('.page').forEach(function (p) { p.classList.toggle('active', p.id === 'page-' + name); });
-    document.getElementById('phone').classList.toggle('full', name === 'ask' || name === 'ddset');
-    var tabName = (name === 'ask' || name === 'ddset') ? 'home' : name;
+    var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album'];
+    document.getElementById('phone').classList.toggle('full', subPages.indexOf(name) >= 0);
+    var tabName;
+    if (subPages.indexOf(name) >= 0) {
+      tabName = (name === 'album') ? 'me' : 'home';
+    } else {
+      tabName = name;
+    }
     $$('.tab[data-page]').forEach(function (t) { t.classList.toggle('active', t.dataset.page === tabName); });
   }
   window.XHS = { go: go };   // 暴露给增量层调用
+
+  /* ============ 增量层 v3：收集归集交互 ============ */
+  window.closeShare = function () {
+    document.getElementById('share-mask').classList.remove('show');
+    document.getElementById('share-sheet').classList.remove('show');
+  };
+  window.openShare = function () {
+    document.getElementById('share-mask').classList.add('show');
+    document.getElementById('share-sheet').classList.add('show');
+  };
+  window.shareToDD = function () {
+    closeShare();
+    go('ask');
+  };
+  /* 建合集：询问气泡消失 → 完成气泡出现 → 收藏页「专辑」里新增合集卡片 */
+  window.buildAlbum = function () {
+    document.getElementById('dd-ask-bubble').style.display = 'none';
+    document.getElementById('dd-done-bubble').style.display = 'block';
+    var list = document.getElementById('fav-album-list');
+    var empty = document.getElementById('album-empty');
+    if (empty) empty.remove();
+    // 避免重复添加
+    if (!document.getElementById('album-italy')) {
+      var card = document.createElement('div');
+      card.className = 'fav-album-card';
+      card.id = 'album-italy';
+      card.setAttribute('onclick', "XHS.go('album')");
+      card.innerHTML = '<div class="cover">🖼</div>' +
+        '<div class="info"><div class="t">意大利旅行</div><div class="m">1 篇笔记 · 由点点创建</div></div>' +
+        '<div class="arrow"><svg class="ic"><use href="#i-right"/></svg></div>';
+      list.appendChild(card);
+    }
+  };
+  window.declineAlbum = function () {
+    document.getElementById('dd-ask-bubble').style.display = 'none';
+    document.getElementById('dd-decline-bubble').style.display = 'block';
+  };
+  /* 笔记详情页：点赞 / 收藏 交互 */
+  document.getElementById('nb-heart').addEventListener('click', function () { this.classList.toggle('on'); });
+  document.getElementById('nb-star').addEventListener('click', function () { this.classList.toggle('on'); });
+  document.getElementById('nb-share').addEventListener('click', openShare);
+  /* 笔记详情页右上角分享图标也打开分享面板 */
+  var noteShareIcon = document.querySelector('.note-nav .r svg use[href="#i-share"]');
+  if (noteShareIcon) { noteShareIcon.parentElement.parentElement.addEventListener('click', openShare); }
+
+  /* 首页瀑布流第一张卡片 → 笔记详情页（给首张卡片加点击） */
+  function makeFirstCardClickable() {
+    var firstCard = document.querySelector('#waterfall .card');
+    if (firstCard) {
+      firstCard.style.cursor = 'pointer';
+      firstCard.addEventListener('click', function () { go('note'); });
+    }
+  }
 
   $$('.tab[data-page]').forEach(function (t) { t.addEventListener('click', function () { go(t.dataset.page); }); });
   /* 首页左上角气泡图标 / 右上角搜索图标 → 点点对话页（问一问）；右上角 ··· → 点点设置；X / 返回 逐级退出 */
@@ -533,15 +979,19 @@ body {
   buildWaterfall($('#waterfall'), [220, 250, 230, 200, 190, 240, 210, 180, 230, 200]);
   buildWaterfall($('#waterfall-me'), [240, 180, 200, 220]);
   buildWaterfall($('#waterfall-fav'), [200, 230, 220, 190]);
+  makeFirstCardClickable();
 })();
 
-/* ==================== 增量层：从此处起接入「攻略地图」 ====================
-   挂载点：
-   - #guide-map-slot         问一问 → AI 回答内的攻略地图卡片
-   - #fav-guide-tab-slot     我 → 收藏 → 「攻略」分类 tab（与 笔记/专辑/点点 同行）
-   - #fav-guide-panel-slot   我 → 收藏 → 「攻略」分类内容面板
-   可调用 window.XHS.go('ask' | 'ddset' | 'home' | 'market' | 'msg' | 'me') 切换页面。
-   本文件（基座）不实现任何攻略地图逻辑。
+/* ==================== 增量层 v3：验证过的链路 ====================
+   可交互链路（收集归集 → 使用 → 产出回流）：
+   - page-note              笔记详情页（首页首卡进入；分享→发给点点）
+   - page-ask               点点对话（询问建合集：好的建一个/先不用）
+   - page-album             合集页（收藏页「专辑」进入；右上角专属点点占位）
+   - page-chain-edit        链路编辑页（AI 骨架 + citation 卡片）
+   - page-chain-pub         发布回流页（读者 + 作者「被真实使用」通知）
+   收藏页：「专辑」tab 新建后出现「意大利旅行」合集；「链路」tab 展示已发布链路。
+   可调用 window.XHS.go('home'|'ask'|'ddset'|'market'|'msg'|'me'|'note'|'album'|'chain-edit'|'chain-pub')。
+   核心原则：引用是「指向」（citation），不是「搬运」——卡片文字是用户自己的话，原帖只挂链接。
 =========================================================================== */
 </script>
 </body>
