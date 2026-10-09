@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小红书 · 基座原型（深色）</title>
+<style>
+/* ==================== 基座层：设计 token（依据截图还原的深色模式） ==================== */
+:root {
+  /* 颜色 */
+  --c-primary: #FF2442;
+  --c-bg: #141418;          /* 页面背景（深色） */
+  --c-bg-gray: #1D1D22;     /* 浅一级背景：搜索/胶囊/分组 */
+  --c-card: #202025;        /* 卡片底色 */
+  --c-line: #26262C;        /* 分割线 */
+  --c-text: #F2F2F4;
+  --c-text-2: #8E8E95;
+  --c-text-3: #55555C;
+  --c-blue: #3B82F6;
+  --c-green: #3DDC84;
+  /* 圆角 */
+  --r-card: 12px;
+  --r-btn: 8px;
+  --r-pill: 999px;
+  --r-phone: 40px;
+  /* 字号 */
+  --fs-title: 20px;
+  --fs-card: 15px;
+  --fs-body: 14px;
+  --fs-aux: 12px;
+  /* 尺寸 */
+  --phone-w: 375px;
+  --phone-h: 812px;
+  --statusbar-h: 44px;
+  --tabbar-h: 76px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  background: #D9D9DE; height: 100vh; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  color: var(--c-text); font-size: var(--fs-body);
+}
+.ic { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.ic.fill { fill: currentColor; stroke: none; }
+
+/* ==================== 基座层：手机壳 ==================== */
+.phone {
+  position: relative; width: var(--phone-w); height: var(--phone-h);
+  border-radius: var(--r-phone); background: var(--c-bg); overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,.28), 0 0 0 8px #0a0a0c;
+  display: flex; flex-direction: column;
+}
+
+/* 状态栏：叠在页面之上、背景透明（「我」页渐变背景要延伸到顶部） */
+.statusbar {
+  position: absolute; top: 0; left: 0; right: 0; height: var(--statusbar-h); z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 26px 0 30px; font-size: 16px; font-weight: 700; pointer-events: none;
+}
+.sb-right { display: flex; align-items: center; gap: 7px; }
+.sb-dots { color: var(--c-text-3); letter-spacing: 1px; font-size: 12px; font-weight: 900; }
+.sb-wifi { font-size: 17px; }
+.sb-battery { background: #34C759; color: #fff; font-size: 11px; font-weight: 800; height: 16px; min-width: 25px; padding: 0 4px; border-radius: 5px; display: flex; align-items: center; justify-content: center; }
+
+/* 页面容器 */
+.pages { flex: 1; position: relative; min-height: 0; }
+.page { position: absolute; inset: 0; display: none; flex-direction: column; background: var(--c-bg); padding-top: var(--statusbar-h); }
+.page.active { display: flex; }
+.scroll { flex: 1; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; min-height: 0; }
+.scroll::-webkit-scrollbar { display: none; }
+.sk { background: #2B2B31; border-radius: 4px; height: 12px; }
+.sk + .sk { margin-top: 6px; }
+
+/* ==================== 基座层：首页 ==================== */
+.top-nav { flex: none; height: 46px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
+.top-nav .ic-btn { font-size: 24px; width: 28px; display: flex; align-items: center; cursor: pointer; }
+.top-nav .ic-btn.r { justify-content: flex-end; }
+.top-tabs { display: flex; gap: 30px; font-size: 17px; color: var(--c-text-2); }
+.top-tabs .on { color: var(--c-text); font-weight: 700; position: relative; }
+.top-tabs .on::after { content: ""; position: absolute; left: 50%; bottom: -7px; width: 22px; height: 3px; margin-left: -11px; background: var(--c-primary); border-radius: 2px; }
+.channels { flex: none; height: 42px; display: flex; align-items: center; gap: 22px; padding: 0 16px; font-size: 16px; color: var(--c-text-2); border-top: 1px solid var(--c-line); white-space: nowrap; overflow: hidden; position: relative; }
+.channels .on { color: var(--c-text); font-weight: 700; }
+.channels .more { position: absolute; right: 0; top: 0; bottom: 0; width: 48px; display: flex; align-items: center; justify-content: center; background: linear-gradient(90deg, transparent, var(--c-bg) 40%); font-size: 18px; }
+
+/* 双列瀑布流 */
+.waterfall { display: flex; gap: 5px; padding: 6px 5px 16px; align-items: flex-start; }
+.wf-col { flex: 1; display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.card { background: var(--c-card); border-radius: var(--r-card); overflow: hidden; }
+.card .cover { background: linear-gradient(160deg, #34343B, #2A2A30); position: relative; }
+.card .cover .poster-t { position: absolute; left: 14px; right: 14px; top: 30%; }
+.card .cover .poster-t .sk { height: 14px; background: #4A4A52; }
+.card .cover .poster-t .sk + .sk { margin-top: 10px; }
+.card .body { padding: 9px 10px 10px; }
+.card .meta { display: flex; align-items: center; gap: 6px; margin-top: 12px; color: var(--c-text-2); font-size: var(--fs-aux); }
+.card .avatar { width: 18px; height: 18px; border-radius: 50%; background: #3A3A41; flex: none; }
+.card .meta .sk { flex: 1; height: 10px; }
+.card .meta .like { display: flex; align-items: center; gap: 3px; }
+.card .meta .like .sk { width: 18px; flex: none; }
+
+/* ==================== 基座层：问一问 ==================== */
+.ask-header { flex: none; height: 46px; display: flex; align-items: center; justify-content: center; position: relative; border-bottom: 1px solid var(--c-line); }
+.ask-header .back { position: absolute; left: 8px; top: 0; width: 44px; height: 46px; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; }
+.ask-header .title { font-size: 17px; font-weight: 700; }
+.chat { padding: 16px 12px 20px; display: flex; flex-direction: column; gap: 16px; }
+.msg { display: flex; gap: 8px; }
+.msg.user { justify-content: flex-end; }
+.msg .ava { width: 32px; height: 32px; border-radius: 50%; flex: none; background: #fff; display: flex; align-items: center; justify-content: center; }
+.msg .ava::after { content: ""; width: 16px; height: 16px; border-radius: 6px 6px 6px 3px; background: #5FE3C4; }
+.bubble { padding: 10px 12px; font-size: var(--fs-body); line-height: 1.6; border-radius: var(--r-card); }
+.msg.user .bubble { background: var(--c-primary); color: #fff; border-top-right-radius: 4px; max-width: 78%; }
+.msg.ai .bubble { background: var(--c-card); border-top-left-radius: 4px; flex: 1; min-width: 0; }
+.bubble p + p { margin-top: 8px; }
+.bubble .tag { display: inline-block; font-size: var(--fs-aux); color: var(--c-primary); border: 1px solid var(--c-primary); border-radius: var(--r-pill); padding: 0 8px; margin: 8px 6px 0 0; }
+.ref { margin-top: 10px; font-size: var(--fs-aux); color: var(--c-text-2); border-top: 1px solid var(--c-line); padding-top: 8px; }
+/* ★ 增量层：攻略地图卡片挂载点（基座仅提供空容器，为空时隐藏） */
+#guide-map-slot { margin-top: 10px; }
+#guide-map-slot:empty { display: none; }
+.ask-input { flex: none; display: flex; align-items: center; gap: 8px; padding: 8px 12px 18px; border-top: 1px solid var(--c-line); }
+.ask-input .field { flex: 1; height: 38px; border-radius: var(--r-pill); background: var(--c-bg-gray); display: flex; align-items: center; padding: 0 14px; color: var(--c-text-3); }
+.ask-input .send { width: 38px; height: 38px; border-radius: 50%; background: var(--c-primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+
+/* ==================== 基座层：消息 ==================== */
+.msg-nav { flex: none; height: 46px; display: flex; align-items: center; justify-content: center; position: relative; }
+.msg-nav .t { font-size: 18px; font-weight: 700; }
+.msg-nav .acts { position: absolute; right: 16px; display: flex; gap: 22px; font-size: 24px; }
+.msg-entries { display: flex; justify-content: space-around; padding: 14px 16px 22px; }
+.msg-entries .e { text-align: center; font-size: 15px; font-weight: 600; }
+.msg-entries .sq { width: 46px; height: 46px; border-radius: 15px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.sq.red { background: #3A2429; color: #FF5C6C; } .sq.blue { background: #1D2D4B; color: #4C9BFF; } .sq.green { background: #1B3A2E; color: #3DDC84; }
+.chat-row { display: flex; align-items: center; gap: 14px; padding: 9px 16px; }
+.chat-row .ava { width: 46px; height: 46px; border-radius: 50%; background: #2E2E35; flex: none; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; }
+.chat-row .ava.white { background: #fff; } .chat-row .ava.white::after { content: ""; width: 24px; height: 24px; border-radius: 10px 10px 10px 4px; background: #5FE3C4; }
+.chat-row .ava.blue { background: #2F7DF6; }
+.chat-row .mid { flex: 1; min-width: 0; }
+.chat-row .nm { font-size: 17px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+.chat-row .nm .ai { font-size: 11px; font-weight: 500; color: var(--c-text-2); background: #2B2B31; border-radius: 4px; padding: 0 5px; }
+.chat-row .sub { font-size: 15px; color: var(--c-text-2); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chat-row .tm { font-size: 14px; color: var(--c-text-2); align-self: flex-start; margin-top: 4px; }
+.rec-head { display: flex; justify-content: space-between; align-items: center; padding: 22px 16px 8px; font-size: 14px; color: var(--c-text-2); }
+.rec-head span { display: flex; align-items: center; gap: 5px; }
+.follow-btn { border: 1px solid var(--c-primary); color: var(--c-primary); border-radius: var(--r-pill); padding: 4px 18px; font-size: 14px; }
+/* 通知开启条（悬浮于 Tab 栏上方） */
+.toast { position: absolute; left: 16px; right: 16px; bottom: calc(var(--tabbar-h) + 4px); height: 46px; border-radius: 14px; background: #26262C; display: flex; align-items: center; gap: 10px; padding: 0 14px; box-shadow: 0 4px 16px rgba(0,0,0,.4); z-index: 6; }
+.toast .bell { color: #FFC83D; font-size: 20px; display: flex; }
+.toast .tx { flex: 1; font-size: 14px; font-weight: 600; }
+.toast .go { color: var(--c-primary); font-size: 15px; font-weight: 700; }
+.toast .x { color: var(--c-text-2); font-size: 18px; display: flex; cursor: pointer; }
+
+/* ==================== 基座层：市集（占位） ==================== */
+.market-ph { flex: 1; display: flex; align-items: center; justify-content: center; color: var(--c-text-3); }
+
+/* ==================== 基座层：我 ==================== */
+#page-me { padding-top: 0; }
+.me-hero { padding: var(--statusbar-h) 0 0; background: linear-gradient(180deg, #2E3138 0%, #3F403F 38%, #6B5640 78%, #7D6247 100%); }
+.me-actions { display: flex; align-items: center; justify-content: space-between; height: 46px; padding: 0 16px; font-size: 26px; }
+.me-actions .r { display: flex; align-items: center; gap: 18px; }
+.edit-pill { display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,.18); border-radius: var(--r-pill); padding: 7px 14px; font-size: 15px; font-weight: 600; }
+.me-profile { display: flex; gap: 18px; align-items: center; padding: 16px 16px 8px; }
+.me-profile .big-ava { width: 77px; height: 77px; border-radius: 50%; background: #55565D; border: 2px solid rgba(255,255,255,.25); flex: none; }
+.me-profile .nm { font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+.me-profile .nm .ic { font-size: 18px; color: var(--c-text-2); }
+.me-profile .id { font-size: 14px; color: rgba(255,255,255,.55); margin-top: 8px; }
+.me-stats { display: flex; gap: 22px; padding: 16px 16px 4px; font-size: 14px; }
+.me-stats b { font-size: 22px; margin-right: 4px; }
+.me-bio { padding: 18px 16px 14px; font-size: 15px; color: rgba(255,255,255,.75); }
+.me-quick { display: flex; gap: 8px; padding: 0 12px 16px; overflow: hidden; }
+.me-quick .q { flex: none; width: 112px; height: 46px; border-radius: 10px; background: rgba(255,255,255,.14); padding: 6px 10px; }
+.me-quick .q b { display: block; font-size: 14px; } .me-quick .q span { font-size: 12px; color: rgba(255,255,255,.5); }
+.me-sheet { background: var(--c-bg); border-radius: 22px 22px 0 0; min-height: 520px; }
+.me-tabs { display: flex; align-items: center; gap: 24px; padding: 0 20px; height: 46px; border-bottom: 1px solid var(--c-line); font-size: 17px; color: var(--c-text-2); }
+.me-tabs span { position: relative; height: 100%; display: flex; align-items: center; gap: 4px; cursor: pointer; flex: none; white-space: nowrap; }
+.me-tabs span.on { color: var(--c-text); font-weight: 700; }
+.me-tabs span.on::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 22px; height: 3px; margin-left: -11px; background: var(--c-primary); border-radius: 2px; }
+.me-tabs .lock { font-size: 13px; }
+.me-tabs .sr { margin-left: auto; font-size: 22px; flex: none; }
+.fav-sub span { flex: none; white-space: nowrap; }
+.me-panel { display: none; } .me-panel.show { display: block; }
+.banner { margin: 6px 5px 8px; border-radius: 10px; background: var(--c-card); display: flex; align-items: center; gap: 10px; padding: 10px 12px; }
+.banner .th { width: 44px; height: 44px; border-radius: 6px; background: #3A3A41; flex: none; }
+.banner .tx { flex: 1; } .banner .tx b { font-size: 16px; } .banner .tx div { font-size: 13px; color: var(--c-text-2); margin-top: 3px; }
+.banner .go { border: 1px solid var(--c-primary); color: var(--c-primary); border-radius: var(--r-pill); padding: 6px 16px; font-size: 14px; font-weight: 600; }
+.banner .x { color: var(--c-text-2); font-size: 18px; display: flex; }
+.fav-sub { display: flex; gap: 22px; padding: 0 20px; height: 48px; align-items: center; font-size: 16px; color: var(--c-text-2); border-bottom: 1px solid var(--c-line); }
+.fav-sub span { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.fav-sub span.on { color: var(--c-text); font-weight: 700; }
+.fav-sub .ic { font-size: 13px; }
+/* ★ 增量层：「攻略」分类 tab 占位（后续在此插入 <span>攻略</span>） */
+#fav-guide-tab-slot { display: contents; }
+.fav-panel { display: none; } .fav-panel.show { display: block; }
+.saved-chat { margin: 12px 10px; border-radius: 22px; background: var(--c-card); padding: 18px 16px 18px 20px; display: flex; gap: 14px; align-items: center; }
+.saved-chat .tx { flex: 1; } .saved-chat .tx .sk:first-child { width: 45%; height: 16px; margin-bottom: 14px; }
+.saved-chat .th { width: 80px; height: 80px; border-radius: 10px; background: #34343B; flex: none; }
+.empty { padding: 60px 0; text-align: center; color: var(--c-text-3); }
+/* ★ 增量层：「攻略」面板挂载点（为空时隐藏） */
+#fav-guide-panel-slot:empty { display: none; }
+
+/* ==================== 基座层：底部 Tab ==================== */
+.tabbar { flex: none; height: var(--tabbar-h); display: flex; align-items: flex-start; padding-top: 10px; background: var(--c-bg); border-top: 1px solid #1E1E23; position: relative; z-index: 7; }
+.tab { flex: 1; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; color: var(--c-text-2); cursor: pointer; user-select: none; }
+.tab.active { color: #fff; font-weight: 800; }
+.tab.plus { flex: none; width: 96px; }
+.plus-btn { width: 44px; height: 32px; border-radius: 10px; background: var(--c-primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.plus-btn .ic { stroke-width: 3; }
+.home-ind { position: absolute; left: 50%; bottom: 7px; transform: translateX(-50%); width: 130px; height: 5px; border-radius: 3px; background: #fff; opacity: .9; }
+</style>
+</head>
+<body>
+
+<!-- 图标：内联 SVG 符号表（无外部依赖） -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-plus-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 8v8M8 12h8"/></symbol>
+  <symbol id="i-bubble" viewBox="0 0 24 24"><path d="M12 3.5a8.5 8.5 0 1 0 0 17c1.4 0 2.6-.3 3.6-.8l4.4.8-1-3.8A8.5 8.5 0 0 0 12 3.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20l1-4L16 5l3 3L8 19z"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path d="M8 4H5.5A1.5 1.5 0 0 0 4 5.5V8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16M16 20h2.5a1.5 1.5 0 0 0 1.5-1.5V16M4 12h16"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M14 5l7 6.5-7 6.5v-4c-5 0-8 1.5-11 5.5.5-6.500 4.500-10 11-10.500z"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5.500" y="10.500" width="13" height="9.500" rx="2.500"/><path d="M8.500 10.500V8a3.500 3.500 0 0 1 7 0v2.500"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.2"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17v-6a6 6 0 0 1 12 0v6l1.500 2h-15zM10 21.500h4"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-8-5-8-11a4.500 4.500 0 0 1 8-2.500A4.500 4.500 0 0 1 20 9c0 6-8 11-8 11z"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.500 3.500-7 8-7s8 2.500 8 7z"/></symbol>
+  <symbol id="i-chat-dots" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-8 13l-1 5 5-1.500A9 9 0 1 0 12 3z"/><circle cx="8.500" cy="12" r="1.200" fill="#1B3A2E" stroke="none"/><circle cx="15.500" cy="12" r="1.200" fill="#1B3A2E" stroke="none"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 9a14 14 0 0 1 20 0M5.500 12.500a9 9 0 0 1 13 0M9 16a4 4 0 0 1 6 0"/><circle cx="12" cy="19" r="1" /></symbol>
+</svg>
+
+<div class="phone" id="phone">
+
+  <!-- 状态栏（基座层） -->
+  <div class="statusbar">
+    <span>19:38</span>
+    <div class="sb-right">
+      <span class="sb-dots">····</span>
+      <svg class="ic sb-wifi" style="stroke-width:2.4"><use href="#i-wifi"/></svg>
+      <span class="sb-battery">45</span>
+    </div>
+  </div>
+
+  <div class="pages">
+
+    <!-- ========== 页面：首页（基座层） ========== -->
+    <section class="page active" id="page-home">
+      <div class="top-nav">
+        <span class="ic-btn"><svg class="ic"><use href="#i-bubble"/></svg></span>
+        <div class="top-tabs"><span>关注</span><span class="on">发现</span><span>太原</span></div>
+        <!-- 点击搜索图标 → 进入「问一问」 -->
+        <span class="ic-btn r" id="search-entry"><svg class="ic"><use href="#i-search"/></svg></span>
+      </div>
+      <div class="channels">
+        <span class="on">推荐</span><span>视频</span><span>热点</span><span>直播</span><span>短剧</span><span>萌宠</span>
+        <span class="more"><svg class="ic"><use href="#i-down"/></svg></span>
+      </div>
+      <div class="scroll"><div class="waterfall" id="waterfall"></div></div>
+    </section>
+
+    <!-- ========== 页面：问一问（基座层） ========== -->
+    <section class="page" id="page-ask">
+      <div class="ask-header">
+        <span class="back" id="ask-back"><svg class="ic"><use href="#i-left"/></svg></span>
+        <span class="title">问一问</span>
+      </div>
+      <div class="scroll">
+        <div class="chat">
+          <div class="msg user"><div class="bubble">意大利旅游怎么安排比较好？</div></div>
+          <div class="msg ai">
+            <div class="ava"></div>
+            <div class="bubble">
+              <p>意大利适合按「北—中—南」串联：米兰/威尼斯 → 佛罗伦萨/罗马 → 那不勒斯/阿马尔菲。</p>
+              <p>先把需求说给我，我再帮你细化每天的行程与预订提醒。</p>
+              <span class="tag">行程规划</span><span class="tag">美食</span><span class="tag">交通</span>
+
+              <!-- ★★★ 增量层：攻略地图卡片（预留挂载点，基座阶段保持为空） ★★★ -->
+              <div id="guide-map-slot" data-slot="guide-map-card"></div>
+
+              <div class="ref">以上内容基于站内笔记生成，仅供参考</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ask-input"><div class="field">继续问点什么…</div><div class="send"><svg class="ic" style="stroke-width:2.4"><use href="#i-plus"/></svg></div></div>
+    </section>
+
+    <!-- ========== 页面：市集（基座层，仅占位） ========== -->
+    <section class="page" id="page-market">
+      <div class="market-ph">市集占位</div>
+    </section>
+
+    <!-- ========== 页面：消息（基座层） ========== -->
+    <section class="page" id="page-msg">
+      <div class="msg-nav">
+        <span class="t">消息</span>
+        <span class="acts"><svg class="ic"><use href="#i-search"/></svg><svg class="ic"><use href="#i-plus-c"/></svg></span>
+      </div>
+      <div class="scroll">
+        <div class="msg-entries">
+          <div class="e"><div class="sq red"><svg class="ic fill"><use href="#i-heart"/></svg></div>赞和收藏</div>
+          <div class="e"><div class="sq blue"><svg class="ic fill"><use href="#i-person"/></svg></div>新增关注</div>
+          <div class="e"><div class="sq green"><svg class="ic fill"><use href="#i-chat-dots"/></svg></div>评论和 @</div>
+        </div>
+        <div class="chat-row"><div class="ava"></div><div class="mid"><div class="nm">用户 A</div><div class="sub">10 分钟内在线</div></div><span class="tm">18:46</span></div>
+        <div class="chat-row"><div class="ava"></div><div class="mid"><div class="nm">用户 B</div><div class="sub">1 小时内在线</div></div><span class="tm">18:40</span></div>
+        <div class="chat-row"><div class="ava white"></div><div class="mid"><div class="nm">点点 <span class="ai">ai</span></div><div class="sub">从行业里分享的面试经验来看，UX 面试问……</div></div><span class="tm">17:16</span></div>
+        <div class="chat-row"><div class="ava"></div><div class="mid"><div class="nm">群聊名称占位</div><div class="sub">[笔记] 笔记标题占位</div></div><span class="tm">星期二</span></div>
+        <div class="chat-row"><div class="ava blue"><svg class="ic fill"><use href="#i-bubble"/></svg></div><div class="mid"><div class="nm">活动消息</div><div class="sub">欢迎登录！一起来探索最近的火爆的内容</div></div><span class="tm">09-19</span></div>
+        <div class="chat-row"><div class="ava blue"><svg class="ic fill"><use href="#i-bell"/></svg></div><div class="mid"><div class="nm">系统消息</div><div class="sub">隐私政策更新通知</div></div><span class="tm">2024-02-28</span></div>
+        <div class="rec-head"><span>你可能感兴趣的人 <svg class="ic"><use href="#i-info"/></svg></span><span>关闭</span></div>
+        <div class="chat-row"><div class="ava"></div><div class="mid"><div class="sk" style="width:55%;height:14px"></div><div class="sk" style="width:35%;height:10px;margin-top:8px"></div></div><span class="follow-btn">关注</span></div>
+        <div class="chat-row" style="padding-bottom:90px"><div class="ava"></div><div class="mid"><div class="sk" style="width:45%;height:14px"></div><div class="sk" style="width:60%;height:10px;margin-top:8px"></div></div><span class="follow-btn">关注</span></div>
+      </div>
+      <div class="toast" id="toast">
+        <span class="bell"><svg class="ic fill"><use href="#i-bell"/></svg></span>
+        <span class="tx">打开通知，不再错过互动消息</span>
+        <span class="go">开启</span>
+        <span class="x" id="toast-x"><svg class="ic"><use href="#i-close"/></svg></span>
+      </div>
+    </section>
+
+    <!-- ========== 页面：我（基座层） ========== -->
+    <section class="page" id="page-me">
+      <div class="scroll">
+        <div class="me-hero">
+          <div class="me-actions">
+            <svg class="ic"><use href="#i-menu"/></svg>
+            <div class="r">
+              <span class="edit-pill"><svg class="ic" style="font-size:16px"><use href="#i-edit"/></svg>编辑主页</span>
+              <svg class="ic"><use href="#i-scan"/></svg>
+              <svg class="ic"><use href="#i-share"/></svg>
+            </div>
+          </div>
+          <div class="me-profile">
+            <div class="big-ava"></div>
+            <div>
+              <div class="nm">用户名 <svg class="ic"><use href="#i-down"/></svg></div>
+              <div class="id">小红书号：0000000000</div>
+              <div class="id" style="margin-top:6px">IP：未知</div>
+            </div>
+          </div>
+          <div class="me-stats"><span><b>15</b>关注</span><span><b>2</b>粉丝</span><span><b>0</b>获赞与收藏</span></div>
+          <div class="me-bio">点击这里，填写简介</div>
+          <div class="me-quick">
+            <div class="q"><b>个人售卖</b><span>出闲置搞副业</span></div>
+            <div class="q"><b>浏览记录</b><span>看过的笔记</span></div>
+            <div class="q"><b>群聊</b><span>查看详情</span></div>
+            <div class="q"><b>更多</b><span>···</span></div>
+          </div>
+        </div>
+
+        <div class="me-sheet">
+          <div class="me-tabs" id="me-tabs">
+            <span data-k="note" class="on">笔记</span>
+            <span data-k="cmt"><svg class="ic lock"><use href="#i-lock"/></svg>评论</span>
+            <span data-k="fav">收藏</span>
+            <span data-k="like"><svg class="ic lock"><use href="#i-lock"/></svg>赞过</span>
+            <svg class="ic sr"><use href="#i-search"/></svg>
+          </div>
+
+          <!-- 笔记 -->
+          <div class="me-panel show" data-p="note">
+            <div class="banner"><div class="th"></div><div class="tx"><b>晒晒用插画表达的梦境</b><div>官方喊你参与话题</div></div><span class="go">去发布</span><span class="x"><svg class="ic"><use href="#i-close"/></svg></span></div>
+            <div class="waterfall" id="waterfall-me"></div>
+          </div>
+
+          <!-- 收藏 -->
+          <div class="me-panel" data-p="fav">
+            <div class="fav-sub" id="fav-sub">
+              <span data-f="fnote">笔记 55</span>
+              <span data-f="falbum"><svg class="ic"><use href="#i-lock"/></svg>专辑 1</span>
+              <span data-f="fdd" class="on"><svg class="ic"><use href="#i-lock"/></svg>点点 1</span>
+              <!-- ★ 增量层：「攻略」分类 tab 占位（后续在此插入 <span data-f="fguide">攻略</span>） -->
+              <span id="fav-guide-tab-slot" data-slot="fav-guide-tab"></span>
+            </div>
+            <div class="fav-panel" data-fp="fnote"><div class="waterfall" id="waterfall-fav"></div></div>
+            <div class="fav-panel" data-fp="falbum"><div class="empty">专辑占位</div></div>
+            <div class="fav-panel show" data-fp="fdd">
+              <div class="saved-chat"><div class="tx"><div class="sk"></div><div class="sk"></div><div class="sk" style="width:80%"></div></div><div class="th"></div></div>
+            </div>
+            <!-- ★ 增量层：「攻略」面板挂载点 -->
+            <div id="fav-guide-panel-slot" data-slot="fav-guide-panel"></div>
+          </div>
+
+          <div class="me-panel" data-p="cmt"><div class="empty">暂无内容</div></div>
+          <div class="me-panel" data-p="like"><div class="empty">暂无内容</div></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 底部 Tab（基座层）：首页 / 市集 / ＋ / 消息 / 我 -->
+  <nav class="tabbar" id="tabbar">
+    <div class="tab active" data-page="home">首页</div>
+    <div class="tab" data-page="market">市集</div>
+    <div class="tab plus"><span class="plus-btn"><svg class="ic"><use href="#i-plus"/></svg></span></div>
+    <div class="tab" data-page="msg">消息</div>
+    <div class="tab" data-page="me">我</div>
+    <div class="home-ind"></div>
+  </nav>
+</div>
+
+<script>
+/* ==================== 基座层：交互 ==================== */
+/* 视口不足 812px 高时整体等比缩放手机壳，保证完整可见 */
+(function () {
+  var phone = document.getElementById('phone');
+  function fit() {
+    var s = Math.min(1, (window.innerHeight - 24) / 812, (window.innerWidth - 24) / 375);
+    phone.style.transform = 'scale(' + s + ')';
+  }
+  window.addEventListener('resize', fit); fit();
+})();
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* 页面切换：问一问属于「首页」下的子页面，Tab 高亮保持「首页」 */
+  function go(name) {
+    $$('.page').forEach(function (p) { p.classList.toggle('active', p.id === 'page-' + name); });
+    var tabName = name === 'ask' ? 'home' : name;
+    $$('.tab[data-page]').forEach(function (t) { t.classList.toggle('active', t.dataset.page === tabName); });
+  }
+  window.XHS = { go: go };   // 暴露给增量层调用
+
+  $$('.tab[data-page]').forEach(function (t) { t.addEventListener('click', function () { go(t.dataset.page); }); });
+  $('#search-entry').addEventListener('click', function () { go('ask'); });
+  $('#ask-back').addEventListener('click', function () { go('home'); });
+  $('#toast-x').addEventListener('click', function () { $('#toast').style.display = 'none'; });
+
+  /* 通用「单选切换」：点击 trigger 后高亮自己，并显示对应面板 */
+  function bindSwitch(triggerSel, key, panelSel, panelKey) {
+    $$(triggerSel).forEach(function (t) {
+      t.addEventListener('click', function () {
+        $$(triggerSel).forEach(function (x) { x.classList.toggle('on', x === t); });
+        $$(panelSel).forEach(function (p) { p.classList.toggle('show', p.dataset[panelKey] === t.dataset[key]); });
+      });
+    });
+  }
+  bindSwitch('#me-tabs span[data-k]', 'k', '.me-panel', 'p');
+  bindSwitch('#fav-sub span[data-f]', 'f', '.fav-panel', 'fp');
+
+  /* 瀑布流骨架：两列交替；poster=true 的卡片封面带标题占位条（模拟文字海报） */
+  function buildWaterfall(el, heights) {
+    var cols = [document.createElement('div'), document.createElement('div')];
+    cols.forEach(function (c) { c.className = 'wf-col'; el.appendChild(c); });
+    heights.forEach(function (h, i) {
+      var card = document.createElement('div');
+      card.className = 'card';
+      var poster = (i % 3 === 0) ? '<div class="poster-t"><div class="sk" style="width:85%"></div><div class="sk" style="width:70%"></div><div class="sk" style="width:50%"></div></div>' : '';
+      card.innerHTML =
+        '<div class="cover" style="height:' + h + 'px">' + poster + '</div>' +
+        '<div class="body"><div class="sk" style="width:94%"></div><div class="sk" style="width:62%"></div>' +
+        '<div class="meta"><span class="avatar"></span><span class="sk"></span>' +
+        '<span class="like"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg><span class="sk"></span></span></div></div>';
+      cols[i % 2].appendChild(card);
+    });
+  }
+  buildWaterfall($('#waterfall'), [220, 250, 230, 200, 190, 240, 210, 180, 230, 200]);
+  buildWaterfall($('#waterfall-me'), [240, 180, 200, 220]);
+  buildWaterfall($('#waterfall-fav'), [200, 230, 220, 190]);
+})();
+
+/* ==================== 增量层：从此处起接入「攻略地图」 ====================
+   挂载点：
+   - #guide-map-slot         问一问 → AI 回答内的攻略地图卡片
+   - #fav-guide-tab-slot     我 → 收藏 → 「攻略」分类 tab（与 笔记/专辑/点点 同行）
+   - #fav-guide-panel-slot   我 → 收藏 → 「攻略」分类内容面板
+   可调用 window.XHS.go('ask' | 'home' | 'market' | 'msg' | 'me') 切换页面。
+   本文件（基座）不实现任何攻略地图逻辑。
+=========================================================================== */
+</script>
+</body>
+</html>
