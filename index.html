@@ -253,6 +253,31 @@ body {
 .album-dd-btn { flex: none; display: flex; align-items: center; gap: 5px; background: #1F1F24; border: 1px solid #2B2B31; border-radius: 999px; padding: 5px 12px; font-size: 12px; color: #3DDC84; cursor: pointer; }
 .album-dd-btn .dd-ghost { font-size: 12px; }
 
+/* ---------- 专属点点对话页（增量层 v3；合集页右上角进入） ---------- */
+.album-dd-page { background: var(--c-bg); }
+.add-title { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; }
+.add-title .dd-ghost { font-size: 20px; }
+.add-title .scope { font-size: 12px; font-weight: 600; color: #3DDC84; background: #1B3A2E; border-radius: 6px; padding: 2px 8px; }
+.add-scope-bar { display: flex; align-items: center; gap: 8px; margin: 10px 16px 0; padding: 10px 12px; background: #1B3A2E; border: 1px solid #24503F; border-radius: 12px; font-size: 12px; color: #8EDCB4; }
+.add-scope-bar .ic { font-size: 16px; color: #3DDC84; }
+/* 引用本合集笔记的卡片（区别于普通 bubble，绿色边框 + 可点回） */
+.add-ref { margin-top: 10px; display: flex; gap: 10px; background: #1F1F24; border: 1px solid #2B2B31; border-left: 3px solid #3DDC84; border-radius: 10px; padding: 10px 12px; cursor: pointer; }
+.add-ref .thumb { width: 44px; height: 44px; border-radius: 8px; background: linear-gradient(160deg,#34343B,#2A2A30); flex: none; }
+.add-ref .bd { flex: 1; min-width: 0; }
+.add-ref .t { font-size: 13px; color: #F2F2F4; font-weight: 600; line-height: 1.4; }
+.add-ref .m { font-size: 11px; color: #8E8E95; margin-top: 3px; }
+.add-ref .src { font-size: 11px; color: #3DDC84; margin-top: 3px; }
+.add-ref .arrow { color: var(--c-text-3); font-size: 18px; align-self: center; }
+/* 追问快捷 chip */
+.add-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.add-chips span { background: #1F1F24; border: 1px solid #2B2B31; border-radius: 999px; padding: 7px 13px; font-size: 13px; color: #F2F2F4; cursor: pointer; }
+.add-chips span:active { background: #2A2A2F; }
+/* 发送按钮（输入框内） */
+.dd-input .send { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--c-primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; }
+.dd-input .send.dis { background: #2A2A2F; color: var(--c-text-3); }
+.dd-input input { flex: 1; background: transparent; border: none; outline: none; color: var(--c-text); font-size: 16px; }
+.dd-input input::placeholder { color: var(--c-text-3); }
+
 /* ---------- 合集页头部（依据截图：标题 / 管理 / 简介 / 共享人 / 笔记数） ---------- */
 .ab-hd { padding: 14px 16px 20px; }
 .ab-hd .r1 { display: flex; align-items: center; justify-content: space-between; }
@@ -509,6 +534,7 @@ body {
   <symbol id="i-thumb" viewBox="0 0 24 24"><path d="M10 15V19a2 2 0 0 0 2-2l1-4h5.500a2 2 0 0 0 2-2.300l-.8-5A2 2 0 0 0 17.700 4H8v11zM4 4h4v11H4z"/></symbol>
   <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M5 12a7 7 0 1 0 2.500-5.400M5 4v4h4"/></symbol>
   <symbol id="i-voice" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.500"/><path d="M9 10v4M12 8v8M15 10v4"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
   <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.500-2.500h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.500"/></symbol>
   <symbol id="i-history" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
   <symbol id="i-top" viewBox="0 0 24 24"><path d="M5 4h14M12 20V9M7 14l5-5 5 5"/></symbol>
@@ -802,8 +828,8 @@ body {
       <div class="note-nav">
         <span class="nb" onclick="XHS.go('me')"><svg class="ic"><use href="#i-left"/></svg></span>
         <div class="r" style="align-items:center">
-          <!-- ★ 专属点点入口（只基于本合集内容回答；下一步接入） -->
-          <div class="album-dd-btn" onclick="alert('专属点点：下一步接入（只基于本合集内容回答）')"><i class="dd-ghost"></i> 专属点点</div>
+          <!-- ★ 专属点点入口（只基于本合集内容回答） -->
+          <div class="album-dd-btn" onclick="XHS.go('album-dd')"><i class="dd-ghost"></i> 专属点点</div>
           <svg class="ic"><use href="#i-share"/></svg>
         </div>
       </div>
@@ -824,6 +850,39 @@ body {
           <div class="wf-col"></div>
         </div>
       </div>
+    </section>
+
+    <!-- ========== 页面：专属点点对话页（增量层 v3；合集页右上角进入；只基于本合集回答） ========== -->
+    <section class="page album-dd-page" id="page-album-dd">
+      <div class="dd-nav">
+        <span class="nb" onclick="XHS.go('album')"><svg class="ic"><use href="#i-left"/></svg></span>
+        <span class="add-title"><i class="dd-ghost"></i>点点 <span class="scope">意大利旅行</span></span>
+        <span class="nb" style="opacity:0"><svg class="ic fill"><use href="#i-more"/></svg></span>
+      </div>
+      <div class="add-scope-bar">
+        <svg class="ic"><use href="#i-lock"/></svg>
+        <span>专属点点 · 只基于「意大利旅行」合集（1 篇笔记）回答，不会用到合集外内容</span>
+      </div>
+      <div class="scroll">
+        <div class="chat" id="add-chat">
+          <!-- 开场：专属上下文说明 -->
+          <div class="bubble">
+            <p>这是「意大利旅行」合集的<b>专属点点</b> 🎯</p>
+            <p>我会只从合集里的笔记出发回答你，涉及笔记外的问题，我会如实告诉你。先试试问我：</p>
+            <div class="add-chips">
+              <span onclick="askDD('博尔盖塞美术馆现在怎么订票？')">博尔盖塞美术馆怎么订票？</span>
+              <span onclick="askDD('这篇里提到的注意事项有哪些？')">这篇里有哪些注意事项？</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dd-input">
+        <svg class="ic"><use href="#i-voice"/></svg>
+        <input id="add-input" type="text" placeholder="问这个合集里的问题…" />
+        <svg class="ic"><use href="#i-camera"/></svg>
+        <span class="send" id="add-send"><svg class="ic" style="font-size:18px;stroke-width:2.4"><use href="#i-up"/></svg></span>
+      </div>
+      <div class="dd-foot">内容由 AI 生成 · 仅基于本合集</div>
     </section>
 
     <!-- ========== 页面：验证链编辑页（增量层 v3；入口：问一问里的验证链入口卡片） ========== -->
@@ -1000,11 +1059,11 @@ body {
   /* 页面切换：问一问/点点设置/链路编辑/发布/笔记/合集 属于子页面，Tab 高亮保持「首页」或「我」 */
   function go(name) {
     $$('.page').forEach(function (p) { p.classList.toggle('active', p.id === 'page-' + name); });
-    var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album', 'search'];
+    var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album', 'search', 'album-dd'];
     document.getElementById('phone').classList.toggle('full', subPages.indexOf(name) >= 0);
     var tabName;
     if (subPages.indexOf(name) >= 0) {
-      tabName = (name === 'album') ? 'me' : 'home';
+      tabName = (name === 'album' || name === 'album-dd') ? 'me' : 'home';
     } else {
       tabName = name;
     }
@@ -1048,6 +1107,85 @@ body {
     document.getElementById('dd-ask-bubble').style.display = 'none';
     document.getElementById('dd-decline-bubble').style.display = 'block';
   };
+
+  /* ============ 专属点点对话（合集页右上角进入；只基于本合集回答） ============ */
+  var addScrolled = false;
+  function addScrollBottom() {
+    var sc = document.querySelector('#page-album-dd .scroll');
+    if (sc) sc.scrollTop = sc.scrollHeight;
+  }
+  function addUser(text) {
+    var chat = document.getElementById('add-chat');
+    var u = document.createElement('div');
+    u.className = 'msg user';
+    u.innerHTML = '<div class="bubble">' + text + '</div>';
+    chat.appendChild(u);
+    addScrollBottom();
+  }
+  /* 模拟点点思考中 */
+  function addThinking() {
+    var chat = document.getElementById('add-chat');
+    var t = document.createElement('div');
+    t.className = 'bubble';
+    t.id = 'add-thinking';
+    t.style.color = 'var(--c-text-3)';
+    t.textContent = '点点正在读合集里的笔记…';
+    chat.appendChild(t);
+    addScrollBottom();
+  }
+  /* 预置的「只基于合集」回答内容 */
+  var DD_ANSWERS = {
+    default: {
+      text: '根据「意大利旅行」合集里的这篇笔记：',
+      ref: { t: '「博尔盖塞美术馆」订票攻略｜预约流程', m: '用户 · 03-09 · 罗马攻略合集', src: '来自本合集 · 1 篇笔记' },
+      answer: '<p><b style="color:#3DDC84">订票要点：</b>提前 1-2 个月在官网放票，建议多刷新；分时段入场，预约费约 18 欧/人。</p><p><b style="color:#FF5C6C">⚠️ 现场：</b>近期 POS 机故障，<b>只收现金</b>，记得带欧元。没约到可试试清晨退票。</p>',
+      follow: ['要不要我把这条整理成「验证过的链路」里的一个点？', '有没有更省事的买票方式？']
+    },
+    note: {
+      text: '这篇笔记里的关键信息，我帮你拎出来了：',
+      ref: { t: '「博尔盖塞美术馆」订票攻略｜预约流程', m: '用户 · 03-09 · 罗马攻略合集', src: '来自本合集 · 1 篇笔记' },
+      answer: '<p><b style="color:#3DDC84">三个重点：</b></p><p>① <b>提前约</b>：提前 1-2 个月放票，多刷官网；</p><p>② <b>带现金</b>：现场 POS 机故障，只收现金；</p><p>③ <b>备选</b>：没约上可清晨去现场排退票。</p>',
+      follow: ['把这三个重点加进我的链路', '附近还有哪些值得去的点？']
+    }
+  };
+  function ddReply(key) {
+    var chat = document.getElementById('add-chat');
+    var thinking = document.getElementById('add-thinking');
+    if (thinking) thinking.remove();
+    var d = DD_ANSWERS[key] || DD_ANSWERS.default;
+    var bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.innerHTML = '<p>' + d.text + '</p>' +
+      '<div class="add-ref" onclick="openNote(\'a\',\'album-dd\')"><div class="thumb"></div>' +
+      '<div class="bd"><div class="t">' + d.ref.t + '</div><div class="m">' + d.ref.m + '</div><div class="src">' + d.ref.src + '</div></div>' +
+      '<svg class="ic arrow"><use href="#i-right"/></svg></div>' +
+      d.answer +
+      '<div class="add-chips">' + (d.follow || []).map(function (f) { return '<span onclick="askDD(\'' + f + '\')">' + f + '</span>'; }).join('') + '</div>';
+    chat.appendChild(bubble);
+    addScrollBottom();
+  }
+  function askDD(text) {
+    if (!text) return;
+    addUser(text);
+    addThinking();
+    var key = (text.indexOf('订票') >= 0 || text.indexOf('买票') >= 0 || text.indexOf('现金') >= 0) ? 'default'
+      : (text.indexOf('注意事项') >= 0 || text.indexOf('重点') >= 0) ? 'note' : 'default';
+    setTimeout(function () { ddReply(key); }, 700);
+  }
+  window.askDD = askDD;
+  window.addDDInit = function () {
+    var input = document.getElementById('add-input');
+    var send = document.getElementById('add-send');
+    function doSend() {
+      var v = input.value.trim();
+      if (!v) return;
+      askDD(v);
+      input.value = '';
+    }
+    send.addEventListener('click', doSend);
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') doSend(); });
+  };
+  addDDInit();
   /* ============ 笔记详情页（截图 1/2）：两篇示例笔记，内容均为原创编写 ============ */
   var NOTES = {
     a: {
@@ -1180,11 +1318,12 @@ body {
    可交互链路（收集归集 → 使用 → 产出回流）：
    - page-note              笔记详情页（首页首卡进入；分享→发给点点）
    - page-ask               点点对话（询问建合集：好的建一个/先不用）
-   - page-album             合集页（收藏页「专辑」进入；右上角专属点点占位）
+   - page-album             合集页（收藏页「专辑」进入；右上角专属点点入口）
+   - page-album-dd          专属点点对话页（只基于本合集回答 + 引用本合集笔记）
    - page-chain-edit        链路编辑页（AI 骨架 + citation 卡片）
    - page-chain-pub         发布回流页（读者 + 作者「被真实使用」通知）
    收藏页：「专辑」tab 新建后出现「意大利旅行」合集；「链路」tab 展示已发布链路。
-   可调用 window.XHS.go('home'|'search'|'ask'|'ddset'|'market'|'msg'|'me'|'note'|'album'|'chain-edit'|'chain-pub')。
+   可调用 window.XHS.go('home'|'search'|'ask'|'ddset'|'market'|'msg'|'me'|'note'|'album'|'album-dd'|'chain-edit'|'chain-pub')。
    核心原则：引用是「指向」（citation），不是「搬运」——卡片文字是用户自己的话，原帖只挂链接。
 =========================================================================== */
 </script>
