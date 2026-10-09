@@ -99,27 +99,49 @@ body {
 .card .meta .like { display: flex; align-items: center; gap: 3px; }
 .card .meta .like .sk { width: 18px; flex: none; }
 
-/* ==================== 基座层：问一问 ==================== */
-.ask-header { flex: none; height: 46px; display: flex; align-items: center; justify-content: center; position: relative; border-bottom: 1px solid var(--c-line); }
-.ask-header .back { position: absolute; left: 8px; top: 0; width: 44px; height: 46px; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; }
-.ask-header .title { font-size: 17px; font-weight: 700; }
-.chat { padding: 16px 12px 20px; display: flex; flex-direction: column; gap: 16px; }
-.msg { display: flex; gap: 8px; }
-.msg.user { justify-content: flex-end; }
-.msg .ava { width: 32px; height: 32px; border-radius: 50%; flex: none; background: #fff; display: flex; align-items: center; justify-content: center; }
-.msg .ava::after { content: ""; width: 16px; height: 16px; border-radius: 6px 6px 6px 3px; background: #5FE3C4; }
-.bubble { padding: 10px 12px; font-size: var(--fs-body); line-height: 1.6; border-radius: var(--r-card); }
-.msg.user .bubble { background: var(--c-primary); color: #fff; border-top-right-radius: 4px; max-width: 78%; }
-.msg.ai .bubble { background: var(--c-card); border-top-left-radius: 4px; flex: 1; min-width: 0; }
+/* ==================== 基座层：问一问 = 点点 对话页 ==================== */
+.dd-ghost { display: inline-block; position: relative; width: 1.2em; height: 1em; border-radius: .42em .42em .42em .16em; background: linear-gradient(135deg, #9BF7E0, #46DDBB); vertical-align: middle; }
+.dd-ghost::before, .dd-ghost::after { content: ""; position: absolute; top: .34em; width: .1em; height: .2em; border-radius: .05em; background: #12453B; }
+.dd-ghost::before { left: .42em; } .dd-ghost::after { left: .68em; }
+.dd-nav { flex: none; height: 46px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; }
+.dd-nav .nb { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer; }
+.dd-title { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; }
+.dd-title .dd-ghost { font-size: 20px; }
+.chat { padding: 8px 16px 16px; display: flex; flex-direction: column; gap: 14px; }
+.msg.user { display: flex; justify-content: flex-end; }
+.bubble { padding: 14px 16px; font-size: 15px; line-height: 1.7; border-radius: 22px; background: #2A2A2F; }
+.msg.user .bubble { background: var(--c-primary); color: #fff; border-bottom-right-radius: 6px; max-width: 80%; }
 .bubble p + p { margin-top: 8px; }
-.bubble .tag { display: inline-block; font-size: var(--fs-aux); color: var(--c-primary); border: 1px solid var(--c-primary); border-radius: var(--r-pill); padding: 0 8px; margin: 8px 6px 0 0; }
-.ref { margin-top: 10px; font-size: var(--fs-aux); color: var(--c-text-2); border-top: 1px solid var(--c-line); padding-top: 8px; }
+.bubble .tag { display: inline-block; font-size: var(--fs-aux); color: var(--c-text-2); background: #34343A; border-radius: var(--r-pill); padding: 2px 10px; margin: 10px 6px 0 0; }
+.ref { margin-top: 12px; font-size: var(--fs-aux); color: var(--c-text-3); }
 /* ★ 增量层：攻略地图卡片挂载点（基座仅提供空容器，为空时隐藏） */
-#guide-map-slot { margin-top: 10px; }
+#guide-map-slot { margin-top: 12px; }
 #guide-map-slot:empty { display: none; }
-.ask-input { flex: none; display: flex; align-items: center; gap: 8px; padding: 8px 12px 18px; border-top: 1px solid var(--c-line); }
-.ask-input .field { flex: 1; height: 38px; border-radius: var(--r-pill); background: var(--c-bg-gray); display: flex; align-items: center; padding: 0 14px; color: var(--c-text-3); }
-.ask-input .send { width: 38px; height: 38px; border-radius: 50%; background: var(--c-primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+.act-row { display: flex; justify-content: space-between; margin-top: 14px; }
+.act-row div { display: flex; gap: 8px; }
+.act-row span { width: 38px; height: 38px; border-radius: 10px; background: #34343A; display: flex; align-items: center; justify-content: center; font-size: 19px; color: var(--c-text-2); }
+.dd-divider { text-align: center; font-size: 14px; color: var(--c-text-3); margin: 14px 0 2px; }
+.welcome { max-width: 90%; }
+.chips-q { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.chips-q span { background: #1F1F24; border: 1px solid #25252B; border-radius: 26px; padding: 14px 16px; font-size: 15px; cursor: pointer; }
+.dd-input { flex: none; margin: 8px 12px 0; height: 46px; border-radius: 26px; border: 1px solid #2B2B31; background: #19191D; display: flex; align-items: center; gap: 12px; padding: 0 14px; color: var(--c-text-2); }
+.dd-input .ph { flex: 1; font-size: 16px; color: var(--c-text-3); }
+.dd-input .ic { font-size: 26px; }
+.dd-foot { flex: none; text-align: center; font-size: 12px; color: var(--c-text-3); padding: 12px 0 18px; }
+
+/* ==================== 基座层：点点设置页 ==================== */
+.set-logo { text-align: center; padding: 34px 0 10px; } .set-logo .dd-ghost { font-size: 44px; }
+.set-name { text-align: center; font-size: 18px; font-weight: 700; margin-bottom: 26px; }
+.set-group { margin: 0 20px 16px; background: #2A2A2F; border-radius: 24px; padding: 0 22px; }
+.set-row { height: 66px; display: flex; align-items: center; gap: 14px; font-size: 17px; font-weight: 600; }
+.set-row + .set-row { border-top: 1px solid #36363C; }
+.set-row .ic { font-size: 22px; color: #D8D8DC; }
+.set-row .tx { flex: 1; } .set-row .arrow { color: var(--c-text-3); font-size: 18px; }
+.tg { width: 48px; height: 28px; border-radius: 14px; background: #3C3C42; position: relative; flex: none; cursor: pointer; transition: background .15s; }
+.tg::after { content: ""; position: absolute; top: 2px; left: 2px; width: 24px; height: 24px; border-radius: 50%; background: #fff; transition: left .15s; }
+.tg.on { background: #2FA58C; } .tg.on::after { left: 22px; }
+.open-btn { border: 1px solid #2FA58C; color: #3FD1B0; border-radius: var(--r-pill); padding: 5px 16px; font-size: 14px; font-weight: 600; }
+.phone.full .tabbar { display: none; }
 
 /* ==================== 基座层：消息 ==================== */
 .msg-nav { flex: none; height: 46px; display: flex; align-items: center; justify-content: center; position: relative; }
@@ -228,6 +250,18 @@ body {
   <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.500 3.500-7 8-7s8 2.500 8 7z"/></symbol>
   <symbol id="i-chat-dots" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-8 13l-1 5 5-1.500A9 9 0 1 0 12 3z"/><circle cx="8.500" cy="12" r="1.200" fill="#1B3A2E" stroke="none"/><circle cx="15.500" cy="12" r="1.200" fill="#1B3A2E" stroke="none"/></symbol>
   <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 9a14 14 0 0 1 20 0M5.500 12.500a9 9 0 0 1 13 0M9 16a4 4 0 0 1 6 0"/><circle cx="12" cy="19" r="1" /></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.700"/><circle cx="12" cy="12" r="1.700"/><circle cx="19" cy="12" r="1.700"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="3"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.500l2.600 5.400 5.900.8-4.300 4.100 1 5.800L12 16.800l-5.200 2.800 1-5.800L3.500 9.700l5.900-.8z"/></symbol>
+  <symbol id="i-thumb" viewBox="0 0 24 24"><path d="M10 15V19a2 2 0 0 0 2-2l1-4h5.500a2 2 0 0 0 2-2.300l-.8-5A2 2 0 0 0 17.700 4H8v11zM4 4h4v11H4z"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M5 12a7 7 0 1 0 2.500-5.400M5 4v4h4"/></symbol>
+  <symbol id="i-voice" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.500"/><path d="M9 10v4M12 8v8M15 10v4"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.500-2.500h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.500"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-top" viewBox="0 0 24 24"><path d="M5 4h14M12 20V9M7 14l5-5 5 5"/></symbol>
+  <symbol id="i-split" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M10 4v16M13 12h5M16 10l2 2-2 2"/></symbol>
+  <symbol id="i-feedback" viewBox="0 0 24 24"><path d="M5 4h14a1 1 0 0 1 1 1v8M5 4v15a1 1 0 0 0 1 1h8M9 9h7M9 13h4M15 19l2.500-.5 4-4-2-2-4 4z"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
 </svg>
 
 <div class="phone" id="phone">
@@ -247,8 +281,8 @@ body {
     <!-- ========== 页面：首页（基座层） ========== -->
     <section class="page active" id="page-home">
       <div class="top-nav">
-        <span class="ic-btn"><svg class="ic"><use href="#i-bubble"/></svg></span>
-        <div class="top-tabs"><span>关注</span><span class="on">发现</span><span>太原</span></div>
+        <span class="ic-btn" id="chat-entry"><svg class="ic"><use href="#i-bubble"/></svg></span>
+        <div class="top-tabs"><span>关注</span><span class="on">发现</span><span>罗马</span></div>
         <!-- 点击搜索图标 → 进入「问一问」 -->
         <span class="ic-btn r" id="search-entry"><svg class="ic"><use href="#i-search"/></svg></span>
       </div>
@@ -259,31 +293,62 @@ body {
       <div class="scroll"><div class="waterfall" id="waterfall"></div></div>
     </section>
 
-    <!-- ========== 页面：问一问（基座层） ========== -->
+    <!-- ========== 页面：问一问 / 点点对话（基座层） ========== -->
     <section class="page" id="page-ask">
-      <div class="ask-header">
-        <span class="back" id="ask-back"><svg class="ic"><use href="#i-left"/></svg></span>
-        <span class="title">问一问</span>
+      <div class="dd-nav">
+        <span class="nb" id="ask-back"><svg class="ic"><use href="#i-close"/></svg></span>
+        <span class="dd-title"><i class="dd-ghost"></i>点点</span>
+        <span class="nb" id="ask-more"><svg class="ic fill"><use href="#i-more"/></svg></span>
       </div>
       <div class="scroll">
         <div class="chat">
           <div class="msg user"><div class="bubble">意大利旅游怎么安排比较好？</div></div>
-          <div class="msg ai">
-            <div class="ava"></div>
-            <div class="bubble">
-              <p>意大利适合按「北—中—南」串联：米兰/威尼斯 → 佛罗伦萨/罗马 → 那不勒斯/阿马尔菲。</p>
-              <p>先把需求说给我，我再帮你细化每天的行程与预订提醒。</p>
-              <span class="tag">行程规划</span><span class="tag">美食</span><span class="tag">交通</span>
+          <div class="bubble">
+            <p>意大利适合按「北—中—南」串联：米兰/威尼斯 → 佛罗伦萨/罗马 → 那不勒斯/阿马尔菲。</p>
+            <p>先把需求说给我，我再帮你细化每天的行程与预订提醒。</p>
+            <span class="tag">行程规划</span><span class="tag">美食</span><span class="tag">交通</span>
 
-              <!-- ★★★ 增量层：攻略地图卡片（预留挂载点，基座阶段保持为空） ★★★ -->
-              <div id="guide-map-slot" data-slot="guide-map-card"></div>
+            <!-- ★★★ 增量层：攻略地图卡片（预留挂载点，基座阶段保持为空） ★★★ -->
+            <div id="guide-map-slot" data-slot="guide-map-card"></div>
 
-              <div class="ref">以上内容基于站内笔记生成，仅供参考</div>
+            <div class="ref">以上内容基于站内笔记生成，仅供参考</div>
+            <div class="act-row">
+              <div><span><svg class="ic"><use href="#i-copy"/></svg></span><span><svg class="ic"><use href="#i-star"/></svg></span><span><svg class="ic"><use href="#i-share"/></svg></span></div>
+              <div><span><svg class="ic"><use href="#i-thumb"/></svg></span><span><svg class="ic"><use href="#i-refresh"/></svg></span></div>
             </div>
           </div>
+          <div class="dd-divider">聊聊新话题</div>
+          <div class="bubble welcome">😊 欢迎回来！快把问题丢给我吧，不管是总结、推荐还是规划，我都能帮。</div>
+          <div class="chips-q"><span>意大利 7 天 6 晚怎么排更顺？</span><span>推荐问题占位二</span><span>推荐问题占位三</span></div>
         </div>
       </div>
-      <div class="ask-input"><div class="field">继续问点什么…</div><div class="send"><svg class="ic" style="stroke-width:2.4"><use href="#i-plus"/></svg></div></div>
+      <div class="dd-input">
+        <svg class="ic"><use href="#i-voice"/></svg><span class="ph">发消息或按住说话…</span>
+        <svg class="ic"><use href="#i-camera"/></svg><svg class="ic"><use href="#i-plus-c"/></svg>
+      </div>
+      <div class="dd-foot">内容由 AI 生成</div>
+    </section>
+
+    <!-- ========== 页面：点点设置（基座层；入口：点点对话页右上角 ···） ========== -->
+    <section class="page" id="page-ddset">
+      <div class="dd-nav"><span class="nb" id="set-back"><svg class="ic"><use href="#i-left"/></svg></span></div>
+      <div class="scroll">
+        <div class="set-logo"><i class="dd-ghost"></i></div>
+        <div class="set-name">点点</div>
+        <div class="set-group">
+          <div class="set-row"><svg class="ic"><use href="#i-history"/></svg><span class="tx">历史对话</span><svg class="ic arrow"><use href="#i-right"/></svg></div>
+          <div class="set-row"><svg class="ic"><use href="#i-star"/></svg><span class="tx">我的收藏</span><svg class="ic arrow"><use href="#i-right"/></svg></div>
+          <div class="set-row"><svg class="ic"><use href="#i-bell"/></svg><span class="tx">我的订阅</span><svg class="ic arrow"><use href="#i-right"/></svg></div>
+        </div>
+        <div class="set-group">
+          <div class="set-row"><svg class="ic"><use href="#i-top"/></svg><span class="tx">消息置顶</span><span class="tg"></span></div>
+          <div class="set-row"><svg class="ic"><use href="#i-split"/></svg><span class="tx">滑动页面可问点点</span><span class="tg on"></span></div>
+        </div>
+        <div class="set-group">
+          <div class="set-row"><svg class="ic"><use href="#i-feedback"/></svg><span class="tx">反馈与建议</span><svg class="ic arrow"><use href="#i-right"/></svg></div>
+          <div class="set-row"><svg class="ic"><use href="#i-bubble"/></svg><span class="tx">点点 App</span><span class="open-btn">打开</span></div>
+        </div>
+      </div>
     </section>
 
     <!-- ========== 页面：市集（基座层，仅占位） ========== -->
@@ -421,13 +486,19 @@ body {
   /* 页面切换：问一问属于「首页」下的子页面，Tab 高亮保持「首页」 */
   function go(name) {
     $$('.page').forEach(function (p) { p.classList.toggle('active', p.id === 'page-' + name); });
-    var tabName = name === 'ask' ? 'home' : name;
+    document.getElementById('phone').classList.toggle('full', name === 'ask' || name === 'ddset');
+    var tabName = (name === 'ask' || name === 'ddset') ? 'home' : name;
     $$('.tab[data-page]').forEach(function (t) { t.classList.toggle('active', t.dataset.page === tabName); });
   }
   window.XHS = { go: go };   // 暴露给增量层调用
 
   $$('.tab[data-page]').forEach(function (t) { t.addEventListener('click', function () { go(t.dataset.page); }); });
+  /* 首页左上角气泡图标 / 右上角搜索图标 → 点点对话页（问一问）；右上角 ··· → 点点设置；X / 返回 逐级退出 */
+  $('#chat-entry').addEventListener('click', function () { go('ask'); });
   $('#search-entry').addEventListener('click', function () { go('ask'); });
+  $('#ask-more').addEventListener('click', function () { go('ddset'); });
+  $('#set-back').addEventListener('click', function () { go('ask'); });
+  $$('.tg').forEach(function (t) { t.addEventListener('click', function () { t.classList.toggle('on'); }); });
   $('#ask-back').addEventListener('click', function () { go('home'); });
   $('#toast-x').addEventListener('click', function () { $('#toast').style.display = 'none'; });
 
@@ -469,7 +540,7 @@ body {
    - #guide-map-slot         问一问 → AI 回答内的攻略地图卡片
    - #fav-guide-tab-slot     我 → 收藏 → 「攻略」分类 tab（与 笔记/专辑/点点 同行）
    - #fav-guide-panel-slot   我 → 收藏 → 「攻略」分类内容面板
-   可调用 window.XHS.go('ask' | 'home' | 'market' | 'msg' | 'me') 切换页面。
+   可调用 window.XHS.go('ask' | 'ddset' | 'home' | 'market' | 'msg' | 'me') 切换页面。
    本文件（基座）不实现任何攻略地图逻辑。
 =========================================================================== */
 </script>
