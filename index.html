@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="zh-CN" data-page-node-id="kGJksf0LuEShEl4p1YfADC">
+<head data-page-node-id="7RZ0C5FhVUCPMQDkDOIPhN">
+<meta charset="UTF-8" data-page-node-id="9qCH5Hl7GYVzYd8x6w1Rq1">
+<meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="Dnh8s9AGXhE8br8eHwq00C">
 <title>小红书 · 基座原型（深色）</title>
 <style>
 /* ==================== 基座层：设计 token（依据截图还原的深色模式） ==================== */
@@ -260,6 +260,10 @@ body {
 .add-title .scope { font-size: 12px; font-weight: 600; color: #3DDC84; background: #1B3A2E; border-radius: 6px; padding: 2px 8px; }
 .add-scope-bar { display: flex; align-items: center; gap: 8px; margin: 10px 16px 0; padding: 10px 12px; background: #1B3A2E; border: 1px solid #24503F; border-radius: 12px; font-size: 12px; color: #8EDCB4; }
 .add-scope-bar .ic { font-size: 16px; color: #3DDC84; }
+.add-scope-bar > span:nth-child(2) { flex: 1; }
+.add-scope-close { flex: none; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; color: #8EDCB4; cursor: pointer; }
+.add-scope-close:active { background: #24503F; }
+.add-scope-close .ic { font-size: 14px; color: #8EDCB4; }
 /* 引用本合集笔记的卡片（区别于普通 bubble，绿色边框 + 可点回） */
 .add-ref { margin-top: 10px; display: flex; gap: 10px; background: #1F1F24; border: 1px solid #2B2B31; border-left: 3px solid #3DDC84; border-radius: 10px; padding: 10px 12px; cursor: pointer; }
 .add-ref .thumb { width: 44px; height: 44px; border-radius: 8px; background: linear-gradient(160deg,#34343B,#2A2A30); flex: none; }
@@ -506,497 +510,497 @@ body {
 .home-ind { position: absolute; left: 50%; bottom: 7px; transform: translateX(-50%); width: 130px; height: 5px; border-radius: 3px; background: #fff; opacity: .9; }
 </style>
 </head>
-<body>
+<body data-page-node-id="s7kZU0yUpyZo5TJpiBt1KG">
 
 <!-- 图标：内联 SVG 符号表（无外部依赖） -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
-  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-  <symbol id="i-plus-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 8v8M8 12h8"/></symbol>
-  <symbol id="i-bubble" viewBox="0 0 24 24"><path d="M12 3.5a8.5 8.5 0 1 0 0 17c1.4 0 2.6-.3 3.6-.8l4.4.8-1-3.8A8.5 8.5 0 0 0 12 3.5z"/></symbol>
-  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
-  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20l1-4L16 5l3 3L8 19z"/></symbol>
-  <symbol id="i-scan" viewBox="0 0 24 24"><path d="M8 4H5.5A1.5 1.5 0 0 0 4 5.5V8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16M16 20h2.5a1.5 1.5 0 0 0 1.5-1.5V16M4 12h16"/></symbol>
-  <symbol id="i-share" viewBox="0 0 24 24"><path d="M14 5l7 6.5-7 6.5v-4c-5 0-8 1.5-11 5.5.5-6.500 4.500-10 11-10.500z"/></symbol>
-  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
-  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
-  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
-  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5.500" y="10.500" width="13" height="9.500" rx="2.500"/><path d="M8.500 10.500V8a3.500 3.500 0 0 1 7 0v2.500"/></symbol>
-  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.2"/></symbol>
-  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17v-6a6 6 0 0 1 12 0v6l1.500 2h-15zM10 21.500h4"/></symbol>
-  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-8-5-8-11a4.500 4.500 0 0 1 8-2.500A4.500 4.500 0 0 1 20 9c0 6-8 11-8 11z"/></symbol>
-  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.500 3.500-7 8-7s8 2.500 8 7z"/></symbol>
-  <symbol id="i-chat-dots" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-8 13l-1 5 5-1.500A9 9 0 1 0 12 3z"/><circle cx="8.500" cy="12" r="1.200" fill="#1B3A2E" stroke="none"/><circle cx="15.500" cy="12" r="1.200" fill="#1B3A2E" stroke="none"/></symbol>
-  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 9a14 14 0 0 1 20 0M5.500 12.500a9 9 0 0 1 13 0M9 16a4 4 0 0 1 6 0"/><circle cx="12" cy="19" r="1" /></symbol>
-  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.700"/><circle cx="12" cy="12" r="1.700"/><circle cx="19" cy="12" r="1.700"/></symbol>
-  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="3"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
-  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.500l2.600 5.400 5.900.8-4.300 4.100 1 5.800L12 16.800l-5.200 2.800 1-5.800L3.500 9.700l5.900-.8z"/></symbol>
-  <symbol id="i-thumb" viewBox="0 0 24 24"><path d="M10 15V19a2 2 0 0 0 2-2l1-4h5.500a2 2 0 0 0 2-2.300l-.8-5A2 2 0 0 0 17.700 4H8v11zM4 4h4v11H4z"/></symbol>
-  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M5 12a7 7 0 1 0 2.500-5.400M5 4v4h4"/></symbol>
-  <symbol id="i-voice" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.500"/><path d="M9 10v4M12 8v8M15 10v4"/></symbol>
-  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
-  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.500-2.500h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.500"/></symbol>
-  <symbol id="i-history" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
-  <symbol id="i-top" viewBox="0 0 24 24"><path d="M5 4h14M12 20V9M7 14l5-5 5 5"/></symbol>
-  <symbol id="i-split" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M10 4v16M13 12h5M16 10l2 2-2 2"/></symbol>
-  <symbol id="i-feedback" viewBox="0 0 24 24"><path d="M5 4h14a1 1 0 0 1 1 1v8M5 4v15a1 1 0 0 0 1 1h8M9 9h7M9 13h4M15 19l2.500-.5 4-4-2-2-4 4z"/></symbol>
-  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
-  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></symbol>
-  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a4 4 0 0 0 6 .5l3-3a4 4 0 0 0-6-6l-1.5 1.5M14 11a4 4 0 0 0-6-.5l-3 3a4 4 0 0 0 6 6l1.5-1.5"/></symbol>
-  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.9 2.6L22.5 18.5l-2.6.9L19 22l-.9-2.6-2.6-.9 2.6-.9z"/></symbol>
-  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L3 10.500l7 3 3 7z"/><path d="M10 13.500L21 3"/></symbol>
-  <symbol id="i-image" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.500"/><path d="M4 17l5-5 4 4 3-3 4 4"/></symbol>
-  <symbol id="i-quote" viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-7l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M9 9v3M14 9v3"/></symbol>
-  <symbol id="i-group" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.500"/><path d="M2.500 20c0-3.500 3-6 6.500-6s6.500 2.500 6.500 6"/><path d="M16 5a3 3 0 0 1 0 6M18 14c2 .8 3.500 2.800 3.500 6"/></symbol>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" data-page-node-id="sfUNIklojs1TwsHFrnTs3n">
+  <symbol id="i-search" viewBox="0 0 24 24" data-page-node-id="ECEvquzz7tdBevFX1aBpLJ"><circle cx="11" cy="11" r="7" data-page-node-id="JdhRdLJ9WEHUW1FGmIWBQe"/><path d="M20 20l-4-4" data-page-node-id="SmgMTvBCe0KSwiAiFWKEfG"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" data-page-node-id="EO50wK8EU5JzzP4wS48dNP"><path d="M12 5v14M5 12h14" data-page-node-id="2seTcfUL9XEc2sooG1gb6q"/></symbol>
+  <symbol id="i-plus-c" viewBox="0 0 24 24" data-page-node-id="5HdEetu3Qvn6boYopVBlGp"><circle cx="12" cy="12" r="9.5" data-page-node-id="oeKycgXqgWfzscmEHRpj5q"/><path d="M12 8v8M8 12h8" data-page-node-id="9AVGjXB71wzqAElbUWt370"/></symbol>
+  <symbol id="i-bubble" viewBox="0 0 24 24" data-page-node-id="LlLCIoGCGHY68rQf8JlGZj"><path d="M12 3.5a8.5 8.5 0 1 0 0 17c1.4 0 2.6-.3 3.6-.8l4.4.8-1-3.8A8.5 8.5 0 0 0 12 3.5z" data-page-node-id="W6hs1wgM4vixsYLbpr2jaW"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" data-page-node-id="sX6jnmqMeyNjEnbwd91TqV"><path d="M4 7h16M4 12h16M4 17h16" data-page-node-id="f8LUxHESMfWKQATv8PDHOM"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24" data-page-node-id="N8wsMe9uHxn68Jm0plCS92"><path d="M4 20l1-4L16 5l3 3L8 19z" data-page-node-id="AgWnR2T1VKyvDQgS3lXMB4"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24" data-page-node-id="Zlgi0Qp0IG32BPsZ1RTj1o"><path d="M8 4H5.5A1.5 1.5 0 0 0 4 5.5V8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16M16 20h2.5a1.5 1.5 0 0 0 1.5-1.5V16M4 12h16" data-page-node-id="PN5THdh3NhZ9tQrEkUwUqA"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24" data-page-node-id="EfiALHN2MhjalDqkvWoYrJ"><path d="M14 5l7 6.5-7 6.5v-4c-5 0-8 1.5-11 5.5.5-6.500 4.500-10 11-10.500z" data-page-node-id="3CkOjaCb0yFUjrR7VCGGn4"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24" data-page-node-id="xaBskfyCBqjITFC684D5sS"><path d="M6 9l6 6 6-6" data-page-node-id="nG4AwUetqMwOYFru9JNYU9"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24" data-page-node-id="nR7Dvn38wgZLdyA9ZyHT3s"><path d="M15 5l-7 7 7 7" data-page-node-id="AdBB2pEvIB2NhafnWiG1Ct"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24" data-page-node-id="xA9ljtoFTIBevuCLOii9Hy"><path d="M6 6l12 12M18 6L6 18" data-page-node-id="g2p9B2oK8kUA4JfIiX4Q4U"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" data-page-node-id="k2dtqrhg5mmrlh7u4eKUab"><rect x="5.500" y="10.500" width="13" height="9.500" rx="2.500" data-page-node-id="9P7qo8o6Ym350LmPcAopya"/><path d="M8.500 10.500V8a3.500 3.500 0 0 1 7 0v2.500" data-page-node-id="DWr5xqmLoDdEzD5vGULEwD"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" data-page-node-id="B1CswqijwByhLttoAFCWLr"><circle cx="12" cy="12" r="9" data-page-node-id="u5Mj67zxtkaoROPFb1zu7G"/><path d="M12 11v5M12 8v.2" data-page-node-id="IRXUfeHwnsiCvMNq4fH1ri"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24" data-page-node-id="kItNDWK9hsHD6Gcb57zpby"><path d="M6 17v-6a6 6 0 0 1 12 0v6l1.500 2h-15zM10 21.500h4" data-page-node-id="tanx6l0C89lCINjqr7OG85"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" data-page-node-id="mmNR3036deOjemvvCATsaO"><path d="M12 20s-8-5-8-11a4.500 4.500 0 0 1 8-2.500A4.500 4.500 0 0 1 20 9c0 6-8 11-8 11z" data-page-node-id="SR3XdHjNyj3pWJJCozlfHC"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24" data-page-node-id="gcfkbqrLZKyTuKTx6GDbiF"><circle cx="12" cy="8" r="4" data-page-node-id="cA8mCe4QYzGik4vCouvsjn"/><path d="M4 21c0-4.500 3.500-7 8-7s8 2.500 8 7z" data-page-node-id="wgk3ekKFuSFr2CaMZZ3aAY"/></symbol>
+  <symbol id="i-chat-dots" viewBox="0 0 24 24" data-page-node-id="Cp9OVYiqr9HAfQPfLBI06y"><path d="M12 3a9 9 0 0 0-8 13l-1 5 5-1.500A9 9 0 1 0 12 3z" data-page-node-id="WWxG6X2dLfQRxNWkQUIZ4j"/><circle cx="8.500" cy="12" r="1.200" fill="#1B3A2E" stroke="none" data-page-node-id="xehTsP2Sgv3H8uZTuV99PD"/><circle cx="15.500" cy="12" r="1.200" fill="#1B3A2E" stroke="none" data-page-node-id="xXd0bqmIBXVMdyQc3P8cfG"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24" data-page-node-id="h03GfTYvojPynFbFFjDkdo"><path d="M2 9a14 14 0 0 1 20 0M5.500 12.500a9 9 0 0 1 13 0M9 16a4 4 0 0 1 6 0" data-page-node-id="j0CYI6G4FEf0bxYS9aS6tC"/><circle cx="12" cy="19" r="1" data-page-node-id="Mb8tJIiJUqFlh8P5bP78o3" /></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24" data-page-node-id="o4AAod0ffyCcWGTqOFpDHB"><circle cx="5" cy="12" r="1.700" data-page-node-id="7M74OSfPaOnGQGZnhN2rTR"/><circle cx="12" cy="12" r="1.700" data-page-node-id="hcb2GJlMSg2sT53FCTIw8j"/><circle cx="19" cy="12" r="1.700" data-page-node-id="xpJAxitX6GyxLQNTLfBAWl"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24" data-page-node-id="jhLgXYGfGUfycKdoJle9Cd"><rect x="8" y="8" width="12" height="12" rx="3" data-page-node-id="72htdelAmpyDdEravDEgVc"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" data-page-node-id="4lk6cdkC0oPkAFkboplIiC"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" data-page-node-id="bSN8i09GJlrDal320AGpdv"><path d="M12 3.500l2.600 5.400 5.900.8-4.300 4.100 1 5.800L12 16.800l-5.200 2.800 1-5.800L3.500 9.700l5.900-.8z" data-page-node-id="dvePlXPmYkh3GoBKxO8pVF"/></symbol>
+  <symbol id="i-thumb" viewBox="0 0 24 24" data-page-node-id="DJuAQLzSMeBzCZEb6yNIWF"><path d="M10 15V19a2 2 0 0 0 2-2l1-4h5.500a2 2 0 0 0 2-2.300l-.8-5A2 2 0 0 0 17.700 4H8v11zM4 4h4v11H4z" data-page-node-id="3MlSxsjyDo80zZxuzawumU"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24" data-page-node-id="Fy9XyT3vys2D5JwkAa8GM7"><path d="M5 12a7 7 0 1 0 2.500-5.400M5 4v4h4" data-page-node-id="wabKIKuyk4QImGoGRxOeyB"/></symbol>
+  <symbol id="i-voice" viewBox="0 0 24 24" data-page-node-id="2NQ5ebKjlg70hKUF2uB6tT"><circle cx="12" cy="12" r="9.500" data-page-node-id="u1zPmwfvHY98359PVZhZBg"/><path d="M9 10v4M12 8v8M15 10v4" data-page-node-id="IXDF05gcHZ1I4apOXtcO7p"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24" data-page-node-id="zjSLAhjrsG7KPAEQ3rtmHg"><path d="M12 19V5M6 11l6-6 6 6" data-page-node-id="c3As5ijyx69sQABgBbUr68"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24" data-page-node-id="MBr3htCYOGMV9zCv0VaDPb"><path d="M4 8h3l1.500-2.500h7L17 8h3v11H4z" data-page-node-id="g9CoHicYSuvSInqryNUWIy"/><circle cx="12" cy="13" r="3.500" data-page-node-id="o1Zb0Gk9rxgduAGUfvKyxC"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24" data-page-node-id="VI4YcWrunfVaV9VFYttpr8"><circle cx="12" cy="12" r="9" data-page-node-id="IaUaEFQ4ZmZ3ZEaE5rYQcQ"/><path d="M12 7v5l3 2" data-page-node-id="FthSxGMKGzZAEDO9EgikJB"/></symbol>
+  <symbol id="i-top" viewBox="0 0 24 24" data-page-node-id="0FQJytD88D09tcJA2OWMtp"><path d="M5 4h14M12 20V9M7 14l5-5 5 5" data-page-node-id="iwFSN4flraOdsm82wFEQ1W"/></symbol>
+  <symbol id="i-split" viewBox="0 0 24 24" data-page-node-id="Sh6N7ZJNLcB5fWqZHYiAST"><rect x="4" y="4" width="16" height="16" rx="3" data-page-node-id="6f1sGvrV3DgoBcOEOKkSaE"/><path d="M10 4v16M13 12h5M16 10l2 2-2 2" data-page-node-id="l5u6v4RB2SOR2NbHc0BaWF"/></symbol>
+  <symbol id="i-feedback" viewBox="0 0 24 24" data-page-node-id="Hszx4mPkxCDXFE50Sgdwhl"><path d="M5 4h14a1 1 0 0 1 1 1v8M5 4v15a1 1 0 0 0 1 1h8M9 9h7M9 13h4M15 19l2.500-.5 4-4-2-2-4 4z" data-page-node-id="Wyh609qfreKjjqEiuCGHLt"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24" data-page-node-id="mobkFGnLAXzohkcwfiOctH"><path d="M9 5l7 7-7 7" data-page-node-id="Z2w5tEJ9XmSWPFEglKuypi"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" data-page-node-id="Kz9nrmABUhtB67mZ569SE2"><path d="M5 13l4 4L19 7" data-page-node-id="d5P17qhTbMCDZ1WSYoOv5K"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24" data-page-node-id="oBdQW9AuBpTsjGhuzukD1U"><path d="M10 13a4 4 0 0 0 6 .5l3-3a4 4 0 0 0-6-6l-1.5 1.5M14 11a4 4 0 0 0-6-.5l-3 3a4 4 0 0 0 6 6l1.5-1.5" data-page-node-id="HkzTjzh3rDg6qACCaFdPEs"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24" data-page-node-id="FLQqidyLMG1kQHiUSHUMza"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" data-page-node-id="zap8tkIG6sYLbNb2ZVjYMU"/><path d="M19 15l.9 2.6L22.5 18.5l-2.6.9L19 22l-.9-2.6-2.6-.9 2.6-.9z" data-page-node-id="En5FhsjDxAvIlZRdJU1dSL"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24" data-page-node-id="7tNL2RGrRLpHwd9B9PKdKm"><path d="M21 3L3 10.500l7 3 3 7z" data-page-node-id="0bWuQjdq2lpbDkYu3olMMO"/><path d="M10 13.500L21 3" data-page-node-id="CQ4F0h1VHhe5SS5fMbT0SJ"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24" data-page-node-id="mKEwvdsA4XAAAOuRJqBgKG"><rect x="4" y="4" width="16" height="16" rx="3" data-page-node-id="TFYYCqLl00Wlhdsj3BpGDL"/><circle cx="9" cy="9" r="1.500" data-page-node-id="BmbQJEpdxQ8oDtWLPoRGvc"/><path d="M4 17l5-5 4 4 3-3 4 4" data-page-node-id="affFSmICX1IN5Kmuas6exn"/></symbol>
+  <symbol id="i-quote" viewBox="0 0 24 24" data-page-node-id="XA45jiqEfquMJ5HR32Mdec"><path d="M4 5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-7l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" data-page-node-id="4L32ExyLLkOB5rcNLwFr6O"/><path d="M9 9v3M14 9v3" data-page-node-id="kCPzbjal241HqfiEKeFVm6"/></symbol>
+  <symbol id="i-group" viewBox="0 0 24 24" data-page-node-id="qfzTI7UbYKZOxmWCQziH7F"><circle cx="9" cy="8" r="3.500" data-page-node-id="6qCtdOvElEDfPVIam607Sb"/><path d="M2.500 20c0-3.500 3-6 6.500-6s6.500 2.500 6.500 6" data-page-node-id="nJIqt1u7ehHj8Iq5GVQRIP"/><path d="M16 5a3 3 0 0 1 0 6M18 14c2 .8 3.500 2.800 3.500 6" data-page-node-id="WRgXWA97q8caWH766UIJ1Z"/></symbol>
 </svg>
 
-<div class="phone" id="phone">
+<div class="phone" id="phone" data-page-node-id="jClH7wyYuWJKBpGb3K3RIo">
 
   <!-- 状态栏（基座层） -->
-  <div class="statusbar">
-    <span>19:38</span>
-    <div class="sb-right">
-      <span class="sb-dots">····</span>
-      <svg class="ic sb-wifi" style="stroke-width:2.4"><use href="#i-wifi"/></svg>
-      <span class="sb-battery">45</span>
+  <div class="statusbar" data-page-node-id="AcimbrFXqWQDdVgd1pffr9">
+    <span data-page-node-id="yYfSjCl43ssqDSoOFXxI84">19:38</span>
+    <div class="sb-right" data-page-node-id="FbJGSisb31dFdWWD42cxGu">
+      <span class="sb-dots" data-page-node-id="nC58lpjnsDmhlicQTD3loA">····</span>
+      <svg class="ic sb-wifi" style="stroke-width:2.4" data-page-node-id="8TBLb23CbaH3vLqxr385hI"><use href="#i-wifi" data-page-node-id="sz8D6SuPO0jPuGB30ZqSyA"/></svg>
+      <span class="sb-battery" data-page-node-id="MMeqWDJBGhfVeWxSfIgS00">45</span>
     </div>
   </div>
 
-  <div class="pages">
+  <div class="pages" data-page-node-id="mXZknBt24lfO3Cwul9IxD8">
 
     <!-- ========== 页面：首页（基座层） ========== -->
-    <section class="page active" id="page-home">
-      <div class="top-nav">
-        <span class="ic-btn" id="chat-entry"><svg class="ic"><use href="#i-bubble"/></svg></span>
-        <div class="top-tabs"><span>关注</span><span class="on">发现</span><span>罗马</span></div>
+    <section class="page active" id="page-home" data-page-node-id="uOUGpGpeV0vE17K1DKyHmK">
+      <div class="top-nav" data-page-node-id="U8UWMgPoNxp2VRemZsKBYg">
+        <span class="ic-btn" id="chat-entry" data-page-node-id="6FI7dBDrDMqTunn8KelgkU"><svg class="ic" data-page-node-id="8fpprLp4uA7qhfJpixjsaX"><use href="#i-bubble" data-page-node-id="Wee1UPbhLTbG1q7P1wEiaW"/></svg></span>
+        <div class="top-tabs" data-page-node-id="b7eTv0mNMZB0nsFHsZKuA5"><span data-page-node-id="Pj32bHrwBX52Hc9jswD5l7">关注</span><span class="on" data-page-node-id="PVmGTidkw7Ib68umeE8XFq">发现</span><span data-page-node-id="QoVH69U7Bz5GblmKToE1ga">罗马</span></div>
         <!-- 点击搜索图标 → 进入「问一问」 -->
-        <span class="ic-btn r" id="search-entry"><svg class="ic"><use href="#i-search"/></svg></span>
+        <span class="ic-btn r" id="search-entry" data-page-node-id="bkEVQepRyLb9EOjhQTXzrA"><svg class="ic" data-page-node-id="bhMRQ2cpLVGpIPZzgQ7U3w"><use href="#i-search" data-page-node-id="BBdoUHhZxJc7rMouDJQCqO"/></svg></span>
       </div>
-      <div class="channels">
-        <span class="on">推荐</span><span>视频</span><span>热点</span><span>直播</span><span>短剧</span><span>萌宠</span>
-        <span class="more"><svg class="ic"><use href="#i-down"/></svg></span>
+      <div class="channels" data-page-node-id="uEjBLxwKxLYlIsAbSPb1cC">
+        <span class="on" data-page-node-id="YiddHPrDVa9i24tinU2cyW">推荐</span><span data-page-node-id="E6qDGuqdfgHjKGH5I5GFMn">视频</span><span data-page-node-id="WrAfTeluCFiF0m4UrVeIBb">热点</span><span data-page-node-id="u96bKaELssJT4fUJKAIJqW">直播</span><span data-page-node-id="HtEiQbaWxZ9jTzkA524pbj">短剧</span><span data-page-node-id="fxEyJx1tBBogV7ECMVxBuB">萌宠</span>
+        <span class="more" data-page-node-id="hBQCH6McFaR8wH1smDiOLq"><svg class="ic" data-page-node-id="BdtqYNbBtKhEMh6UM899cr"><use href="#i-down" data-page-node-id="c8O5ZUTnbVDjMDM5W9pwvc"/></svg></span>
       </div>
-      <div class="scroll"><div class="waterfall" id="waterfall"></div></div>
+      <div class="scroll" data-page-node-id="FFxqSmQsG61X874MG2u1tM"><div class="waterfall" id="waterfall" data-page-node-id="WIoAe3LQrMFPo0WFKN0LUx"></div></div>
     </section>
 
     <!-- ========== 页面：问一问 / 点点对话（基座层） ========== -->
-    <section class="page" id="page-ask">
-      <div class="dd-nav">
-        <span class="nb" id="ask-back"><svg class="ic"><use href="#i-close"/></svg></span>
-        <span class="dd-title"><i class="dd-ghost"></i>点点</span>
-        <span class="nb" id="ask-more"><svg class="ic fill"><use href="#i-more"/></svg></span>
+    <section class="page" id="page-ask" data-page-node-id="e3AVToP4uETD2B3H7wSWUq">
+      <div class="dd-nav" data-page-node-id="zNwchKFgxiXGUdwmKEPQiv">
+        <span class="nb" id="ask-back" data-page-node-id="nmc9zBEpgOwikhRIx6DDcW"><svg class="ic" data-page-node-id="rZ2IwUKmOkahOFkwQdOSKa"><use href="#i-close" data-page-node-id="7V5TS1LwdMLRS0LKNoeBCl"/></svg></span>
+        <span class="dd-title" data-page-node-id="SP8EGnVRL4bgk2qKJFBDq5"><i class="dd-ghost" data-page-node-id="XTghbNWAEewtVtCdrQNryr"></i>点点</span>
+        <span class="nb" id="ask-more" data-page-node-id="FJgOlxqTgwA3s5uUNPfL6U"><svg class="ic fill" data-page-node-id="CJmrsbMFXPwPsLvAXxl3WF"><use href="#i-more" data-page-node-id="F51hJZxUFIAipGqVIvuwPo"/></svg></span>
       </div>
-      <div class="scroll">
-        <div class="chat" id="dd-chat">
+      <div class="scroll" data-page-node-id="5rmhujZuT6G8bzyoaHD4hN">
+        <div class="chat" id="dd-chat" data-page-node-id="p9zBWBWhinfTyHhaGyCRKe">
           <!-- 用户分享笔记 -->
-          <div class="msg user"><div class="bubble">[分享笔记] 博尔盖塞美术馆订票全攻略</div></div>
+          <div class="msg user" data-page-node-id="kBGKgHEDk0166lwBa6k1E1"><div class="bubble" data-page-node-id="5OZWsabsPb6ILtpv8cmFCQ">[分享笔记] 博尔盖塞美术馆订票全攻略</div></div>
           <!-- 点点询问建合集（默认显示） -->
-          <div class="bubble" id="dd-ask-bubble">
-            <p>收到这篇「博尔盖塞美术馆订票全攻略」。</p>
-            <div class="dd-question">
-              <div class="q-text">要不要帮你建一个<b>「意大利旅行」</b>合集，把这类的笔记都归到一起？</div>
-              <div class="q-hint">建好后，会在你的收藏页出现，之后分享的同类笔记都会自动放进这个合集。</div>
-              <div class="q-btns">
-                <div class="btn yes" onclick="buildAlbum()">好的，建一个</div>
-                <div class="btn no" onclick="declineAlbum()">先不用</div>
+          <div class="bubble" id="dd-ask-bubble" data-page-node-id="FrNDHas0McIQCkbWrrgNpx">
+            <p data-page-node-id="2fWkg29UTTx0SUB1HiKmcs">收到这篇「博尔盖塞美术馆订票全攻略」。</p>
+            <div class="dd-question" data-page-node-id="mCMrCVIuRuMNdYUdTqxH4Y">
+              <div class="q-text" data-page-node-id="6MSRImVxSNIWXx2ZQVK2dC">要不要帮你建一个<b data-page-node-id="Q9SctN1M9zN7Z4Lx5aDGPN">「意大利旅行」</b>合集，把这类的笔记都归到一起？</div>
+              <div class="q-hint" data-page-node-id="4aXKtp8VRAwgkX5Mk9BUJG">建好后，会在你的收藏页出现，之后分享的同类笔记都会自动放进这个合集。</div>
+              <div class="q-btns" data-page-node-id="TxbxvDRPA8Rv7ZUm0tACxU">
+                <div class="btn yes" onclick="buildAlbum()" data-page-node-id="DBYptLwRAO2fqPocyfnAHM">好的，建一个</div>
+                <div class="btn no" onclick="declineAlbum()" data-page-node-id="LCuKJs1KX92xN315qZEofG">先不用</div>
               </div>
             </div>
           </div>
           <!-- 建合集后的反馈（初始隐藏） -->
-          <div class="bubble" id="dd-done-bubble" style="display:none">
-            <p>已帮你建好合集 <b style="color:#3DDC84">「意大利旅行」</b> 🎉</p>
-            <p>以后分享的同类笔记会自动归进去。去收藏页看看吧。</p>
-            <div class="chain-entry" style="margin-top:10px" onclick="XHS.go('me')">
-              <div class="ce-cta" style="margin-top:0"><span class="go-btn">去收藏页查看</span><span class="hint">合集内有「专属点点」</span></div>
+          <div class="bubble" id="dd-done-bubble" style="display:none" data-page-node-id="HMsCUkUElazHXMCAsdbv0X">
+            <p data-page-node-id="ayLt20I2LCJrMphrJ6atjC">已帮你建好合集 <b style="color:#3DDC84" data-page-node-id="d89Pd7i1fxhLEVyYPC6hG7">「意大利旅行」</b> 🎉</p>
+            <p data-page-node-id="t87lERIKfdKODa2sEStXWl">以后分享的同类笔记会自动归进去。去收藏页看看吧。</p>
+            <div class="chain-entry" style="margin-top:10px" onclick="XHS.go('me')" data-page-node-id="wkJe4iMEpkOFmIlqsKepZj">
+              <div class="ce-cta" style="margin-top:0" data-page-node-id="2UpLtz8Ce39niUt7FvdvUj"><span class="go-btn" data-page-node-id="Cma4nkeN36iGJYQHNKXNzK">去收藏页查看</span><span class="hint" data-page-node-id="21VADAEME07eZ8MbVyjruI">合集内有「专属点点」</span></div>
             </div>
           </div>
           <!-- 拒绝后的反馈（初始隐藏） -->
-          <div class="bubble" id="dd-decline-bubble" style="display:none">
-            <p>好的，那先不建。这篇笔记我先帮你记住，之后想整理成合集随时说。</p>
+          <div class="bubble" id="dd-decline-bubble" style="display:none" data-page-node-id="P0NmbXxGy7uKWkrKuy2eM3">
+            <p data-page-node-id="ZEGd6Ng6bNx0mW16lbYB72">好的，那先不建。这篇笔记我先帮你记住，之后想整理成合集随时说。</p>
           </div>
-          <div class="dd-divider">聊聊新话题</div>
-          <div class="chips-q"><span>意大利 7 天 6 晚怎么排更顺？</span><span>推荐问题占位二</span><span>推荐问题占位三</span></div>
+          <div class="dd-divider" data-page-node-id="EcFEume5zQPbIs8vu6Hrna">聊聊新话题</div>
+          <div class="chips-q" data-page-node-id="TNAcOU361ZrG7Q8UxT6PZF"><span data-page-node-id="n4XLGJG2Nu6NoRdc8cXGxn">意大利 7 天 6 晚怎么排更顺？</span><span data-page-node-id="diLSxWExOuTbABi5w2Da7Z">推荐问题占位二</span><span data-page-node-id="a9SZykMzS4z2JAqZOA5kFC">推荐问题占位三</span></div>
         </div>
       </div>
-      <div class="dd-input">
-        <svg class="ic"><use href="#i-voice"/></svg><span class="ph">发消息或按住说话…</span>
-        <svg class="ic"><use href="#i-camera"/></svg><svg class="ic"><use href="#i-plus-c"/></svg>
+      <div class="dd-input" data-page-node-id="7rIDlhPDB5wUZvO84EUy2S">
+        <svg class="ic" data-page-node-id="O6RjPSXQEdDDNbLpY0G3pD"><use href="#i-voice" data-page-node-id="MU2T82mL7U3Obrg6SbsA2M"/></svg><span class="ph" data-page-node-id="lvAGmRH9JI5FyIfWwDd0WN">发消息或按住说话…</span>
+        <svg class="ic" data-page-node-id="V8uh3m9EQ1caK0nXo4xekw"><use href="#i-camera" data-page-node-id="gUEbPRVuWWkTUlhGE3sJRc"/></svg><svg class="ic" data-page-node-id="ltDBl32PWdtmxKdDIFQlwg"><use href="#i-plus-c" data-page-node-id="GxJykRHq5pv0b79zlCSmGm"/></svg>
       </div>
-      <div class="dd-foot">内容由 AI 生成</div>
+      <div class="dd-foot" data-page-node-id="xobMRXtVzaDpBTLdDMCzSI">内容由 AI 生成</div>
     </section>
 
     <!-- ========== 页面：点点设置（基座层；入口：点点对话页右上角 ···） ========== -->
-    <section class="page" id="page-ddset">
-      <div class="dd-nav"><span class="nb" id="set-back"><svg class="ic"><use href="#i-left"/></svg></span></div>
-      <div class="scroll">
-        <div class="set-logo"><i class="dd-ghost"></i></div>
-        <div class="set-name">点点</div>
-        <div class="set-group">
-          <div class="set-row"><svg class="ic"><use href="#i-history"/></svg><span class="tx">历史对话</span><svg class="ic arrow"><use href="#i-right"/></svg></div>
-          <div class="set-row"><svg class="ic"><use href="#i-star"/></svg><span class="tx">我的收藏</span><svg class="ic arrow"><use href="#i-right"/></svg></div>
-          <div class="set-row"><svg class="ic"><use href="#i-bell"/></svg><span class="tx">我的订阅</span><svg class="ic arrow"><use href="#i-right"/></svg></div>
+    <section class="page" id="page-ddset" data-page-node-id="hjmOxtmgopLpyWhjGn9JbV">
+      <div class="dd-nav" data-page-node-id="QzMK6YechLd9CEPBmJBDOV"><span class="nb" id="set-back" data-page-node-id="YL5x5zWfEa1SWDGbieUYQ2"><svg class="ic" data-page-node-id="YDspSwAcIU3vFQ1oIJFbto"><use href="#i-left" data-page-node-id="lendVTp9d3DkDLILDEm5bf"/></svg></span></div>
+      <div class="scroll" data-page-node-id="76AUJOmqX8kWqfbk5smWyf">
+        <div class="set-logo" data-page-node-id="mdd9YKKz43xlCtvf20eSIB"><i class="dd-ghost" data-page-node-id="PT83BOGN4IGSO1uv5LPTi6"></i></div>
+        <div class="set-name" data-page-node-id="e7BBgD4OQpJlRW4OGjE30Z">点点</div>
+        <div class="set-group" data-page-node-id="apwGIcXNVgyOgjEPIUFoRp">
+          <div class="set-row" data-page-node-id="vMeTVH8JR99TArdKBCNTEH"><svg class="ic" data-page-node-id="gz30B0UuBKSZReiFR6gfBk"><use href="#i-history" data-page-node-id="5ZDlL80LbagnEfWFoNtb0m"/></svg><span class="tx" data-page-node-id="qUatF28l0lovfk538vle4i">历史对话</span><svg class="ic arrow" data-page-node-id="EFLelk1nv3rfB4M8qrfQHs"><use href="#i-right" data-page-node-id="rgm4YRU8qe1JnDpTKprUMn"/></svg></div>
+          <div class="set-row" data-page-node-id="1aPh9xII7bgchxpGef0EzM"><svg class="ic" data-page-node-id="wXGwDVB0iJaoxXI0F5Czhr"><use href="#i-star" data-page-node-id="2fymBklK2LX8lGbuIZCn8r"/></svg><span class="tx" data-page-node-id="Cro15FOW8NidvIHH5T3YKD">我的收藏</span><svg class="ic arrow" data-page-node-id="2lGE7qCMHgdBIDD1JOgoFA"><use href="#i-right" data-page-node-id="JvanApufRn5tv85rCgeHoQ"/></svg></div>
+          <div class="set-row" data-page-node-id="QDwdd4XWYFhioLt2D3v4Cm"><svg class="ic" data-page-node-id="idJXPi8BAUgIaAAyfxTO69"><use href="#i-bell" data-page-node-id="Ab6gtfj7kU1KQYhOhubvtq"/></svg><span class="tx" data-page-node-id="zA2iQtv3n3FZYhypqnU4gL">我的订阅</span><svg class="ic arrow" data-page-node-id="AnOJMw6bE4jSeN5819Moai"><use href="#i-right" data-page-node-id="1dXKI4WBxt9rU6F6g6p4Cs"/></svg></div>
         </div>
-        <div class="set-group">
-          <div class="set-row"><svg class="ic"><use href="#i-top"/></svg><span class="tx">消息置顶</span><span class="tg"></span></div>
-          <div class="set-row"><svg class="ic"><use href="#i-split"/></svg><span class="tx">滑动页面可问点点</span><span class="tg on"></span></div>
+        <div class="set-group" data-page-node-id="EN13F7rDEWMm7rHmmBF2U4">
+          <div class="set-row" data-page-node-id="fAO04iDBQQTEwgot0MUtaf"><svg class="ic" data-page-node-id="oDUfdQrj4ZAk4g9nm2HhZ2"><use href="#i-top" data-page-node-id="8c1gMUfWGgzhleflEMlEHW"/></svg><span class="tx" data-page-node-id="SxWr99nvRF1g02PBTQh6Zf">消息置顶</span><span class="tg" data-page-node-id="PFIKBVMJAjFZOwsUFQraqG"></span></div>
+          <div class="set-row" data-page-node-id="KR6ec07QYIgEJ21mLuDlkE"><svg class="ic" data-page-node-id="D9BMp53DjJ1HOE4kq2oj2h"><use href="#i-split" data-page-node-id="9M975eeG6yZ14Nyrd8wNLA"/></svg><span class="tx" data-page-node-id="NqtT1U4Up2wsb0VxJiMAU2">滑动页面可问点点</span><span class="tg on" data-page-node-id="kDXNuJmjbTvLzHoKokWmyV"></span></div>
         </div>
-        <div class="set-group">
-          <div class="set-row"><svg class="ic"><use href="#i-feedback"/></svg><span class="tx">反馈与建议</span><svg class="ic arrow"><use href="#i-right"/></svg></div>
-          <div class="set-row"><svg class="ic"><use href="#i-bubble"/></svg><span class="tx">点点 App</span><span class="open-btn">打开</span></div>
+        <div class="set-group" data-page-node-id="vhDsvZBpACTuj9Z0pPNmGw">
+          <div class="set-row" data-page-node-id="yxBHR0cq1yMuc0Dz5ChXCg"><svg class="ic" data-page-node-id="TZqk6xPguS9vCEvleC7XFC"><use href="#i-feedback" data-page-node-id="BIv4QEizEMmywW3gLDclES"/></svg><span class="tx" data-page-node-id="DEw8DK0tIiaj11W4YX20Gq">反馈与建议</span><svg class="ic arrow" data-page-node-id="V1cLbNYeSIsho04ale8Nr3"><use href="#i-right" data-page-node-id="3R1hlwS9Z7ror2PEsgrfxl"/></svg></div>
+          <div class="set-row" data-page-node-id="Nie9O4k3J9weZPjCZfGgGT"><svg class="ic" data-page-node-id="B9VoUHBLktjB6Y8M5VhUsJ"><use href="#i-bubble" data-page-node-id="GWqkXGALqheAcn5T6l6NWX"/></svg><span class="tx" data-page-node-id="xEl5wUpDhFT6rMcFvqABYE">点点 App</span><span class="open-btn" data-page-node-id="dDAD7Ha8lucxmYHy55ZOhB">打开</span></div>
         </div>
       </div>
     </section>
 
     <!-- ========== 页面：市集（基座层，仅占位） ========== -->
-    <section class="page" id="page-market">
-      <div class="market-ph">市集占位</div>
+    <section class="page" id="page-market" data-page-node-id="fS2QQZMLPJeC4sPmX5JNjI">
+      <div class="market-ph" data-page-node-id="n2M3OSg77QiB2Oa82e9O2N">市集占位</div>
     </section>
 
     <!-- ========== 页面：消息（基座层） ========== -->
-    <section class="page" id="page-msg">
-      <div class="msg-nav">
-        <span class="t">消息</span>
-        <span class="acts"><svg class="ic"><use href="#i-search"/></svg><svg class="ic"><use href="#i-plus-c"/></svg></span>
+    <section class="page" id="page-msg" data-page-node-id="ixQ9T0dGsQ2cKZuiEcjv1b">
+      <div class="msg-nav" data-page-node-id="LxHczfyKuLRi63yL2CkKBY">
+        <span class="t" data-page-node-id="FEj2Vr0vuDBJeFPjI7I6Fi">消息</span>
+        <span class="acts" data-page-node-id="U2NeCHREoCAhSHiFuBwAaI"><svg class="ic" data-page-node-id="EWUEZatEmorzWLUyD3r7EP"><use href="#i-search" data-page-node-id="m1vikO4GRUQuFWLZvOUcHp"/></svg><svg class="ic" data-page-node-id="9eZogJ4Od50CO6ZkatkGQB"><use href="#i-plus-c" data-page-node-id="fA52S133V3Zz2gtVQqUPc4"/></svg></span>
       </div>
-      <div class="scroll">
-        <div class="msg-entries">
-          <div class="e"><div class="sq red"><svg class="ic fill"><use href="#i-heart"/></svg></div>赞和收藏</div>
-          <div class="e"><div class="sq blue"><svg class="ic fill"><use href="#i-person"/></svg></div>新增关注</div>
-          <div class="e"><div class="sq green"><svg class="ic fill"><use href="#i-chat-dots"/></svg></div>评论和 @</div>
+      <div class="scroll" data-page-node-id="fhoTjLkjU6I9V2H91ngyI2">
+        <div class="msg-entries" data-page-node-id="UTrfahoE7H99QGNbSNV8k2">
+          <div class="e" data-page-node-id="mpY2EQ1plxsZdoDskM5W1J"><div class="sq red" data-page-node-id="ouUxJgnjP35lYxoFOaso5C"><svg class="ic fill" data-page-node-id="1S1xjG8MEh29pcjRFFSM1f"><use href="#i-heart" data-page-node-id="tS13UjXqRVAqWgzBqOfjZD"/></svg></div>赞和收藏</div>
+          <div class="e" data-page-node-id="t8JQONAqhf1xfyXypfiCa9"><div class="sq blue" data-page-node-id="Rcf2PgMV2aenPSPdmjwR6p"><svg class="ic fill" data-page-node-id="CPS9d8rC54xaGXmQFKuRNR"><use href="#i-person" data-page-node-id="Dtv2e9F2BGCPCMZXfgq4is"/></svg></div>新增关注</div>
+          <div class="e" data-page-node-id="SM1wJvwkGl9ArKr7a9gmG1"><div class="sq green" data-page-node-id="37cGGn0m3I0fTaaPsKjCLG"><svg class="ic fill" data-page-node-id="9AWKFJRfxmHlwAkJOFGk4Y"><use href="#i-chat-dots" data-page-node-id="YSB9RNP9yr5wZrXA880Eao"/></svg></div>评论和 @</div>
         </div>
-        <div class="chat-row"><div class="ava"></div><div class="mid"><div class="nm">用户</div><div class="sub">10 分钟内在线</div></div><span class="tm">18:46</span></div>
-        <div class="chat-row"><div class="ava"></div><div class="mid"><div class="nm">用户</div><div class="sub">1 小时内在线</div></div><span class="tm">18:40</span></div>
-        <div class="chat-row"><div class="ava white"></div><div class="mid"><div class="nm">点点 <span class="ai">ai</span></div><div class="sub">从行业里分享的面试经验来看，UX 面试问……</div></div><span class="tm">17:16</span></div>
-        <div class="chat-row"><div class="ava"></div><div class="mid"><div class="nm">群聊名称占位</div><div class="sub">[笔记] 笔记标题占位</div></div><span class="tm">星期二</span></div>
-        <div class="chat-row"><div class="ava blue"><svg class="ic fill"><use href="#i-bubble"/></svg></div><div class="mid"><div class="nm">活动消息</div><div class="sub">欢迎登录！一起来探索最近的火爆的内容</div></div><span class="tm">09-19</span></div>
-        <div class="chat-row"><div class="ava blue"><svg class="ic fill"><use href="#i-bell"/></svg></div><div class="mid"><div class="nm">系统消息</div><div class="sub">隐私政策更新通知</div></div><span class="tm">2024-02-28</span></div>
-        <div class="rec-head"><span>你可能感兴趣的人 <svg class="ic"><use href="#i-info"/></svg></span><span>关闭</span></div>
-        <div class="chat-row"><div class="ava"></div><div class="mid"><div class="sk" style="width:55%;height:14px"></div><div class="sk" style="width:35%;height:10px;margin-top:8px"></div></div><span class="follow-btn">关注</span></div>
-        <div class="chat-row" style="padding-bottom:90px"><div class="ava"></div><div class="mid"><div class="sk" style="width:45%;height:14px"></div><div class="sk" style="width:60%;height:10px;margin-top:8px"></div></div><span class="follow-btn">关注</span></div>
+        <div class="chat-row" data-page-node-id="gX6fudbRpyzvUc18PJjKaq"><div class="ava" data-page-node-id="HLOvkjb2a14AJBaPKT7GSJ"></div><div class="mid" data-page-node-id="EPnyGaIC3kjuLDydeoS50Y"><div class="nm" data-page-node-id="4eHp4Z8dv5hiCAxHzwFkZV">用户</div><div class="sub" data-page-node-id="XVfI90bDrXL91eohwWpf8w">10 分钟内在线</div></div><span class="tm" data-page-node-id="28xOFHQjqgIESmazmeHT72">18:46</span></div>
+        <div class="chat-row" data-page-node-id="45MaGVtvF91iDfRTr1eUOX"><div class="ava" data-page-node-id="YaxNWA8kTiFcUkzBH6x7lC"></div><div class="mid" data-page-node-id="6Mg2ENtqmMgKyNYgCAZFeR"><div class="nm" data-page-node-id="7boivgV8KwGDLpG1bD5NDV">用户</div><div class="sub" data-page-node-id="ehjB1CyOLEfQDnvi2u7z1I">1 小时内在线</div></div><span class="tm" data-page-node-id="8ZNHiosUQHGD8EPcvwJooy">18:40</span></div>
+        <div class="chat-row" data-page-node-id="1vXcfG5t7v1aLxDWhu21QE"><div class="ava white" data-page-node-id="6zF6CLTzfgzMDoG7GO7opE"></div><div class="mid" data-page-node-id="5yIlUGg7ifH0kNtRaJK5So"><div class="nm" data-page-node-id="rmyjE5N9vcbNxlZLbyPJEV">点点 <span class="ai" data-page-node-id="4GJjzeHKFjmIR5DlbAWEey">ai</span></div><div class="sub" data-page-node-id="4u1CtcBJ6Z3vND6B9aNrBz">从行业里分享的面试经验来看，UX 面试问……</div></div><span class="tm" data-page-node-id="pkazew3UKMFfLUyXLsmHWW">17:16</span></div>
+        <div class="chat-row" data-page-node-id="WziPjHyAN85Uk8LuEaz7CT"><div class="ava" data-page-node-id="VNY8h4S5SOeCez8c9gIk1X"></div><div class="mid" data-page-node-id="1aIQTaAA1NRgADKQHvFBEf"><div class="nm" data-page-node-id="ag3yUWs0LhEW9OpK7DQmUs">群聊名称占位</div><div class="sub" data-page-node-id="ucXyiCRY35vF1NEFXxRegN">[笔记] 笔记标题占位</div></div><span class="tm" data-page-node-id="gO6hETYyIsOR4Mz610Gsah">星期二</span></div>
+        <div class="chat-row" data-page-node-id="zgx4ccH6hFaERAQ9VtVHge"><div class="ava blue" data-page-node-id="yTEcORkEus0fbB1ONVLIsE"><svg class="ic fill" data-page-node-id="q5iFlMt58qf7e5bYDcaDvb"><use href="#i-bubble" data-page-node-id="8wSgXPBZ9xGhAdpOdUtvZY"/></svg></div><div class="mid" data-page-node-id="lQ4AC8mk0s5DAXlhw4rFSN"><div class="nm" data-page-node-id="kr2c7C6MJHXnk9Ce7YGJOf">活动消息</div><div class="sub" data-page-node-id="egyZuqYLRzSsruNwbpcTrK">欢迎登录！一起来探索最近的火爆的内容</div></div><span class="tm" data-page-node-id="iVGsYu2xv5RxXQplSoaBpB">09-19</span></div>
+        <div class="chat-row" data-page-node-id="DyeSBl6VEHMFBDzyi07Tty"><div class="ava blue" data-page-node-id="57C3T2WhgrJt0qNdZx1rQC"><svg class="ic fill" data-page-node-id="WDCiq7VYzNbS7S0tcnyuHF"><use href="#i-bell" data-page-node-id="3BywxH4rFutciNblqRADVT"/></svg></div><div class="mid" data-page-node-id="Ul04Qh3gZMER8gS5PdzLv1"><div class="nm" data-page-node-id="OLQ4Nd0T9WWKJPtAMrqdB1">系统消息</div><div class="sub" data-page-node-id="zyvlqA6aiWlirWiuC8IgKq">隐私政策更新通知</div></div><span class="tm" data-page-node-id="7FR4JsMPMSsrM303fcEEdt">2024-02-28</span></div>
+        <div class="rec-head" data-page-node-id="1yiYhrMore9vF67DvRxr0H"><span data-page-node-id="6aFXWupRiEaWL7fHVISt7z">你可能感兴趣的人 <svg class="ic" data-page-node-id="DjK2Wj1u8cVO8Q3lKgB380"><use href="#i-info" data-page-node-id="C0pfZBSoFRvMsHZ6SQQKSs"/></svg></span><span data-page-node-id="cBYcBaLIbykGnOm9RStgEB">关闭</span></div>
+        <div class="chat-row" data-page-node-id="6z6XSnOld7sHGTrlqn7NUw"><div class="ava" data-page-node-id="ES0yVSM316WxXHidmFFZMW"></div><div class="mid" data-page-node-id="Q4BZbCkGC1k7vsbw4X9g2p"><div class="sk" style="width:55%;height:14px" data-page-node-id="ZKLXxn2B7mefjX6SzqtsMA"></div><div class="sk" style="width:35%;height:10px;margin-top:8px" data-page-node-id="cNQVeAX5rufS41KhPHXXhR"></div></div><span class="follow-btn" data-page-node-id="sLC6xfFZ61MD8cmMAgvHgC">关注</span></div>
+        <div class="chat-row" style="padding-bottom:90px" data-page-node-id="lV2OZf1nMgURNXMgEpSIL5"><div class="ava" data-page-node-id="ItdBHrPsovySnNe3jFQGdi"></div><div class="mid" data-page-node-id="nzxD9iHiducaSWhmZqfFur"><div class="sk" style="width:45%;height:14px" data-page-node-id="ko9jBzmWigdOrztEmBPuaN"></div><div class="sk" style="width:60%;height:10px;margin-top:8px" data-page-node-id="w3N8kGz2rLxjK4KCPkKlAG"></div></div><span class="follow-btn" data-page-node-id="iQadUI0g3tEBaspayLg9SO">关注</span></div>
       </div>
-      <div class="toast" id="toast">
-        <span class="bell"><svg class="ic fill"><use href="#i-bell"/></svg></span>
-        <span class="tx">打开通知，不再错过互动消息</span>
-        <span class="go">开启</span>
-        <span class="x" id="toast-x"><svg class="ic"><use href="#i-close"/></svg></span>
+      <div class="toast" id="toast" data-page-node-id="3V0aONv02pEesFJFJdTThU">
+        <span class="bell" data-page-node-id="mxyeVyAx4tZpdkangOXSEe"><svg class="ic fill" data-page-node-id="Q1G1Mr7RbLERxj3XQbCmfK"><use href="#i-bell" data-page-node-id="p7WyrwMJWTd6zcbIP2GgEx"/></svg></span>
+        <span class="tx" data-page-node-id="pyE6hNb74wojg0V6VCnBFL">打开通知，不再错过互动消息</span>
+        <span class="go" data-page-node-id="rT97jde9iLVfzoBl5IALJf">开启</span>
+        <span class="x" id="toast-x" data-page-node-id="0DbZqfWKnxEtOqGW5b5bvv"><svg class="ic" data-page-node-id="BtmYDHdHsGvRlnRvKEFExZ"><use href="#i-close" data-page-node-id="6ZlENN6jVTm3MnZb4im1xp"/></svg></span>
       </div>
     </section>
 
     <!-- ========== 页面：我（基座层） ========== -->
-    <section class="page" id="page-me">
-      <div class="scroll">
-        <div class="me-hero">
-          <div class="me-actions">
-            <svg class="ic"><use href="#i-menu"/></svg>
-            <div class="r">
-              <span class="edit-pill"><svg class="ic" style="font-size:16px"><use href="#i-edit"/></svg>编辑主页</span>
-              <svg class="ic"><use href="#i-scan"/></svg>
-              <svg class="ic"><use href="#i-share"/></svg>
+    <section class="page" id="page-me" data-page-node-id="wBxTFuHTlrG101mAXprACN">
+      <div class="scroll" data-page-node-id="42ZxvyH0BsfHOyeEqB6QhM">
+        <div class="me-hero" data-page-node-id="UULyEwuZ9hYCOxtJH6Ql0p">
+          <div class="me-actions" data-page-node-id="glR3jxFq1aWJaagOmEA4XC">
+            <svg class="ic" data-page-node-id="vQIcRuoSF0JamWNQhwHIzE"><use href="#i-menu" data-page-node-id="oAuXoPzET1GMkRI8FttbIs"/></svg>
+            <div class="r" data-page-node-id="z525B6DRPNZkb2Xr7kwLFO">
+              <span class="edit-pill" data-page-node-id="WsaM2SXlxAm0RrE2rZGPvw"><svg class="ic" style="font-size:16px" data-page-node-id="TLOka6zWBJ5CMJMqt7ef67"><use href="#i-edit" data-page-node-id="UxmRhnCHtF4WBhPSEn10bT"/></svg>编辑主页</span>
+              <svg class="ic" data-page-node-id="4NZWVaj11S9yi6g30IPOJv"><use href="#i-scan" data-page-node-id="Ptt3k8xa25yW6XiL6nM5YO"/></svg>
+              <svg class="ic" data-page-node-id="bA30cPKElyrlzILkJN87IU"><use href="#i-share" data-page-node-id="c74RbI1CCzXIh9xc0omuDC"/></svg>
             </div>
           </div>
-          <div class="me-profile">
-            <div class="big-ava"></div>
-            <div>
-              <div class="nm">用户 <svg class="ic"><use href="#i-down"/></svg></div>
-              <div class="id">小红书号：0000000000</div>
-              <div class="id" style="margin-top:6px">IP：未知</div>
+          <div class="me-profile" data-page-node-id="gJ50oAxPVmiqDMLmuUmC0N">
+            <div class="big-ava" data-page-node-id="fEsAUCm9ySODiGo6ciT52R"></div>
+            <div data-page-node-id="WnDnDzZH3DF95mKwV4ePIk">
+              <div class="nm" data-page-node-id="JC3WBczOpTeyl9rW2xiLyq">用户 <svg class="ic" data-page-node-id="zCOS0X2YqRCWf7qAkqKkLP"><use href="#i-down" data-page-node-id="pn2R7ukRDkVHwnAJNqBQQY"/></svg></div>
+              <div class="id" data-page-node-id="klHRgokFOgyJFm3Vj6JN6l">小红书号：0000000000</div>
+              <div class="id" style="margin-top:6px" data-page-node-id="3bHoZb6CGXpayiObVhRYyf">IP：未知</div>
             </div>
           </div>
-          <div class="me-stats"><span><b>15</b>关注</span><span><b>2</b>粉丝</span><span><b>0</b>获赞与收藏</span></div>
-          <div class="me-bio">点击这里，填写简介</div>
-          <div class="me-quick">
-            <div class="q"><b>个人售卖</b><span>出闲置搞副业</span></div>
-            <div class="q"><b>浏览记录</b><span>看过的笔记</span></div>
-            <div class="q"><b>群聊</b><span>查看详情</span></div>
-            <div class="q"><b>更多</b><span>···</span></div>
+          <div class="me-stats" data-page-node-id="3cbGkDEQvEdLAo4bzSD9Je"><span data-page-node-id="iV01x2izqWQ8SlxfEypk0W"><b data-page-node-id="AXWx86fhabrqpYofxB8Wox">15</b>关注</span><span data-page-node-id="rLIAsU8NLVS1ozKrZlz6kx"><b data-page-node-id="qbmpIzqBuOYCOuUJDNvxsT">2</b>粉丝</span><span data-page-node-id="wR1u74KnpH3hy1Z7y3nr5o"><b data-page-node-id="ahfWoh0xlWFjZowZKyzSNz">0</b>获赞与收藏</span></div>
+          <div class="me-bio" data-page-node-id="CwQAmX44dLzIlgSEHyRjfd">点击这里，填写简介</div>
+          <div class="me-quick" data-page-node-id="AnZ1PVDypvzpRZr7IEENBt">
+            <div class="q" data-page-node-id="bioq3cZGutcHePQxUWbBgE"><b data-page-node-id="QcosIjqoJHDZUsQwA9dFNo">个人售卖</b><span data-page-node-id="jBVgC59hD4zxucGXvIIVoo">出闲置搞副业</span></div>
+            <div class="q" data-page-node-id="ySxkmg28EnDMzR6vJs9Xkp"><b data-page-node-id="lk8XCXlGDDYO0nrqh5tYaB">浏览记录</b><span data-page-node-id="gwNsJkdRO2m2G9l6ozFG0s">看过的笔记</span></div>
+            <div class="q" data-page-node-id="wFZxwQClHMFNMTXLkJfQwt"><b data-page-node-id="ukLcTsnQCjMZtvv9PDK3T6">群聊</b><span data-page-node-id="Vvnyajc97MZ9vFKP3QE0br">查看详情</span></div>
+            <div class="q" data-page-node-id="gOWptaML8voXQ1iScq2lZF"><b data-page-node-id="G7XHEDwWd407HS1eHEEHAj">更多</b><span data-page-node-id="lZPCWrYlzPSGLJf2GxYP7y">···</span></div>
           </div>
         </div>
 
-        <div class="me-sheet">
-          <div class="me-tabs" id="me-tabs">
-            <span data-k="note" class="on">笔记</span>
-            <span data-k="cmt"><svg class="ic lock"><use href="#i-lock"/></svg>评论</span>
-            <span data-k="fav">收藏</span>
-            <span data-k="like"><svg class="ic lock"><use href="#i-lock"/></svg>赞过</span>
-            <svg class="ic sr"><use href="#i-search"/></svg>
+        <div class="me-sheet" data-page-node-id="4HvnKfmue3G4FfvLRYefA2">
+          <div class="me-tabs" id="me-tabs" data-page-node-id="zqDtR5K2ouTcgHNyyf0UbH">
+            <span data-k="note" class="on" data-page-node-id="5vU96WjxmpqtbTYLU1IYXq">笔记</span>
+            <span data-k="cmt" data-page-node-id="9XevjsvxkVxAOSCECiCSef"><svg class="ic lock" data-page-node-id="iB3PHAroHbt2YwpuHCMpC5"><use href="#i-lock" data-page-node-id="pUdo5oy9EiuppHw40n2Mua"/></svg>评论</span>
+            <span data-k="fav" data-page-node-id="CsB67HvVe5miWKzJhkePje">收藏</span>
+            <span data-k="like" data-page-node-id="FHYqUOGp8g6X3gPr7D6jXE"><svg class="ic lock" data-page-node-id="ydXVCx5uZIwLzxWTdkJEF0"><use href="#i-lock" data-page-node-id="IzPwptua0BAypbwAcZbjAj"/></svg>赞过</span>
+            <svg class="ic sr" data-page-node-id="4oC3POLTumGeGoFHoo9vK6"><use href="#i-search" data-page-node-id="VEm7yDnDHdlMt0VWIZwyUB"/></svg>
           </div>
 
           <!-- 笔记 -->
-          <div class="me-panel show" data-p="note">
-            <div class="banner"><div class="th"></div><div class="tx"><b>晒晒用插画表达的梦境</b><div>官方喊你参与话题</div></div><span class="go">去发布</span><span class="x"><svg class="ic"><use href="#i-close"/></svg></span></div>
-            <div class="waterfall" id="waterfall-me"></div>
+          <div class="me-panel show" data-p="note" data-page-node-id="3DW6QF7AsPp2K5qFbUYgCO">
+            <div class="banner" data-page-node-id="IYIBXQQdZaHcBAGHEKiqk2"><div class="th" data-page-node-id="WDO6FOtqcWsHbgoi5iD9vx"></div><div class="tx" data-page-node-id="Cp0J9yLCH9ZgETVmbYLWWf"><b data-page-node-id="LUTZ8wRr95SIPOQcujyYhC">晒晒用插画表达的梦境</b><div data-page-node-id="j9XmnuTDe70wqurthr29x1">官方喊你参与话题</div></div><span class="go" data-page-node-id="hozqzFFOnXKhMG5D26yNcr">去发布</span><span class="x" data-page-node-id="OIgezuSUGvqC6y85SpwTzN"><svg class="ic" data-page-node-id="iTwGBpHi7K2HAYPDNyIAaI"><use href="#i-close" data-page-node-id="zfR7f7Lk5bQgXbteFTP5zK"/></svg></span></div>
+            <div class="waterfall" id="waterfall-me" data-page-node-id="HebBEuFV9Ur2e0bh9HsrxR"></div>
           </div>
 
           <!-- 收藏 -->
-          <div class="me-panel" data-p="fav">
-            <div class="fav-sub" id="fav-sub">
-              <span data-f="fnote">笔记 355</span>
-              <span data-f="falbum" id="fav-album-tab">专辑 2</span>
-              <span data-f="fdd" class="on"><svg class="ic"><use href="#i-lock"/></svg>点点 1</span>
+          <div class="me-panel" data-p="fav" data-page-node-id="yVeMCayBbzD4TIG3GQpAqB">
+            <div class="fav-sub" id="fav-sub" data-page-node-id="ijqJfyJxbrYblYFMCSZQWL">
+              <span data-f="fnote" data-page-node-id="0rY9OmEhBOHgR3aJLMGDCV">笔记 355</span>
+              <span data-f="falbum" id="fav-album-tab" data-page-node-id="SD0DEaqVuUkHWPNAo73Kz8">专辑 2</span>
+              <span data-f="fdd" class="on" data-page-node-id="pCyKLm6K8H3om1DnYQ8px5"><svg class="ic" data-page-node-id="VFxpOJ91ySktlEXpxMvtnz"><use href="#i-lock" data-page-node-id="v7vg5iB9TedR27lchsFr04"/></svg>点点 1</span>
               <!-- ★ 增量层 v3：「链路」分类 tab -->
-              <span id="fav-guide-tab-slot" data-slot="fav-guide-tab" data-f="fchain"><svg class="ic"><use href="#i-link"/></svg>链路 1</span>
+              <span id="fav-guide-tab-slot" data-slot="fav-guide-tab" data-f="fchain" data-page-node-id="WjFmyP4EJyVUdaeRw2yppM"><svg class="ic" data-page-node-id="s1YZQN2Zzx59bMCbuvlhgi"><use href="#i-link" data-page-node-id="mXB1X9i3REDu8qnVgtNDuL"/></svg>链路 1</span>
             </div>
-            <div class="fav-panel" data-fp="fnote"><div class="waterfall" id="waterfall-fav"></div></div>
-            <div class="fav-panel" data-fp="falbum">
-              <div class="fav-album-list" id="fav-album-list" style="padding:0">
-                <div class="fav-create" id="fav-create"><span class="ico"><svg class="ic"><use href="#i-plus"/></svg></span><span class="tx">创建新专辑</span><svg class="ic arrow"><use href="#i-right"/></svg></div>
-                <div class="fab"><div class="h"><div><div class="t">周末探店</div><div class="m"><span>笔记 · 45</span><span>共享人 · 3</span><span class="avs"><i></i><i></i><i></i></span></div></div><svg class="ic lockic"><use href="#i-lock"/></svg></div><div class="th"><i></i><i></i><i></i><i class="e"></i></div></div>
-                <div class="fab"><div class="h"><div><div class="t">家常菜谱</div><div class="m"><span>笔记 · 38</span><span>共享人 · 3</span><span class="avs"><i></i><i></i><i></i></span></div></div><svg class="ic lockic"><use href="#i-lock"/></svg></div><div class="th"><i></i><i></i><i></i><i></i></div></div>
+            <div class="fav-panel" data-fp="fnote" data-page-node-id="ZHhLI1YpuZtL4XBKzOPgHY"><div class="waterfall" id="waterfall-fav" data-page-node-id="yQTTa2zG4UKjb0DLFaEPBp"></div></div>
+            <div class="fav-panel" data-fp="falbum" data-page-node-id="rmLvg19X0O4Xkiv4movYft">
+              <div class="fav-album-list" id="fav-album-list" style="padding:0" data-page-node-id="F9KtAAK2bkRF1OFKFAT7Zx">
+                <div class="fav-create" id="fav-create" data-page-node-id="HXwpHp6QCwcPMHHUVbWJUh"><span class="ico" data-page-node-id="mcf9NEV5NtCj0WeaiwUXL4"><svg class="ic" data-page-node-id="el6VcKEAA9IzVrkdQl4qQU"><use href="#i-plus" data-page-node-id="Gp5Cpn7mIXqZ6Sq7AfMJZN"/></svg></span><span class="tx" data-page-node-id="lA4LtWX1tmVXcNHKMH1yDH">创建新专辑</span><svg class="ic arrow" data-page-node-id="OLIPER3PJ7C3cInjUlFdan"><use href="#i-right" data-page-node-id="fB4aItNyWYs9Q26OwbRKtq"/></svg></div>
+                <div class="fab" data-page-node-id="aEh6RW5dagt4GMYVSeawvS"><div class="h" data-page-node-id="FkpEYC0eUWuKEfQsqda9oj"><div data-page-node-id="ED5C2cLYSFQ6TFWd9DsIZq"><div class="t" data-page-node-id="BDb6b66WBVxCYBy4QbyEAA">周末探店</div><div class="m" data-page-node-id="MJpiJwQqBL4Jh2yuaKCkVJ"><span data-page-node-id="nANuPRKjLX9T1EBvJ9yGRS">笔记 · 45</span><span data-page-node-id="Lh9dxMOJfVwfhGJuch0Q4G">共享人 · 3</span><span class="avs" data-page-node-id="gXKoAAzMXeEOta0CjCMHVd"><i data-page-node-id="ozUKHsMxGCX5hdDdIO2KLz"></i><i data-page-node-id="uFbZUHY4G7oTsnxB3wvA0L"></i><i data-page-node-id="J8SvfX4LRNeBHpy5FaDzWX"></i></span></div></div><svg class="ic lockic" data-page-node-id="Ogv59O3xEml9r0rJpOWOCb"><use href="#i-lock" data-page-node-id="WdOpxi6WsiRbXFOHeGGaB5"/></svg></div><div class="th" data-page-node-id="wjU3vq6CRfAH3xs4uFNyRm"><i data-page-node-id="D93caHigWxYqO3O9wppGH9"></i><i data-page-node-id="u4KfSIlbxBa6iDupAKdIDC"></i><i data-page-node-id="JxVChx4j9RaT1w0Exk0C4k"></i><i class="e" data-page-node-id="vH1z5agHX0ScW0ODPtpF3i"></i></div></div>
+                <div class="fab" data-page-node-id="8BzZgiX2t46D2jcBk4wnjy"><div class="h" data-page-node-id="WIKtrFvuENsuhfOxZB8awD"><div data-page-node-id="bHJAyIH1n4siCNQSBcWjGy"><div class="t" data-page-node-id="uZGGBrZmuRsLvKG8pBiLIq">家常菜谱</div><div class="m" data-page-node-id="TaD5en54KLGtwxmHx667DH"><span data-page-node-id="AHQBg17ElAYPO40D9fj8aD">笔记 · 38</span><span data-page-node-id="qhUeTuoeJNneRcmHwWrNC5">共享人 · 3</span><span class="avs" data-page-node-id="m0B8Jw9BW0HGmX9WXyF21R"><i data-page-node-id="hbdMb0lIyi9fYCq56AvMFW"></i><i data-page-node-id="QBpC1OJVY9MMy0tILeAv1C"></i><i data-page-node-id="EirR4N2I3oFxSwXuqNM8eT"></i></span></div></div><svg class="ic lockic" data-page-node-id="DBnO6lKRCQS1qAV925naGg"><use href="#i-lock" data-page-node-id="yQzYlmDAmRXTUEjwEH6sqL"/></svg></div><div class="th" data-page-node-id="syAHTeSNGo6x8P3rXhfCd6"><i data-page-node-id="NYAOjt6eRMOmDPEdMqm5RJ"></i><i data-page-node-id="R2UuCHTvRahxlH1IxcXsG5"></i><i data-page-node-id="DbCSW8g3ABt2KndPHuucZR"></i><i data-page-node-id="9jVWsrsKmxCkfzcVBFtUuD"></i></div></div>
               </div>
             </div>
-            <div class="fav-panel show" data-fp="fdd">
-              <div class="saved-chat"><div class="tx"><div class="sk"></div><div class="sk"></div><div class="sk" style="width:80%"></div></div><div class="th"></div></div>
+            <div class="fav-panel show" data-fp="fdd" data-page-node-id="dC3jhNdE6coxvACw7w7fvl">
+              <div class="saved-chat" data-page-node-id="ZHLzmBEDPzG4kRTRD6oH6A"><div class="tx" data-page-node-id="ybR8ucZxrBa37IPT5py0Uv"><div class="sk" data-page-node-id="jMIZMF2nJYHGJ77SX75Z16"></div><div class="sk" data-page-node-id="XNmO5xK10wDUFvnkAHGKqX"></div><div class="sk" style="width:80%" data-page-node-id="6Il3dEWj37FIQobeCbxFir"></div></div><div class="th" data-page-node-id="DwTloDObciVfbEtHrnkv33"></div></div>
             </div>
             <!-- ★ 增量层 v3：「链路」面板 -->
-            <div id="fav-guide-panel-slot" data-slot="fav-guide-panel" class="fav-panel" data-fp="fchain">
-              <div class="chain-list">
-                <div class="cl-item" onclick="XHS.go('chain-pub')">
-                  <div class="cl-title">意大利 5 日游 · 我走过的路</div>
-                  <div class="cl-meta"><span class="verify">3 篇被真实引用</span><span>· 8 人收藏</span><span>· 已发布</span></div>
+            <div id="fav-guide-panel-slot" data-slot="fav-guide-panel" class="fav-panel" data-fp="fchain" data-page-node-id="FqKt1cbLYk15QUuUzeDX3e">
+              <div class="chain-list" data-page-node-id="5BF43e7ewkAtudywQ7X61b">
+                <div class="cl-item" onclick="XHS.go('chain-pub')" data-page-node-id="zbzeYzvf0cPYIyddP4miOE">
+                  <div class="cl-title" data-page-node-id="8B2TF0lpS3eMUmujvRfCl7">意大利 5 日游 · 我走过的路</div>
+                  <div class="cl-meta" data-page-node-id="eJW9bIgaCg7gLF1YJSeK8I"><span class="verify" data-page-node-id="5NAANKqKoexRXEPyVBwiAm">3 篇被真实引用</span><span data-page-node-id="zhZBlgCVEDF0PmMybgwIc9">· 8 人收藏</span><span data-page-node-id="O8KuE8IjDKiFZK5nIRWfSZ">· 已发布</span></div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="me-panel" data-p="cmt"><div class="empty">暂无内容</div></div>
-          <div class="me-panel" data-p="like"><div class="empty">暂无内容</div></div>
+          <div class="me-panel" data-p="cmt" data-page-node-id="nMsCmYHuFi97cWrEjteCgu"><div class="empty" data-page-node-id="GRs8zGCHIwyupnHWy5DRFR">暂无内容</div></div>
+          <div class="me-panel" data-p="like" data-page-node-id="hctaUx3nJVoYrZn7avYoDG"><div class="empty" data-page-node-id="f1C4BHKTT3pnKPQ1i0wgfY">暂无内容</div></div>
         </div>
       </div>
     </section>
 
     <!-- ========== 页面：笔记详情页（增量层 v3；入口：首页瀑布流前两张卡片 / 搜索结果页；内容由 JS 按 NOTES 数据渲染） ========== -->
-    <section class="page note-page" id="page-note">
-      <div class="np-nav">
-        <span class="nb" id="np-back"><svg class="ic"><use href="#i-left"/></svg></span>
-        <div class="np-author"><span class="avatar"></span><span class="nm" id="np-nm"></span></div>
-        <span class="np-follow" id="np-follow">关注</span>
-        <span class="nb" id="np-share"><svg class="ic"><use href="#i-share"/></svg></span>
+    <section class="page note-page" id="page-note" data-page-node-id="2ynWRbCNYy6qawBSNaADno">
+      <div class="np-nav" data-page-node-id="AcErB4oXbftNsgQ5SDaQbd">
+        <span class="nb" id="np-back" data-page-node-id="AGK6n7tZOd2kHFkgynOnk2"><svg class="ic" data-page-node-id="Bjxw3QHk6RH5qrgQGzOmUl"><use href="#i-left" data-page-node-id="1GFMnEflr2QVE4DIFEFeSL"/></svg></span>
+        <div class="np-author" data-page-node-id="e6IUDqMDw9fEC7tP4Y9E41"><span class="avatar" data-page-node-id="iaAJP5zS67K7nUyzY6aS4A"></span><span class="nm" id="np-nm" data-page-node-id="0NEvTGxFyxXkaJP9mlbPKp"></span></div>
+        <span class="np-follow" id="np-follow" data-page-node-id="GqsUOJFR4Q02BUjcKDOgdE">关注</span>
+        <span class="nb" id="np-share" data-page-node-id="pde1DBI020L2jwfhnuwVTg"><svg class="ic" data-page-node-id="wmpNir81G0FBqxmfhjsFOK"><use href="#i-share" data-page-node-id="kHs6uGD7qnXfbyc1fP4g89"/></svg></span>
       </div>
-      <div class="scroll" id="np-scroll"></div>
-      <div class="np-bar">
-        <div class="np-say"><svg class="ic"><use href="#i-edit"/></svg>说点什么...</div>
-        <div class="np-act heart" id="nb-heart"><svg class="ic"><use href="#i-heart"/></svg><span id="np-n1"></span></div>
-        <div class="np-act star" id="nb-star"><svg class="ic"><use href="#i-star"/></svg><span id="np-n2"></span></div>
-        <div class="np-act"><svg class="ic"><use href="#i-bubble"/></svg><span id="np-n3"></span></div>
+      <div class="scroll" id="np-scroll" data-page-node-id="O5NEeaiJpA8JehmTdNlIMz"></div>
+      <div class="np-bar" data-page-node-id="wOamAMz9KyIkfwrBF4c5ZA">
+        <div class="np-say" data-page-node-id="GlvLCBFJMKHMgtLFiwVMzv"><svg class="ic" data-page-node-id="BxLQ0ErFLfcxu30vFbxoLU"><use href="#i-edit" data-page-node-id="ZS83qBsTPQ8rryRUrNgYUH"/></svg>说点什么...</div>
+        <div class="np-act heart" id="nb-heart" data-page-node-id="rtTXOiswKQC36u0DVGJdAR"><svg class="ic" data-page-node-id="RbTcyigSR06JqKnUbjRYUG"><use href="#i-heart" data-page-node-id="Dhe8pfIcLajyCB8XigzCrc"/></svg><span id="np-n1" data-page-node-id="vlzCYxTh5NWHPDmGbG4ALT"></span></div>
+        <div class="np-act star" id="nb-star" data-page-node-id="cNwCqsz7hFavfapBYQbOja"><svg class="ic" data-page-node-id="ZXxwQkPvFDhqnFYfwUfu51"><use href="#i-star" data-page-node-id="4QDZtUWV4KbtGejFAMKmR0"/></svg><span id="np-n2" data-page-node-id="c1gKLvdshfT2wHiADw1BdA"></span></div>
+        <div class="np-act" data-page-node-id="ZRfEmUMD1O7goWRe73YDd9"><svg class="ic" data-page-node-id="YyQ9w2O5WROZX8eeLmpuYg"><use href="#i-bubble" data-page-node-id="bAlJr0QrghjOppDeaxB3Qy"/></svg><span id="np-n3" data-page-node-id="clcHDt7JqmGiQKZFSZXv0y"></span></div>
       </div>
     </section>
 
     <!-- ========== 页面：搜索结果页（增量层 v3；入口：首页右上角搜索图标；含「问点点」摘要卡） ========== -->
-    <section class="page" id="page-search">
-      <div class="sr-nav">
-        <span class="nb" id="sr-back"><svg class="ic"><use href="#i-left"/></svg></span>
-        <div class="sr-field"><span class="q">博尔盖塞美术馆门票</span><span class="clr"><svg class="ic" style="stroke-width:3"><use href="#i-close"/></svg></span><span class="go">搜索</span></div>
+    <section class="page" id="page-search" data-page-node-id="1646yOGO8awfhXD75RrbCR">
+      <div class="sr-nav" data-page-node-id="nscrKNAaLQswRCsIqmMQDY">
+        <span class="nb" id="sr-back" data-page-node-id="XiKQ7cP6cJLMbCfl3WLLZc"><svg class="ic" data-page-node-id="z0b336ilqhAYEfG6iW6wfi"><use href="#i-left" data-page-node-id="88dEQjOQ1xmDRsVI0N8PqQ"/></svg></span>
+        <div class="sr-field" data-page-node-id="ONojGSqCAxKZrh9K4AaT1e"><span class="q" data-page-node-id="DKnqUXyHYks1ImNkvWwQes">博尔盖塞美术馆门票</span><span class="clr" data-page-node-id="o4yqQ1KOQ9np8uiLVAMfkL"><svg class="ic" style="stroke-width:3" data-page-node-id="pUBfG4EHECV4AKUtfIDwfz"><use href="#i-close" data-page-node-id="pRCIpTiMEUSRMRNiJ9Ah0N"/></svg></span><span class="go" data-page-node-id="enVSELrfpzOjPjpim2WLGL">搜索</span></div>
       </div>
-      <div class="sr-tabs"><span class="on">全部</span><span>用户</span><span>商品</span><span>图片</span><span class="dd" id="sr-dd"><i class="dd-ghost"></i>问点点</span></div>
-      <div class="scroll">
-        <div class="sr-sum">
-          <div class="sm-fade">
-            <div class="sm-t">想进博尔盖塞美术馆，<span class="hl-g">建议提前预约</span>，旺季现场很难碰到余票。</div>
-            <div class="sm-h"><i></i>门票与预约</div>
-            <ul class="sm-ul">
-              <li><b>预约方式：</b>通过官方渠道按时段预订，含预约费约 18 欧/人。</li>
-              <li><b>入场规则：</b>分时段入场，每个时段约 2 小时，需提前到场。</li>
-              <li><b>现场情况：</b>偶有退票，建议开馆前排队，并带好现金备用。</li>
+      <div class="sr-tabs" data-page-node-id="S9SyjmrxvXPKUIAUhmuIol"><span class="on" data-page-node-id="9F7Wm2S32jrWl9Q1RzH3jT">全部</span><span data-page-node-id="xjLTojaMZbgCJFm19hIFE6">用户</span><span data-page-node-id="EzN9yPHiM7Hlc3GJzHBdcC">商品</span><span data-page-node-id="NQFW18P1wgAWHo2ZimLLtD">图片</span><span class="dd" id="sr-dd" data-page-node-id="u7KfGLcGuY2iClLLeTwEZA"><i class="dd-ghost" data-page-node-id="l0grMzfGhG01x1n9r0rAeg"></i>问点点</span></div>
+      <div class="scroll" data-page-node-id="VuY795x6tAHsjtMFxCGSca">
+        <div class="sr-sum" data-page-node-id="aHZhOkVAo0Z1kSbawdTWUc">
+          <div class="sm-fade" data-page-node-id="PtcRs1a3UZH1zkjMQeswgL">
+            <div class="sm-t" data-page-node-id="DHom9GaoROToafZC3llXFs">想进博尔盖塞美术馆，<span class="hl-g" data-page-node-id="3zkmDiM1Lk3SkkERYXTmeq">建议提前预约</span>，旺季现场很难碰到余票。</div>
+            <div class="sm-h" data-page-node-id="rJlskw4gR5B9aLyPMgcooi"><i data-page-node-id="0PdEPIPMVCMRcdXA3oYjE7"></i>门票与预约</div>
+            <ul class="sm-ul" data-page-node-id="Pht4cAG4oKROtbsszNt93V">
+              <li data-page-node-id="G9LAQHsiiEqX7ephuUIQ1d"><b data-page-node-id="OFUcm72cR7sjEstldUXC2P">预约方式：</b>通过官方渠道按时段预订，含预约费约 18 欧/人。</li>
+              <li data-page-node-id="H3sEBuAPsPQXkTs4SFpH9E"><b data-page-node-id="cQ0yR5UslvV5fZoyJTDPmw">入场规则：</b>分时段入场，每个时段约 2 小时，需提前到场。</li>
+              <li data-page-node-id="FtEtYrG7pgp8GGzMzMwA4y"><b data-page-node-id="jRIaVwRcZawnPUqCAOAOxe">现场情况：</b>偶有退票，建议开馆前排队，并带好现金备用。</li>
             </ul>
           </div>
-          <div class="sm-foot"><span class="l">总结 36 篇笔记生成 <span class="avs"><i></i><i></i></span></span><span class="go" id="sr-go"><svg class="ic"><use href="#i-right"/></svg></span></div>
+          <div class="sm-foot" data-page-node-id="CW2LNWEhzuty3xKESDyZDz"><span class="l" data-page-node-id="W88I8o2Tjlp3qwDNqP7Z4V">总结 36 篇笔记生成 <span class="avs" data-page-node-id="Xz7ASehtMVQBEbs18kKGeK"><i data-page-node-id="84GszvhMXUNaxnugBVudBO"></i><i data-page-node-id="fXNjndDzblzz6iZGAMsruh"></i></span></span><span class="go" id="sr-go" data-page-node-id="0h12hZ8B7k0xfi5ALbblJC"><svg class="ic" data-page-node-id="V4uDzdYgC7GgJPfmOsrjAh"><use href="#i-right" data-page-node-id="iMFE5kEEkoFQKB47TFjWjd"/></svg></span></div>
         </div>
-        <div class="sr-filter"><span class="on">综合</span><span>最新</span><span>购买攻略</span><span>官网预约</span><span>放票时间</span></div>
-        <div class="waterfall">
-          <div class="wf-col">
-            <div class="card sr-card" data-note="b">
-              <div class="cover" style="height:260px"></div>
-              <div class="tt">没提前约上也进了博尔盖塞？现场实测流程</div>
-              <div class="au"><span class="avatar"></span><div class="who"><b>用户</b><span>09-29</span></div><span class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>246</span></div>
+        <div class="sr-filter" data-page-node-id="nAn9sFZoeM5eku5C7gixrT"><span class="on" data-page-node-id="VcZMZ9tBtg96EufbvF2cbD">综合</span><span data-page-node-id="yfHkbQJnZldXuyeuBvX3TQ">最新</span><span data-page-node-id="cavKJ9J7qgJQfN5yWx1Kxw">购买攻略</span><span data-page-node-id="D7dC3sPzYgMBZ4H2itlII7">官网预约</span><span data-page-node-id="Lbfko38mMZ0FHAPbzbABn7">放票时间</span></div>
+        <div class="waterfall" data-page-node-id="hx22cXFsWGimSm5C5Ar1hC">
+          <div class="wf-col" data-page-node-id="yHiBJ0pGb8raTgt9u3HfIX">
+            <div class="card sr-card" data-note="b" data-page-node-id="iIHG13ykTJgejUmtznCsjI">
+              <div class="cover" style="height:260px" data-page-node-id="4IkPi6H3uw2cHeNJ4o43nq"></div>
+              <div class="tt" data-page-node-id="5OiiEPyuiHjMSNRiWWSGl3">没提前约上也进了博尔盖塞？现场实测流程</div>
+              <div class="au" data-page-node-id="lznEYSCNNwG6BLB2CH6V8i"><span class="avatar" data-page-node-id="LBnohOzudgsxsFbAvG3ctR"></span><div class="who" data-page-node-id="Etr87rIWtseqpmHlJ7PXnN"><b data-page-node-id="lw0N7dVGsnF6CkCaIlviHF">用户</b><span data-page-node-id="5Ar2f01CIWTTjNG5vdBseL">09-29</span></div><span class="lk" data-page-node-id="o29I5622PFL2Dm9BJry612"><svg class="ic" style="font-size:16px" data-page-node-id="OvJhLCtykXZiKLF4THl0jM"><use href="#i-heart" data-page-node-id="FQRhOjhwf4t4YXCaNWQtdI"/></svg>246</span></div>
             </div>
-            <div class="card sr-card"><div class="cover" style="height:170px"></div><div class="tt">罗马三天两晚路线与预算</div><div class="au"><span class="avatar"></span><div class="who"><b>用户</b><span>08-12</span></div><span class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>87</span></div></div>
+            <div class="card sr-card" data-page-node-id="2zwyvUEhDVTQUsDCTMCc1m"><div class="cover" style="height:170px" data-page-node-id="vBPLLHjkK665DYo2TuDeMt"></div><div class="tt" data-page-node-id="EtII2iXMdH9urJUaycvR62">罗马三天两晚路线与预算</div><div class="au" data-page-node-id="fMTWFqn39xhzZQaGGEZtkV"><span class="avatar" data-page-node-id="yLBEgszELHpa9QjYRqJlHv"></span><div class="who" data-page-node-id="9Gq9ssdLpgEj1w4tDgXHis"><b data-page-node-id="KrwJzO3mO58fVxNd6cttW4">用户</b><span data-page-node-id="W7MUBqMc19PJRq6wINLXsT">08-12</span></div><span class="lk" data-page-node-id="kRCrCkRYraebWxMn54dIAa"><svg class="ic" style="font-size:16px" data-page-node-id="LYsw9q9esoas8mUheTyIv7"><use href="#i-heart" data-page-node-id="HzePeeZ6AP1SxLfCevRIma"/></svg>87</span></div></div>
           </div>
-          <div class="wf-col">
-            <div class="card sr-card" data-note="a">
-              <div class="cover" style="height:260px"><div class="poster-t"><div class="sk" style="width:85%"></div><div class="sk" style="width:70%"></div><div class="sk" style="width:50%"></div></div></div>
-              <div class="tt">「博尔盖塞美术馆」订票攻略｜一图看懂预约流程❗</div>
-              <div class="au"><span class="avatar"></span><div class="who"><b>用户</b><span>03-09</span></div><span class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>1.2w</span></div>
+          <div class="wf-col" data-page-node-id="N2pFF78VUkJBJLbcM6YqvO">
+            <div class="card sr-card" data-note="a" data-page-node-id="kueWGAGV4BLDqVeO11iaKd">
+              <div class="cover" style="height:260px" data-page-node-id="PGa9pS2FryGdxorGLMhL1n"><div class="poster-t" data-page-node-id="7WPUUraDA5vCVZcsBKIQBM"><div class="sk" style="width:85%" data-page-node-id="E3w2Ni7gjJcFR8Oxhh4y8C"></div><div class="sk" style="width:70%" data-page-node-id="GeMNF39IFLCiZTcOp4IQ8B"></div><div class="sk" style="width:50%" data-page-node-id="goQxx0vSeRCUnOLIl2Lpo4"></div></div></div>
+              <div class="tt" data-page-node-id="RdlSCQo8yIYIyNOOmWdSDw">「博尔盖塞美术馆」订票攻略｜一图看懂预约流程❗</div>
+              <div class="au" data-page-node-id="EF9ZzNK2Q5rmDZBBWz0aV9"><span class="avatar" data-page-node-id="8U5i3X2deTSF3986iBF91u"></span><div class="who" data-page-node-id="BN4HZ44xqkihwBdOjRfNVo"><b data-page-node-id="39znaJsjclBVXqvkjQCLKz">用户</b><span data-page-node-id="8gQawZZk0CnEneBNTJasFI">03-09</span></div><span class="lk" data-page-node-id="8X2uA2HwFTXKYgUrZE1IHs"><svg class="ic" style="font-size:16px" data-page-node-id="KlsN4EQA12G3s3PK6A6RyG"><use href="#i-heart" data-page-node-id="5DGKnQ7uicljJIroGKAAx2"/></svg>1.2w</span></div>
             </div>
-            <div class="card sr-card"><div class="cover" style="height:200px"></div><div class="tt">罗马周边一日游清单</div><div class="au"><span class="avatar"></span><div class="who"><b>用户</b><span>07-30</span></div><span class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>312</span></div></div>
+            <div class="card sr-card" data-page-node-id="f7nMEQI2IZFduXVP5zIQeW"><div class="cover" style="height:200px" data-page-node-id="SOgFegU021HZBBon5tO1pS"></div><div class="tt" data-page-node-id="dM6dU0nE1U9HxtdW8S4jCw">罗马周边一日游清单</div><div class="au" data-page-node-id="aY8MqYISQIdnlAqaaxHfqD"><span class="avatar" data-page-node-id="yTUaw74E8TvCejENluK218"></span><div class="who" data-page-node-id="vSzMz7Hcv1ogVRkU45arAx"><b data-page-node-id="LBXMz5WAlztHstQfA3EZCU">用户</b><span data-page-node-id="za8DhdEB3FPI5sNmrBXVK9">07-30</span></div><span class="lk" data-page-node-id="TBVsbqNIAHINrP3ab6budT"><svg class="ic" style="font-size:16px" data-page-node-id="BRlXHebFE51GMF8G3jvbOw"><use href="#i-heart" data-page-node-id="Ef950l9D6c1VF2AfbAuSL3"/></svg>312</span></div></div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ========== 页面：合集页（增量层 v3；建合集后从收藏页进入；样式依据截图） ========== -->
-    <section class="page album-page" id="page-album">
-      <div class="note-nav">
-        <span class="nb" onclick="XHS.go('me')"><svg class="ic"><use href="#i-left"/></svg></span>
-        <div class="r" style="align-items:center">
+    <section class="page album-page" id="page-album" data-page-node-id="hxFq3y8qCiLJH1AYVh7pWO">
+      <div class="note-nav" data-page-node-id="5ZJ6IBGBlL06yIVvTbPkUY">
+        <span class="nb" onclick="XHS.go('me')" data-page-node-id="QNLM1IZ0hEnEYnienwGUO7"><svg class="ic" data-page-node-id="IFh9XVNRrIvYhBgSdn2g59"><use href="#i-left" data-page-node-id="xxeHRB3L9CBECCXGD7qt08"/></svg></span>
+        <div class="r" style="align-items:center" data-page-node-id="AA3MwqPQoHHFlCqUFPO6xO">
           <!-- ★ 专属点点入口（只基于本合集内容回答） -->
-          <div class="album-dd-btn" onclick="XHS.go('album-dd')"><i class="dd-ghost"></i> 专属点点</div>
-          <svg class="ic"><use href="#i-share"/></svg>
+          <div class="album-dd-btn" onclick="XHS.go('album-dd')" data-page-node-id="ryYT4xgbudlHwpwBqOei18"><i class="dd-ghost" data-page-node-id="glPWCmLWvsVYGlXzyQHwaR"></i> 专属点点</div>
+          <svg class="ic" data-page-node-id="5aKxdm04xTi1IEHEgGfVDb"><use href="#i-share" data-page-node-id="4zCSFuqD5pwdcAnFN2x6lD"/></svg>
         </div>
       </div>
-      <div class="scroll">
-        <div class="ab-hd">
-          <div class="r1"><div class="ttl">意大利旅行</div><span class="manage">管理</span></div>
-          <div class="intro">暂无简介</div>
-          <div class="r3"><span class="l"><span class="avs"><i></i></span>由点点创建</span><span>笔记 · 1</span></div>
+      <div class="scroll" data-page-node-id="jPAHqDLVAprkpT2nE4Aa8S">
+        <div class="ab-hd" data-page-node-id="hw0w2QJH1nnAqROAJERyHs">
+          <div class="r1" data-page-node-id="bgZinCGYf8BFbh1FoABnu2"><div class="ttl" data-page-node-id="j4uy3CP2ai53Eir92NkOBF">意大利旅行</div><span class="manage" data-page-node-id="UJ9s1moO3K9a5xd2ykCWHC">管理</span></div>
+          <div class="intro" data-page-node-id="rW83JEDKKVtKqioFiRQbxL">暂无简介</div>
+          <div class="r3" data-page-node-id="FMPLvtBHxfvBG48d3zlQXr"><span class="l" data-page-node-id="vlmRVCCNZ2FRgmhKAuaKFM"><span class="avs" data-page-node-id="H9SonYn7SsA4kkXDajCdKC"><i data-page-node-id="jHtM7yKDjdGaqdJGiMTjuM"></i></span>由点点创建</span><span data-page-node-id="T2uL0EtFN45pGb1x1ViRdg">笔记 · 1</span></div>
         </div>
-        <div class="waterfall album-wf">
-          <div class="wf-col">
-            <div class="card sr-card" onclick="openNote('a','album')">
-              <div class="cover" style="height:260px"></div>
-              <div class="tt">「博尔盖塞美术馆」订票攻略｜预约流程</div>
-              <div class="au"><span class="avatar"></span><div class="who"><b>用户</b></div><span class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>1.2w</span></div>
+        <div class="waterfall album-wf" data-page-node-id="GWyHjbr6lrtjn0gSiezyLs">
+          <div class="wf-col" data-page-node-id="tsN3MjeNzVU3ZmeIWhGOe6">
+            <div class="card sr-card" onclick="openNote('a','album')" data-page-node-id="Ht4TDuXKhIUu7ehfPzkCJX">
+              <div class="cover" style="height:260px" data-page-node-id="GjkjNe5Tqbr4iLClyrULux"></div>
+              <div class="tt" data-page-node-id="E0GJhd6IWNFEuxI4wCRcQ5">「博尔盖塞美术馆」订票攻略｜预约流程</div>
+              <div class="au" data-page-node-id="VpCssoMggputhfEIbzf72B"><span class="avatar" data-page-node-id="Eyh9v35uVMG8BQk1AcGpz3"></span><div class="who" data-page-node-id="YqYjaiJrC8Ww9uaCAHdLmv"><b data-page-node-id="xcLfWs3pThw8v9kmsUCyUB">用户</b></div><span class="lk" data-page-node-id="fWKqTkVNrgiuTTcLVrSbyJ"><svg class="ic" style="font-size:16px" data-page-node-id="E4kClFbAMq45VJijo8B2e2"><use href="#i-heart" data-page-node-id="Ld7UGiViyzgAJK4rL3Kr52"/></svg>1.2w</span></div>
             </div>
           </div>
-          <div class="wf-col"></div>
+          <div class="wf-col" data-page-node-id="4OKNRYRk3WQTM9N2M4zsNO"></div>
         </div>
       </div>
     </section>
 
     <!-- ========== 页面：专属点点对话页（增量层 v3；合集页右上角进入；只基于本合集回答） ========== -->
-    <section class="page album-dd-page" id="page-album-dd">
-      <div class="dd-nav">
-        <span class="nb" onclick="XHS.go('album')"><svg class="ic"><use href="#i-left"/></svg></span>
-        <span class="add-title"><i class="dd-ghost"></i>点点 <span class="scope">意大利旅行</span></span>
-        <span class="nb" style="opacity:0"><svg class="ic fill"><use href="#i-more"/></svg></span>
+    <section class="page album-dd-page" id="page-album-dd" data-page-node-id="i7xGkyhgNDa43MkCmBYUKC">
+      <div class="dd-nav" data-page-node-id="gzMdUbJrrvc1yxtUnqNS7f">
+        <span class="nb" onclick="XHS.go('album')" data-page-node-id="2vOb93o3XEdAYARJIIV57v"><svg class="ic" data-page-node-id="FN9ADrHVb0s69QfoLEhBhm"><use href="#i-left" data-page-node-id="5YMWgItrHaeImA0c7gAi03"/></svg></span>
+        <span class="add-title" data-page-node-id="PDZdsTcEokMndECPqabxIo"><i class="dd-ghost" data-page-node-id="Y6ONYeGuUWPGGHjdOI5TYX"></i>点点 <span class="scope" data-page-node-id="epBsMcMDGcf7CYTsDBKwi6">意大利旅行</span></span>
+        <span class="nb" style="opacity:0" data-page-node-id="y90KuGQu5ohqPgVlfibo5Z"><svg class="ic fill" data-page-node-id="XnJWoz8wLpEqVPlLCQ79Zd"><use href="#i-more" data-page-node-id="97c8LVX72GajblxpI8adiB"/></svg></span>
       </div>
-      <div class="add-scope-bar">
-        <svg class="ic"><use href="#i-lock"/></svg>
-        <span>专属点点 · 只基于「意大利旅行」合集（1 篇笔记）回答，不会用到合集外内容</span>
+      <div class="add-scope-bar" id="add-scope-bar" data-page-node-id="GLntp0qQMThJO5mMmAvVo8">
+        <svg class="ic" data-page-node-id="lRTJrMBGBf4RXMyxF62okX"><use href="#i-lock" data-page-node-id="wcVFhcOb33wkooDCzfURNP"/></svg>
+        <span data-page-node-id="zDG2cRGNHGWx0kbItzkRRO">专属点点 · 只基于「意大利旅行」合集（1 篇笔记）回答，不会用到合集外内容</span>
+        <span class="add-scope-close" onclick="document.getElementById('add-scope-bar').style.display='none'" data-page-node-id="Lu3jBIwLc8uHuhqykaxHBA"><svg class="ic" data-page-node-id="mqMqJY787PLroHdFOCS0T4"><use href="#i-close" data-page-node-id="rEmI2EKr9cXq3PXCWiwAFS"/></svg></span>
       </div>
-      <div class="scroll">
-        <div class="chat" id="add-chat">
+      <div class="scroll" data-page-node-id="Lx0mHr0I5S5CIhxxCIONVH">
+        <div class="chat" id="add-chat" data-page-node-id="4pB4vMinkOdTG7Aqsm8lY0">
           <!-- 开场：专属上下文说明 -->
-          <div class="bubble">
-            <p>这是「意大利旅行」合集的<b>专属点点</b> 🎯</p>
-            <p>我会只从合集里的笔记出发回答你，涉及笔记外的问题，我会如实告诉你。先试试问我：</p>
-            <div class="add-chips">
-              <span onclick="askDD('博尔盖塞美术馆现在怎么订票？')">博尔盖塞美术馆怎么订票？</span>
-              <span onclick="askDD('这篇里提到的注意事项有哪些？')">这篇里有哪些注意事项？</span>
+          <div class="bubble" data-page-node-id="jBgYjQSKRXDDE57MTiEhmV">
+            <p data-page-node-id="Ayt5HtnX7KldULykwWUkBe">这是「意大利旅行」合集的<b data-page-node-id="ijgPdHINhD1kUjDTjWnkj3">专属点点</b> 🎯</p>
+            <p data-page-node-id="eVBWDLOugPG1DjROuZ5UBU">我会只从合集里的笔记出发回答你，涉及笔记外的问题，我会如实告诉你。先试试问我：</p>
+            <div class="add-chips" data-page-node-id="cBW2ciflNmlpQKeslgjFPj">
+              <span onclick="askDD('博尔盖塞美术馆现在怎么订票？')" data-page-node-id="xx19IxUa1ZxfZpzJrHgTX6">博尔盖塞美术馆怎么订票？</span>
+              <span onclick="askDD('这篇里提到的注意事项有哪些？')" data-page-node-id="cSgNERyixZXvn1s96sDDvA">这篇里有哪些注意事项？</span>
             </div>
           </div>
         </div>
       </div>
-      <div class="dd-input">
-        <svg class="ic"><use href="#i-voice"/></svg>
-        <input id="add-input" type="text" placeholder="问这个合集里的问题…" />
-        <svg class="ic"><use href="#i-camera"/></svg>
-        <span class="send" id="add-send"><svg class="ic" style="font-size:18px;stroke-width:2.4"><use href="#i-up"/></svg></span>
+      <div class="dd-input" data-page-node-id="ldLjJFLqODtVOwaDiWWKfT">
+        <svg class="ic" data-page-node-id="JmN7HXCOGdvMS0SC6TASGU"><use href="#i-voice" data-page-node-id="X4HoorwvqAaPCgJ9BzvtTb"/></svg>
+        <input id="add-input" type="text" placeholder="问这个合集里的问题…" data-page-node-id="Dsw6KBflZCVwuzReMxIIBB" />
+        <svg class="ic" data-page-node-id="L7omIlbCn0Fe3dBnHkwzRG"><use href="#i-camera" data-page-node-id="ePNougERAxggKXYOrgXcEh"/></svg>
+        <span class="send" id="add-send" data-page-node-id="0hOFceZtth633b2GDOksLu"><svg class="ic" style="font-size:18px;stroke-width:2.4" data-page-node-id="n3nnJFMER65x1qQUncVfH2"><use href="#i-up" data-page-node-id="Pfa5pfBH2Uatuxryvcjpjc"/></svg></span>
       </div>
-      <div class="dd-foot">内容由 AI 生成 · 仅基于本合集</div>
     </section>
 
     <!-- ========== 页面：验证链编辑页（增量层 v3；入口：问一问里的验证链入口卡片） ========== -->
-    <section class="page chain-page" id="page-chain-edit">
-      <div class="chain-nav">
-        <span class="nb" onclick="XHS.go('ask')"><svg class="ic"><use href="#i-left"/></svg></span>
-        <span class="tt">验证过的链路</span>
-        <span class="done" onclick="XHS.go('chain-pub')">发布</span>
+    <section class="page chain-page" id="page-chain-edit" data-page-node-id="39VoGZL3RRtRZu1NVZF8A3">
+      <div class="chain-nav" data-page-node-id="N6Z3unm3YEYcKrQ70kkrGJ">
+        <span class="nb" onclick="XHS.go('ask')" data-page-node-id="4Y5OhAyRmTAwnu7IHWs1ON"><svg class="ic" data-page-node-id="d25vbOjkA1NE7IcHioFIzV"><use href="#i-left" data-page-node-id="TFoE2i3Mu2klSF2ACwwfDw"/></svg></span>
+        <span class="tt" data-page-node-id="7WD7swfrm51pCibTH41AG5">验证过的链路</span>
+        <span class="done" onclick="XHS.go('chain-pub')" data-page-node-id="wwQCQbf1A3lei2ukpffGEd">发布</span>
       </div>
-      <div class="scroll">
-        <div class="chain-top">
-          <div class="title-input">意大利 5 日游 · 我走过的路</div>
-          <div class="ai-tag"><span class="ai-dot"><svg class="ic" style="font-size:9px;color:#12453B"><use href="#i-sparkle"/></svg></span> AI 已按行程搭好骨架，共 8 个点</div>
-          <div class="ai-note">AI 只帮你排结构和去重，取舍和判断交给你。每个点都是一条引用（链接指向原笔记），你可以删掉没用上的、补上自己的话。</div>
+      <div class="scroll" data-page-node-id="VZyh1B8qUgJLYpbryWSFpi">
+        <div class="chain-top" data-page-node-id="AEmC7p4EX0ErVtdjp4IXzk">
+          <div class="title-input" data-page-node-id="Igg3jAE8aPKug2edTUQUlK">意大利 5 日游 · 我走过的路</div>
+          <div class="ai-tag" data-page-node-id="14Y4hyL8bRhW7ZSCGE0BiB"><span class="ai-dot" data-page-node-id="sSahH9TvLniyjSZ8gxDO1J"><svg class="ic" style="font-size:9px;color:#12453B" data-page-node-id="7lwM4t4azKpklpZRYVHuuS"><use href="#i-sparkle" data-page-node-id="NW5IxoH4FNaAU82vdSvczz"/></svg></span> AI 已按行程搭好骨架，共 8 个点</div>
+          <div class="ai-note" data-page-node-id="dPTvbZYpMjgfCgUxTGMNYN">AI 只帮你排结构和去重，取舍和判断交给你。每个点都是一条引用（链接指向原笔记），你可以删掉没用上的、补上自己的话。</div>
         </div>
 
-        <div class="chain-day">
-          <div class="day-h"><span class="dot"></span>第 1 天 · 落地米兰 <span class="day-sub">交通</span></div>
-          <div class="cite">
-            <div class="c-top">
-              <div class="c-thumb"></div>
-              <div class="c-meta">
-                <div class="c-title">米兰机场大巴 & 火车打票攻略</div>
-                <div class="c-author"><span class="avatar"></span>@用户</div>
+        <div class="chain-day" data-page-node-id="E85FllYs2vvD5BdZKcDxhm">
+          <div class="day-h" data-page-node-id="6Gvu0oZFBHGPHQNCMgiptW"><span class="dot" data-page-node-id="zqRree46yeeBBMnIdYnCT7"></span>第 1 天 · 落地米兰 <span class="day-sub" data-page-node-id="CFnA29p3hyv4ElqjMkdjQv">交通</span></div>
+          <div class="cite" data-page-node-id="mGNqvBYjxqZT20Ev7vepZq">
+            <div class="c-top" data-page-node-id="6OtbSG2cI2fqfp9XycxKF2">
+              <div class="c-thumb" data-page-node-id="0CSvFpq5rACiZE3u1QdUjz"></div>
+              <div class="c-meta" data-page-node-id="HA2T0FgpGrtuiT6pseiwST">
+                <div class="c-title" data-page-node-id="6pWNmnXgwlaJDJDS7nTgyF">米兰机场大巴 & 火车打票攻略</div>
+                <div class="c-author" data-page-node-id="nZR2xdXZFR4kBEGtefH6Ex"><span class="avatar" data-page-node-id="xo0nb9brhmsTvEKQGFt52H"></span>@用户</div>
               </div>
             </div>
-            <div class="c-my"><span class="my-label">我的经验</span>火车票一定要打票，不打会被罚 50 欧，上车前记得在黄色机器上打孔。</div>
-            <div class="c-foot">
-              <span class="verify"><svg class="ic"><use href="#i-check"/></svg>实地走过</span>
-              <span class="link"><svg class="ic"><use href="#i-link"/></svg>查看原笔记</span>
-              <span class="drag">≡</span>
+            <div class="c-my" data-page-node-id="ujRLpTsnJBS6LKAnQWYv6I"><span class="my-label" data-page-node-id="bzomPd015mNcD6OM3SSlZA">我的经验</span>火车票一定要打票，不打会被罚 50 欧，上车前记得在黄色机器上打孔。</div>
+            <div class="c-foot" data-page-node-id="48v6AHdXUCzxgjKC0SIpCZ">
+              <span class="verify" data-page-node-id="fMnIg3MQR1TaRzkqKJrs1M"><svg class="ic" data-page-node-id="IuZ5sWryDsVBItk7WakFqn"><use href="#i-check" data-page-node-id="G7PwvH2gUsttutB1RJLYJV"/></svg>实地走过</span>
+              <span class="link" data-page-node-id="TCjN9AFWfBkHzGdIGRpy0A"><svg class="ic" data-page-node-id="LZ8ZbY3qbDR4FcGtlfTERt"><use href="#i-link" data-page-node-id="opLAqWCAiQni6GZEtUGWxQ"/></svg>查看原笔记</span>
+              <span class="drag" data-page-node-id="JjOXRzUgNEibDfUsWNPx3M">≡</span>
             </div>
           </div>
         </div>
 
-        <div class="chain-day">
-          <div class="day-h"><span class="dot"></span>第 2 天 · 罗马博物馆 <span class="day-sub">买票</span></div>
-          <div class="cite">
-            <div class="c-top">
-              <div class="c-thumb"></div>
-              <div class="c-meta">
-                <div class="c-title">博尔盖塞美术馆订票全攻略</div>
-                <div class="c-author"><span class="avatar"></span>@用户</div>
+        <div class="chain-day" data-page-node-id="BnbTERcsrMnPVezgG60P6s">
+          <div class="day-h" data-page-node-id="ToIMhroxQGuHPbeg0PYX9k"><span class="dot" data-page-node-id="VrXkQXBCFFdE7BiThlZzkU"></span>第 2 天 · 罗马博物馆 <span class="day-sub" data-page-node-id="PgCJDmGHVTpZIbbh6CzgHD">买票</span></div>
+          <div class="cite" data-page-node-id="V7xsuncj7sG3v6ifwVi67r">
+            <div class="c-top" data-page-node-id="3BkGKwydatTazfmMzdZOA3">
+              <div class="c-thumb" data-page-node-id="UdrI7Gqey5shIDYtHTMlUW"></div>
+              <div class="c-meta" data-page-node-id="3ylVpWfgmRdbk7qaCh9Wsm">
+                <div class="c-title" data-page-node-id="bEYTf1u4cbfSfj2oD9UePF">博尔盖塞美术馆订票全攻略</div>
+                <div class="c-author" data-page-node-id="ncFWuRxgrDFt23t3adFt4t"><span class="avatar" data-page-node-id="ZoSuzamphdIBKipxq6FVrL"></span>@用户</div>
               </div>
             </div>
-            <div class="c-my"><span class="my-label">我的经验</span>现场 POS 机坏了只收现金，记得带现金，门票要提前 3 天约。</div>
-            <div class="c-foot">
-              <span class="verify"><svg class="ic"><use href="#i-check"/></svg>实地走过</span>
-              <span class="link"><svg class="ic"><use href="#i-link"/></svg>查看原笔记</span>
-              <span class="drag">≡</span>
+            <div class="c-my" data-page-node-id="GywZiYBG0qe285EjPdHCEg"><span class="my-label" data-page-node-id="XzYL74THyzodpbC91Hfq1R">我的经验</span>现场 POS 机坏了只收现金，记得带现金，门票要提前 3 天约。</div>
+            <div class="c-foot" data-page-node-id="jMB2X0ILW5dWNCUYsDTY70">
+              <span class="verify" data-page-node-id="FMcfB91LzGxxOPF0e258cb"><svg class="ic" data-page-node-id="vVGe67pDN8PkZ6dnlxiGq8"><use href="#i-check" data-page-node-id="ix5ZTtFRQevppKV3CaOzLM"/></svg>实地走过</span>
+              <span class="link" data-page-node-id="MSJr4dwxMM9ShXD4JWsDsi"><svg class="ic" data-page-node-id="CDJFGoKuBoCyuDLEbnOYMV"><use href="#i-link" data-page-node-id="FQW6ACQZbSmHUnYHT2Bj28"/></svg>查看原笔记</span>
+              <span class="drag" data-page-node-id="EM5jqHLfjBPeYoDLJzLSt1">≡</span>
             </div>
           </div>
         </div>
 
-        <div class="chain-day">
-          <div class="day-h"><span class="dot"></span>第 3 天 · 佛罗伦萨 <span class="day-sub">美食</span></div>
-          <div class="cite">
-            <div class="c-top">
-              <div class="c-thumb"></div>
-              <div class="c-meta">
-                <div class="c-title">佛罗伦萨牛排馆不踩雷清单</div>
-                <div class="c-author"><span class="avatar"></span>@用户</div>
+        <div class="chain-day" data-page-node-id="5vgXWw6tFMImF2KFeJDmtd">
+          <div class="day-h" data-page-node-id="eVEoiWepANVZBCRV1iMDRo"><span class="dot" data-page-node-id="t0WcuhIPCXzyZGlPZLNgC7"></span>第 3 天 · 佛罗伦萨 <span class="day-sub" data-page-node-id="kawJRjG8GSnzVCmOAi5PtB">美食</span></div>
+          <div class="cite" data-page-node-id="2EFM3vYWnrcSfoq9GSnOZ4">
+            <div class="c-top" data-page-node-id="vX4j5hCbQ6MwxBXfwjhPnx">
+              <div class="c-thumb" data-page-node-id="T5ngexYM1nCrkMK0ckPhf7"></div>
+              <div class="c-meta" data-page-node-id="KZRgS13wMww9ChEg3n5DDL">
+                <div class="c-title" data-page-node-id="yFuO7PJeQiukQtoqV8tEI4">佛罗伦萨牛排馆不踩雷清单</div>
+                <div class="c-author" data-page-node-id="ENPpV9LpBICieIxlP5eA4N"><span class="avatar" data-page-node-id="dDqpd1ONoBaM74fNHeq7Cl"></span>@用户</div>
               </div>
             </div>
-            <div class="c-my"><span class="my-label">我的经验</span>这家排 2 小时，提前 3 天约；隔壁那家不用排队更实在。</div>
-            <div class="c-foot">
-              <span class="verify"><svg class="ic"><use href="#i-check"/></svg>实地走过</span>
-              <span class="link"><svg class="ic"><use href="#i-link"/></svg>查看原笔记</span>
-              <span class="drag">≡</span>
+            <div class="c-my" data-page-node-id="1SkKKVAzqCkCGbi8C2neCR"><span class="my-label" data-page-node-id="qssYYSC24xGqxnKRcJ1ISE">我的经验</span>这家排 2 小时，提前 3 天约；隔壁那家不用排队更实在。</div>
+            <div class="c-foot" data-page-node-id="WwaWS9eo0PpxzJM8YazoEC">
+              <span class="verify" data-page-node-id="G6CIb0plzLLh3djaNyYaVH"><svg class="ic" data-page-node-id="TyzL9bJ9n59HUuhnsIH75p"><use href="#i-check" data-page-node-id="Qdq603DG1oG1CGMptsAS54"/></svg>实地走过</span>
+              <span class="link" data-page-node-id="4Q2uKGAw2nNmVi42kE0jLW"><svg class="ic" data-page-node-id="xQEnQzAbYAVasFClc86jcr"><use href="#i-link" data-page-node-id="CJggLDe4xHd4ICanprx1Qd"/></svg>查看原笔记</span>
+              <span class="drag" data-page-node-id="biUXBGd9vE4pVCg89GLiJm">≡</span>
             </div>
           </div>
         </div>
 
-        <div class="chain-add">
-          <div class="add-btn"><svg class="ic"><use href="#i-plus-c"/></svg>从收藏中添加笔记</div>
-          <div class="add-btn"><svg class="ic"><use href="#i-plus-c"/></svg>加上我自己的一段经验</div>
+        <div class="chain-add" data-page-node-id="DrsvbdubT1EWoaXIMR544M">
+          <div class="add-btn" data-page-node-id="j8kCmJWAKrJGw5XRhn0HHz"><svg class="ic" data-page-node-id="SKKbSr9JmE2n6SSMsodqbA"><use href="#i-plus-c" data-page-node-id="ZJwy2lNUdVraZitWVDBcWd"/></svg>从收藏中添加笔记</div>
+          <div class="add-btn" data-page-node-id="FwVFRwC1uYkLvRQIUOeZRW"><svg class="ic" data-page-node-id="d50BU1HH07vzBeLTLPeGEY"><use href="#i-plus-c" data-page-node-id="PhtgUJQqBYB0V3wsbNC8UX"/></svg>加上我自己的一段经验</div>
         </div>
       </div>
     </section>
 
     <!-- ========== 页面：发布回流（增量层 v3；读者视角 + 作者通知） ========== -->
-    <section class="page pub-page" id="page-chain-pub">
-      <div class="chain-nav">
-        <span class="nb" onclick="XHS.go('chain-edit')"><svg class="ic"><use href="#i-left"/></svg></span>
-        <span class="tt">已发布</span>
-        <span class="nb" onclick="XHS.go('home')"><svg class="ic"><use href="#i-close"/></svg></span>
+    <section class="page pub-page" id="page-chain-pub" data-page-node-id="Adz0PyNmj1ULiC011ejyYg">
+      <div class="chain-nav" data-page-node-id="4kHyUV4q4rQdQIQunsBWqt">
+        <span class="nb" onclick="XHS.go('chain-edit')" data-page-node-id="ISx5YXlkk9Jxc2nREH1sas"><svg class="ic" data-page-node-id="vm8bha8vPtZmSzAJDKrJoV"><use href="#i-left" data-page-node-id="CZJnZYofAzI3HhERgkWlTZ"/></svg></span>
+        <span class="tt" data-page-node-id="p2BarNa8w5mOh9pCfjcjdE">已发布</span>
+        <span class="nb" onclick="XHS.go('home')" data-page-node-id="NPow3wvD7w34zXRNd4CAjx"><svg class="ic" data-page-node-id="H4IS3gZ6CdhbWNO2qsiJwV"><use href="#i-close" data-page-node-id="GMg7Hulv6gwc5x4AFgziuy"/></svg></span>
       </div>
-      <div class="scroll">
-        <div class="pub-hero">
-          <div class="pub-card">
-            <div class="p-title">意大利 5 日游 · 我走过的路</div>
-            <div class="p-owner"><span class="avatar"></span><span class="nm">用户</span><span class="tag">实地走过</span></div>
-            <div class="pub-stat">
-              <span class="stat-badge"><svg class="ic"><use href="#i-check"/></svg> 3 篇笔记被真实引用</span>
-              <span>· 8 人已收藏这条链路</span>
+      <div class="scroll" data-page-node-id="filx1QDDRfsP7RQk5bgGhF">
+        <div class="pub-hero" data-page-node-id="kbUv1ZowvWnQAsTFrFP1H9">
+          <div class="pub-card" data-page-node-id="R8GHV0C0afdrG5EkEwWPEB">
+            <div class="p-title" data-page-node-id="95HIevLKdfhG9UrJFq0TG4">意大利 5 日游 · 我走过的路</div>
+            <div class="p-owner" data-page-node-id="0MLF7srGAxyediJy488S3A"><span class="avatar" data-page-node-id="texK5uhXuh2i6nEyqIKen0"></span><span class="nm" data-page-node-id="lNUH398GrBV0F5Z0u5zzxD">用户</span><span class="tag" data-page-node-id="n1VxZGOOYmJL979N3JAENB">实地走过</span></div>
+            <div class="pub-stat" data-page-node-id="nilx1oGmSE5pBIhuNC9HLh">
+              <span class="stat-badge" data-page-node-id="GYpWBCprUOTmU3yhPfHujU"><svg class="ic" data-page-node-id="D90uazrPfuINs9vmovMMEm"><use href="#i-check" data-page-node-id="32cCZ7Z8fuEnsMLIXAUlwK"/></svg> 3 篇笔记被真实引用</span>
+              <span data-page-node-id="tD3G5IkDO4pb1KRPAeIcb9">· 8 人已收藏这条链路</span>
             </div>
           </div>
         </div>
 
-        <div class="notif">
-          <div class="n-head"><span class="bell"><svg class="ic fill"><use href="#i-bell"/></svg></span><span class="t">你被「真实使用」了</span></div>
-          <div class="n-body">你 3 篇笔记被引用进了 <b>「意大利 5 日游 · 我走过的路」</b>，已有 <b>8 人</b> 跟着这条链路规划行程。</div>
-          <div class="n-cta">
-            <div class="btn primary">查看引用</div>
-            <div class="btn ghost">不接收引用通知</div>
+        <div class="notif" data-page-node-id="JicgZa9dxP3nhmX8Wt10O3">
+          <div class="n-head" data-page-node-id="vL2BdRAkL1xqj6zQlM4MdC"><span class="bell" data-page-node-id="JX3Xia0vwAjE3C1TJaEIOf"><svg class="ic fill" data-page-node-id="h6PvG9X6WElOwoCNzARKnj"><use href="#i-bell" data-page-node-id="2oFXWgySnZinjLb7HLeH0p"/></svg></span><span class="t" data-page-node-id="qc9pYerAwbHJ5YxPHHoGtU">你被「真实使用」了</span></div>
+          <div class="n-body" data-page-node-id="dBORA6VFxlTZ5m7CkRiMDo">你 3 篇笔记被引用进了 <b data-page-node-id="TEi1Dp2rbpOvm66zGOfEIP">「意大利 5 日游 · 我走过的路」</b>，已有 <b data-page-node-id="q5I5OTYOB7voPjsLXGi75D">8 人</b> 跟着这条链路规划行程。</div>
+          <div class="n-cta" data-page-node-id="5BAipJq0XzrgT3gJv0doCf">
+            <div class="btn primary" data-page-node-id="9o7Ham9ja1RdclieDtomjy">查看引用</div>
+            <div class="btn ghost" data-page-node-id="RaAGG9MyKzNt1HbdiRbuqE">不接收引用通知</div>
           </div>
         </div>
 
-        <div class="pub-hero">
-          <div class="pub-card">
-            <div class="p-title" style="font-size:14px;color:#8E8E95">作者侧 · 引用通知（切换视角演示）</div>
-            <div class="p-owner" style="margin-top:12px"><span class="avatar"></span><span class="nm">@用户</span><span class="tag" style="color:#4C9BFF;background:#1D2D4B">原笔记作者</span></div>
-            <div class="pub-stat"><span class="stat-badge"><svg class="ic"><use href="#i-check"/></svg>你的笔记被 8 人真实用进行程</span></div>
-            <div class="pub-stat" style="margin-top:8px"><span>比一个赞更有分量——因为有人真的照着走了。</span></div>
+        <div class="pub-hero" data-page-node-id="pEMq5ZtyINDhexWDEGWCBM">
+          <div class="pub-card" data-page-node-id="NJWBWbrbd7dfDpMFiNjJf5">
+            <div class="p-title" style="font-size:14px;color:#8E8E95" data-page-node-id="Grkxtu4yJwOrQdHVMUr34i">作者侧 · 引用通知（切换视角演示）</div>
+            <div class="p-owner" style="margin-top:12px" data-page-node-id="vBymavoH5Q6F3EElVn4XgQ"><span class="avatar" data-page-node-id="DF4UozOTr8TQd9wrCYazcU"></span><span class="nm" data-page-node-id="UXhS721bNhlGPPWeRUDkpE">@用户</span><span class="tag" style="color:#4C9BFF;background:#1D2D4B" data-page-node-id="UIISr4SJjAnJthjXDiF98e">原笔记作者</span></div>
+            <div class="pub-stat" data-page-node-id="b3eL7KYFMvKxCHJLXIG6Do"><span class="stat-badge" data-page-node-id="QaV1F0UBHPC6wB2LRu8DiQ"><svg class="ic" data-page-node-id="24ekWtj0nl7sq6qtVy6Ylb"><use href="#i-check" data-page-node-id="fxVkFovmX915G9sDIXYGcK"/></svg>你的笔记被 8 人真实用进行程</span></div>
+            <div class="pub-stat" style="margin-top:8px" data-page-node-id="DegczutnYZXuPlrMA0srAP"><span data-page-node-id="bDuxfmEIgDnDcc6MeNBmAu">比一个赞更有分量——因为有人真的照着走了。</span></div>
           </div>
         </div>
       </div>
@@ -1005,38 +1009,38 @@ body {
   </div>
 
   <!-- 底部 Tab（基座层）：首页 / 市集 / ＋ / 消息 / 我 -->
-  <nav class="tabbar" id="tabbar">
-    <div class="tab active" data-page="home">首页</div>
-    <div class="tab" data-page="market">市集</div>
-    <div class="tab plus"><span class="plus-btn"><svg class="ic"><use href="#i-plus"/></svg></span></div>
-    <div class="tab" data-page="msg">消息</div>
-    <div class="tab" data-page="me">我</div>
-    <div class="home-ind"></div>
+  <nav class="tabbar" id="tabbar" data-page-node-id="y0RDccYLFYvk9EJWqWEroB">
+    <div class="tab active" data-page="home" data-page-node-id="VS9cnmb01FvLLJlkA4EITz">首页</div>
+    <div class="tab" data-page="market" data-page-node-id="7GQ6O6Qlbji4PUSl2me6pH">市集</div>
+    <div class="tab plus" data-page-node-id="jkViDtVKHYCIxMiByvn0nn"><span class="plus-btn" data-page-node-id="OcLwuQhWmggjFS5Qou3Mg4"><svg class="ic" data-page-node-id="Jz8FI2sjog7guwXLFmZPYr"><use href="#i-plus" data-page-node-id="hnA8I8ytXNsEKe6SIfyZM6"/></svg></span></div>
+    <div class="tab" data-page="msg" data-page-node-id="SSeCWDLfqoc35lMOeoCk1u">消息</div>
+    <div class="tab" data-page="me" data-page-node-id="IoY5B2IEASq58B0w9jFPy2">我</div>
+    <div class="home-ind" data-page-node-id="QqRgy3FW2ux8FM6chgcQ4e"></div>
   </nav>
 
   <!-- 分享面板（全局覆盖层，增量层 v3） -->
-  <div class="sheet-mask" id="share-mask" onclick="closeShare()"></div>
-  <div class="share-sheet" id="share-sheet">
-    <div class="s-title">分享至<span class="x" onclick="closeShare()"><svg class="ic"><use href="#i-close"/></svg></span></div>
-    <div class="s-row">
-      <div class="s-item"><div class="ico ct"><svg class="ic fill"><use href="#i-person"/></svg></div><div class="lbl">用户<small>10 分钟内在线</small></div></div>
-      <div class="s-item"><div class="ico ct"><svg class="ic fill"><use href="#i-group"/></svg></div><div class="lbl">用户的群聊</div></div>
-      <div class="s-item"><div class="ico ct"><svg class="ic fill"><use href="#i-person"/></svg><span class="on"></span></div><div class="lbl">用户</div></div>
-      <div class="s-item"><div class="ico ct"><svg class="ic fill"><use href="#i-person"/></svg><span class="on"></span></div><div class="lbl">用户</div></div>
-      <div class="s-item"><div class="ico ct"><svg class="ic fill"><use href="#i-person"/></svg></div><div class="lbl">用户</div></div>
+  <div class="sheet-mask" id="share-mask" onclick="closeShare()" data-page-node-id="NO2iD81MctbW0XJfSgv9dL"></div>
+  <div class="share-sheet" id="share-sheet" data-page-node-id="TttLTzhgUFiSsLdyBbRkjt">
+    <div class="s-title" data-page-node-id="5l7Eql5i0kj6m5YdsVmi0I">分享至<span class="x" onclick="closeShare()" data-page-node-id="bC5p1xnZXkaXrku8HfsCnG"><svg class="ic" data-page-node-id="rrI126oZEFr3SSIhDYZgZ5"><use href="#i-close" data-page-node-id="M9SUeJhbPJtmgDc8lpIBEl"/></svg></span></div>
+    <div class="s-row" data-page-node-id="xyFREKb29BxG4fMtbv05vd">
+      <div class="s-item" data-page-node-id="pkWrDxVLIM5GbDHDzPCVdl"><div class="ico ct" data-page-node-id="Jw5OheHQAiuQcHD4leD24c"><svg class="ic fill" data-page-node-id="eGpVDQUvESCqKM2nF5B7uU"><use href="#i-person" data-page-node-id="HxOAZyRfFrkZLSkUW35zvL"/></svg></div><div class="lbl" data-page-node-id="XhMhIYrIKrdB4Ca7RqV7Wv">用户<small data-page-node-id="6cm8vp7l2fV0VoQR8tArGB">10 分钟内在线</small></div></div>
+      <div class="s-item" data-page-node-id="PI3AiVEnYzLBI3mL9RfB4W"><div class="ico ct" data-page-node-id="XRXXoxeZNMvmRbxlcOpyBN"><svg class="ic fill" data-page-node-id="WWU5hSkDNkpSFvNf6lTEXo"><use href="#i-group" data-page-node-id="DCTIORVdDo67j9ESuKoMDn"/></svg></div><div class="lbl" data-page-node-id="Ll2ZjVI46dl9Ci9hBgkXx3">用户的群聊</div></div>
+      <div class="s-item" data-page-node-id="Q16hlAkrSzrNCx1C3Hf7xx"><div class="ico ct" data-page-node-id="n1BcEDgKHdeu4rvAzhQS0l"><svg class="ic fill" data-page-node-id="AEGwLwhfNpAZBW2DRF5H6p"><use href="#i-person" data-page-node-id="I2B75DeWDDTS0ca6ECOeHe"/></svg><span class="on" data-page-node-id="FxBtay1Zjs0ecri0GLK4L1"></span></div><div class="lbl" data-page-node-id="OmqFi55YGHQC1HJxIQMgBK">用户</div></div>
+      <div class="s-item" data-page-node-id="YybwO4qlKioEBoJUZXDWJx"><div class="ico ct" data-page-node-id="ORa7IyK8IuCfp96orexwV1"><svg class="ic fill" data-page-node-id="5MJRuFEiQoF9zbLqj4uTWg"><use href="#i-person" data-page-node-id="critwZGOm67SIJboy6GuAK"/></svg><span class="on" data-page-node-id="4qnqQkCe7kJ2GoAWA3a3qN"></span></div><div class="lbl" data-page-node-id="qHWcm5NkHHHt9M5UabIuFW">用户</div></div>
+      <div class="s-item" data-page-node-id="mF8pu2MSwQcvhIplw0K34n"><div class="ico ct" data-page-node-id="KEFbRuukEbOO4oSFZW9rsn"><svg class="ic fill" data-page-node-id="SeQnHzMwxGJTbRrCwakGXd"><use href="#i-person" data-page-node-id="BzuS1t0RdTwFsjZ4VPhkij"/></svg></div><div class="lbl" data-page-node-id="7jCgwlFMLBfIsEJ79ow1tJ">用户</div></div>
     </div>
-    <div class="s-row">
-      <div class="s-item"><div class="ico red"><svg class="ic fill"><use href="#i-send"/></svg></div><div class="lbl">私信好友</div></div>
-      <div class="s-item"><div class="ico wx"><svg class="ic fill"><use href="#i-chat-dots"/></svg></div><div class="lbl">微信好友</div></div>
-      <div class="s-item"><div class="ico pyq"><svg class="ic"><use href="#i-sparkle"/></svg></div><div class="lbl">朋友圈</div></div>
+    <div class="s-row" data-page-node-id="CYy726dirCTFIDJpMGrVFS">
+      <div class="s-item" data-page-node-id="b3RYEOIqAirY05H3AuMzku"><div class="ico red" data-page-node-id="14SDYAftMD4nGx9WofgB6f"><svg class="ic fill" data-page-node-id="UOpPvOBaV5pGE7sGIpRJ9v"><use href="#i-send" data-page-node-id="iEhExw6Lr4dBuUHxRU5JJB"/></svg></div><div class="lbl" data-page-node-id="afb7zgybg2EbtCp2vh3jYH">私信好友</div></div>
+      <div class="s-item" data-page-node-id="ERAn77R6Is6RU8fujrrW7x"><div class="ico wx" data-page-node-id="FxNgBHJjGr8XQVVHAt96S0"><svg class="ic fill" data-page-node-id="tiRjoGaCYJlmzWODGn9GWT"><use href="#i-chat-dots" data-page-node-id="jZF2RqErLleL7WTlcNuFrv"/></svg></div><div class="lbl" data-page-node-id="1OIo8srhao9BwdMWt39BOf">微信好友</div></div>
+      <div class="s-item" data-page-node-id="ixIyVNwYuqmzVkTkPZb1nj"><div class="ico pyq" data-page-node-id="2hDRXdlr8MYtc7Bm2HnKe1"><svg class="ic" data-page-node-id="34JxF8pQYLzU9XleLno3zV"><use href="#i-sparkle" data-page-node-id="ZURJoKp7XMAWM0Xy98lJ1Y"/></svg></div><div class="lbl" data-page-node-id="hbwXWgEp8Kn2YSBqLyxQaA">朋友圈</div></div>
     </div>
-    <div class="s-row">
+    <div class="s-row" data-page-node-id="CC2qgqQFczPHgvzfl9HBq9">
       <!-- 「问点点」= 把这篇笔记发给点点（增量层入口：收集归集） -->
-      <div class="s-item" onclick="shareToDD()"><div class="ico tool"><svg class="ic"><use href="#i-bubble"/></svg></div><div class="lbl" style="color:#3DDC84">问点点</div></div>
-      <div class="s-item"><div class="ico tool"><svg class="ic"><use href="#i-link"/></svg></div><div class="lbl">复制链接</div></div>
-      <div class="s-item"><div class="ico tool"><svg class="ic"><use href="#i-image"/></svg></div><div class="lbl">生成分享图</div></div>
-      <div class="s-item"><div class="ico tool"><svg class="ic"><use href="#i-quote"/></svg></div><div class="lbl">引用发笔记</div></div>
-      <div class="s-item"><div class="ico tool"><svg class="ic"><use href="#i-group"/></svg></div><div class="lbl">建群分享</div></div>
+      <div class="s-item" onclick="shareToDD()" data-page-node-id="xmRQPabKag6K2R0UIl112y"><div class="ico tool" data-page-node-id="dsHmXzgWUwWrEt8yPtrvHJ"><svg class="ic" data-page-node-id="ViZRDs9eolPSa6D6sGgrfG"><use href="#i-bubble" data-page-node-id="qBrLT2AhoLLSUOY28NJyXA"/></svg></div><div class="lbl" style="color:#3DDC84" data-page-node-id="QfMIFi1uIpIAUZNQdOoSl9">问点点</div></div>
+      <div class="s-item" data-page-node-id="gfZ1Ci0A4BPYKC36AUwHvn"><div class="ico tool" data-page-node-id="BOw0HpiMs9u0T4ysqMLa0u"><svg class="ic" data-page-node-id="UDRW7qf8li82NuwRL93GBb"><use href="#i-link" data-page-node-id="ErhmV0yKxFfJjX63KIZc5n"/></svg></div><div class="lbl" data-page-node-id="58ZawPHU2P3NfzA6pvSMhT">复制链接</div></div>
+      <div class="s-item" data-page-node-id="xYahzBviZqXncDoxBzvQVl"><div class="ico tool" data-page-node-id="wSBXpz2kkjRU8Zihb1snjj"><svg class="ic" data-page-node-id="6v8yxJillGskFzeCbV5Og0"><use href="#i-image" data-page-node-id="MYOAZzEqsiaesYxD6ChwuP"/></svg></div><div class="lbl" data-page-node-id="RL8wYNw1KlBNhrNUKxvOLC">生成分享图</div></div>
+      <div class="s-item" data-page-node-id="t3xgO3zIrFViEZXDtlSS82"><div class="ico tool" data-page-node-id="Jq1aMhlHOqjR4qCVif5IYU"><svg class="ic" data-page-node-id="DMcYcqIB70uC17pK5XIxXx"><use href="#i-quote" data-page-node-id="yoJE31m44EBjvHRGsKLR1M"/></svg></div><div class="lbl" data-page-node-id="G8HmBe04vez41BV1XNL1NN">引用发笔记</div></div>
+      <div class="s-item" data-page-node-id="H6G5WylouyvxLVgPtNaRJl"><div class="ico tool" data-page-node-id="3qqtHBIIaVBWs7V1oX7Egc"><svg class="ic" data-page-node-id="pVmoZFcQi8ETD1jNvgGdEo"><use href="#i-group" data-page-node-id="Xz0ntGGlk29T7G0DEwkiy7"/></svg></div><div class="lbl" data-page-node-id="eGWH9EACeh8Sj41APXsSXB">建群分享</div></div>
     </div>
   </div>
 </div>
