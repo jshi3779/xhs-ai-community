@@ -250,9 +250,19 @@ body {
 .album-grid .cell { width: calc(50% - 3px); border-radius: 10px; background: #202025; overflow: hidden; margin-bottom: 6px; }
 .album-grid .cell .thumb { height: 110px; background: linear-gradient(160deg,#34343B,#2A2A30); }
 .album-grid .cell .t { font-size: 12px; color: #E8E8EA; padding: 8px 10px; line-height: 1.4; }
-.album-dd-btn { position: absolute; top: 6px; right: 12px; z-index: 5; display: flex; align-items: center; gap: 5px; background: #1F1F24; border: 1px solid #2B2B31; border-radius: 999px; padding: 5px 12px; font-size: 12px; color: #3DDC84; cursor: pointer; }
+.album-dd-btn { flex: none; display: flex; align-items: center; gap: 5px; background: #1F1F24; border: 1px solid #2B2B31; border-radius: 999px; padding: 5px 12px; font-size: 12px; color: #3DDC84; cursor: pointer; }
 .album-dd-btn .dd-ghost { font-size: 12px; }
 
+/* ---------- 合集页头部（依据截图：标题 / 管理 / 简介 / 共享人 / 笔记数） ---------- */
+.ab-hd { padding: 14px 16px 20px; }
+.ab-hd .r1 { display: flex; align-items: center; justify-content: space-between; }
+.ab-hd .ttl { font-size: 28px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.ab-hd .manage { border: 1px solid #2E2E34; background: #1D1D22; color: var(--c-text-2); border-radius: 999px; padding: 9px 20px; font-size: 16px; }
+.ab-hd .intro { color: var(--c-text-2); font-size: 16px; margin-top: 14px; }
+.ab-hd .r3 { display: flex; align-items: center; justify-content: space-between; margin-top: 26px; color: var(--c-text-2); font-size: 16px; }
+.ab-hd .r3 .l { display: flex; align-items: center; gap: 10px; }
+.ab-hd .avs { display: flex; } .ab-hd .avs i { width: 34px; height: 34px; border-radius: 50%; background: #3A3A41; border: 2px solid #55555C; margin-left: -8px; } .ab-hd .avs i:first-child { margin-left: 0; }
+.album-wf { background: #0E0E10; padding: 6px 5px 20px; }
 /* ---------- 收藏页：合集卡片（新增） ---------- */
 .fav-album-list { padding: 10px 12px; }
 .fav-album-card { display: flex; gap: 12px; align-items: center; background: #202025; border-radius: 12px; padding: 12px; margin-bottom: 8px; cursor: pointer; }
@@ -787,23 +797,31 @@ body {
       </div>
     </section>
 
-    <!-- ========== 页面：合集页（增量层 v3；建合集后从收藏页进入） ========== -->
+    <!-- ========== 页面：合集页（增量层 v3；建合集后从收藏页进入；样式依据截图） ========== -->
     <section class="page album-page" id="page-album">
       <div class="note-nav">
         <span class="nb" onclick="XHS.go('me')"><svg class="ic"><use href="#i-left"/></svg></span>
-        <div class="r"><svg class="ic"><use href="#i-more"/></svg></div>
-      </div>
-      <!-- ★ 专属点点入口（暂放右上角占位按钮） -->
-      <div class="album-dd-btn" onclick="alert('专属点点：下一步接入（只基于本合集内容回答）')">
-        <i class="dd-ghost"></i> 专属点点
+        <div class="r" style="align-items:center">
+          <!-- ★ 专属点点入口（只基于本合集内容回答；下一步接入） -->
+          <div class="album-dd-btn" onclick="alert('专属点点：下一步接入（只基于本合集内容回答）')"><i class="dd-ghost"></i> 专属点点</div>
+          <svg class="ic"><use href="#i-share"/></svg>
+        </div>
       </div>
       <div class="scroll">
-        <div class="album-head">
-          <div class="album-title">意大利旅行</div>
-          <div class="album-meta">共 1 篇笔记 · 刚由点点创建</div>
+        <div class="ab-hd">
+          <div class="r1"><div class="ttl">意大利旅行</div><span class="manage">管理</span></div>
+          <div class="intro">暂无简介</div>
+          <div class="r3"><span class="l"><span class="avs"><i></i></span>由点点创建</span><span>笔记 · 1</span></div>
         </div>
-        <div class="album-grid">
-          <div class="cell"><div class="thumb"></div><div class="t">博尔盖塞美术馆订票全攻略</div></div>
+        <div class="waterfall album-wf">
+          <div class="wf-col">
+            <div class="card sr-card" onclick="openNote('a','album')">
+              <div class="cover" style="height:260px"></div>
+              <div class="tt">「博尔盖塞美术馆」订票攻略｜预约流程</div>
+              <div class="au"><span class="avatar"></span><div class="who"><b>用户</b></div><span class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>1.2w</span></div>
+            </div>
+          </div>
+          <div class="wf-col"></div>
         </div>
       </div>
     </section>
