@@ -291,6 +291,10 @@ body {
 .ab-hd .r3 { display: flex; align-items: center; justify-content: space-between; margin-top: 26px; color: var(--c-text-2); font-size: 16px; }
 .ab-hd .r3 .l { display: flex; align-items: center; gap: 10px; }
 .ab-hd .avs { display: flex; } .ab-hd .avs i { width: 34px; height: 34px; border-radius: 50%; background: #3A3A41; border: 2px solid #55555C; margin-left: -8px; } .ab-hd .avs i:first-child { margin-left: 0; }
+/* 合集页「生成笔记」红色按钮（复用首页新建笔记的红色） */
+.ab-note-btn { flex: none; display: flex; align-items: center; gap: 6px; background: var(--c-primary); color: #fff; border-radius: 999px; padding: 9px 18px; font-size: 14px; font-weight: 700; cursor: pointer; }
+.ab-note-btn .ic { font-size: 16px; stroke-width: 3; }
+.ab-note-btn:active { opacity: .85; }
 .album-wf { background: #0E0E10; padding: 6px 5px 20px; }
 /* ---------- 收藏页：合集卡片（新增） ---------- */
 .fav-album-list { padding: 10px 12px; }
@@ -839,7 +843,7 @@ body {
       </div>
       <div class="scroll" data-page-node-id="jPAHqDLVAprkpT2nE4Aa8S">
         <div class="ab-hd" data-page-node-id="hw0w2QJH1nnAqROAJERyHs">
-          <div class="r1" data-page-node-id="bgZinCGYf8BFbh1FoABnu2"><div class="ttl" data-page-node-id="j4uy3CP2ai53Eir92NkOBF">意大利旅行</div><span class="manage" data-page-node-id="UJ9s1moO3K9a5xd2ykCWHC">管理</span></div>
+          <div class="r1" data-page-node-id="bgZinCGYf8BFbh1FoABnu2"><div class="ttl" data-page-node-id="j4uy3CP2ai53Eir92NkOBF">意大利旅行</div><div class="r1-acts" style="display:flex;align-items:center;gap:10px"><span class="manage" data-page-node-id="UJ9s1moO3K9a5xd2ykCWHC">管理</span><span class="ab-note-btn" onclick="XHS.go('chain-edit')"><svg class="ic"><use href="#i-plus"/></svg>生成笔记</span></div></div>
           <div class="intro" data-page-node-id="rW83JEDKKVtKqioFiRQbxL">暂无简介</div>
           <div class="r3" data-page-node-id="FMPLvtBHxfvBG48d3zlQXr"><span class="l" data-page-node-id="vlmRVCCNZ2FRgmhKAuaKFM"><span class="avs" data-page-node-id="H9SonYn7SsA4kkXDajCdKC"><i data-page-node-id="jHtM7yKDjdGaqdJGiMTjuM"></i></span>由点点创建</span><span data-page-node-id="T2uL0EtFN45pGb1x1ViRdg">笔记 · 1</span></div>
         </div>
