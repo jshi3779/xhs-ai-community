@@ -963,7 +963,7 @@ body {
     <!-- ========== 页面：验证链编辑页（增量层 v3；入口：问一问里的验证链入口卡片） ========== -->
     <section class="page chain-page" id="page-chain-edit" data-page-node-id="39VoGZL3RRtRZu1NVZF8A3" style="box-sizing: border-box; margin: 0px; padding: 44px 0px 0px; -webkit-tap-highlight-color: transparent; position: absolute; inset: 0px; display: flex; flex-direction: column; background: rgb(20, 20, 24);">
       <div class="chain-nav" data-page-node-id="N6Z3unm3YEYcKrQ70kkrGJ" style="box-sizing: border-box; margin: 0px; padding: 0px 12px; -webkit-tap-highlight-color: transparent; flex: 0 0 auto; height: 46px; display: flex; align-items: center; justify-content: space-between;">
-        <span class="nb" onclick="XHS.go('ask')" data-page-node-id="4Y5OhAyRmTAwnu7IHWs1ON" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer;"><svg class="ic" data-page-node-id="d25vbOjkA1NE7IcHioFIzV" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto;"><use href="#i-left" data-page-node-id="TFoE2i3Mu2klSF2ACwwfDw" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg></span>
+        <span class="nb" onclick="XHS.back('chain-edit')" data-page-node-id="4Y5OhAyRmTAwnu7IHWs1ON" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer;"><svg class="ic" data-page-node-id="d25vbOjkA1NE7IcHioFIzV" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto;"><use href="#i-left" data-page-node-id="TFoE2i3Mu2klSF2ACwwfDw" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg></span>
         <span class="tt" data-page-node-id="7WD7swfrm51pCibTH41AG5" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 17px; font-weight: 700;"></span>
         <div class="nav-right"><span class="draft-pill" onclick="alert('已存草稿（演示）')"><svg class="ic"><use href="#i-copy"/></svg>存草稿</span><span class="pub-pill" onclick="XHS.go('chain-pub')">发笔记</span></div>
       </div>
@@ -1138,7 +1138,10 @@ body {
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
   /* 页面切换：问一问/点点设置/链路编辑/发布/笔记/合集 属于子页面，Tab 高亮保持「首页」或「我」 */
+  var chainFrom = 'album';   // 链路编辑页的来源页（返回上一级用）
   function go(name) {
+    var cur = document.querySelector('.page.active'), curName = cur ? cur.id.replace('page-', '') : '';
+    if (name === 'chain-edit' && ['cite-pick', 'note', 'chain-pub'].indexOf(curName) < 0 && curName) chainFrom = curName;
     $$('.page').forEach(function (p) { p.classList.toggle('active', p.id === 'page-' + name); });
     var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album', 'search', 'album-dd', 'cite-pick'];
     document.getElementById('phone').classList.toggle('full', subPages.indexOf(name) >= 0);
@@ -1150,7 +1153,7 @@ body {
     }
     $$('.tab[data-page]').forEach(function (t) { t.classList.toggle('active', t.dataset.page === tabName); });
   }
-  window.XHS = { go: go };   // 暴露给增量层调用
+  window.XHS = { go: go, back: function (page) { if (page === 'chain-edit') go(chainFrom); } };   // 暴露给增量层调用
 
   /* ============ 增量层 v3：收集归集交互 ============ */
   window.closeShare = function () {
