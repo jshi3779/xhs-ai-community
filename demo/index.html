@@ -675,6 +675,12 @@ body {
 .qa-demo-c .tx { color: #8E8E95; font-size: 13px; }
 .qa-dbtns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .qa-dbtn { font-size: 13px; color: #4C9BFF; border: 1px solid #2B3B55; background: #1A2233; border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+
+/* 提问帖里的回答：点赞改为「感谢」 */
+.np-c .lk.thanks { gap: 4px; }
+.np-c .lk.thanks span { font-size: 12px; }
+.np-c .lk.thanks.on { color: var(--c-primary); }
+.np-c .lk.thanks.on .ic { fill: var(--c-primary); }
 </style>
 <style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
 <body data-page-node-id="s7kZU0yUpyZo5TJpiBt1KG" style="position: relative; box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; background: rgb(217, 217, 222); height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: -apple-system, &quot;PingFang SC&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, sans-serif; color: rgb(242, 242, 244); font-size: 14px;">
@@ -1452,7 +1458,7 @@ body {
   /* 用普通帖子详情页展示这条问题帖；评论区就是普通评论 */
   function qaPostData(role) {
     var demoHtml = qaDemoComment(role);
-    var comments = QA.a ? [{ n: '用户', t: QA.a, d: '刚刚', loc: '意大利', lk: 0 }] : [];
+    var comments = QA.a ? [{ n: '用户', t: QA.a, d: '刚刚', loc: '意大利', lk: 0, thanks: true }] : [];
     var why;
     if (role === 'answerer') {
       why = QA.a
@@ -1475,7 +1481,7 @@ body {
       }
     }
     return {
-      author: '点点问题', n: ['', '', String(comments.length)], cover: 'none',
+      author: '点点问题', n: ['感谢', '', String(comments.length)], cover: 'none',
       askerRow: '<div class="qa-asker"><span class="avatar"></span><div><b>用户</b><span>' + (role === 'asker' ? '我 · ' : '') + '通过点点提问 · 刚刚</span></div></div>',
       title: QA.q,
       text: QA.ai ? ['<span class="qa-ai-l">✦ 点点帮忙整理，发布前已由本人确认</span>'] : [],
@@ -1610,7 +1616,8 @@ body {
   function cmHtml(c, rp) {
     return '<div class="np-c' + (rp ? ' rp' : '') + '"><div class="avatar"></div><div class="bd"><div class="nm">' + c.n + (c.au ? '<span class="au">作者</span>' : '') + '</div>' +
       '<div class="tx">' + c.t + '</div><div class="ft"><span>' + c.d + ' ' + c.loc + '</span><span>回复</span></div></div>' +
-      '<div class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>' + (c.lk || '') + '</div></div>';
+      (c.thanks ? '<div class="lk thanks" data-thanks><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg><span>感谢</span></div></div>'
+        : '<div class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>' + (c.lk || '') + '</div></div>');
   }
   function renderNote(key) {
     var d = NOTES[key];
@@ -1641,6 +1648,16 @@ body {
     sc.querySelectorAll('[data-q-note]').forEach(function (el) { el.addEventListener('click', function () { openNote('a', 'q-post'); }); });
     sc.querySelectorAll('[data-q-decline]').forEach(function (el) { el.addEventListener('click', function () { qaDecline(); }); });
     sc.querySelectorAll('[data-q-demo]').forEach(function (el) { el.addEventListener('click', function () { go('msg'); }); });
+    sc.querySelectorAll('[data-thanks]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var on = el.classList.toggle('on');
+        el.querySelector('span').textContent = on ? '已感谢' : '感谢';
+        if (on && QA.role === 'asker') {
+          addMsgRow('qa-row-thanks', '<div class="ava white"></div><div class="mid"><div class="nm">点点问题 <span class="ai">代发</span></div><div class="sub">提问者感谢了你的回答</div></div><span class="tm">刚刚</span><span class="dot"></span>', "openQaPost('answerer', 'msg')");
+          qaToast('已感谢，对方会收到通知');
+        }
+      });
+    });
     sc.querySelectorAll('[data-q-sw]').forEach(function (el) { el.addEventListener('click', function () { openQaPost(el.dataset.qSw, QA.from); }); });
     sc.querySelectorAll('[data-q-ff]').forEach(function (el) { el.addEventListener('click', function () { qaFastForward(true); }); });
     sc.querySelectorAll('[data-q-note-b]').forEach(function (el) { el.addEventListener('click', function () { openNote('b', 'q-post'); }); });
