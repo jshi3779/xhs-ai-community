@@ -161,10 +161,10 @@ body {
 /* 键盘上方工具栏（还原截图：语音/表情/#/@/插入笔记/完成） */
 .pub-toolbar { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; background: #1B1B1F; border-top: 1px solid #26262C; }
 .pub-toolbar .tools { display: flex; align-items: center; gap: 22px; }
-.pub-toolbar .tool { font-size: 20px; color: #C9C9CE; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; height: 24px; line-height: 1; }
-.pub-toolbar .tool .ic { font-size: 22px; }
-.pub-toolbar .tool.ref { color: #C9C9CE; }
-.pub-toolbar .tool.ref .ic { font-size: 22px; color: #FF2442; }
+.pub-toolbar .tool { color: #C9C9CE; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; line-height: 1; }
+.pub-toolbar .tool .ic { font-size: 24px; display: block; }
+.pub-toolbar .tool.ref { color: #C9C9CE; margin-top: 0; }   /* 避免被通用 .ref 的 margin-top 顶歪 */
+.pub-toolbar .tool.ref .ic { font-size: 24px; color: #FF2442; }
 .pub-toolbar .done { font-size: 15px; color: #F2F2F4; cursor: pointer; }
 /* 模拟键盘区（演示用） */
 .mock-kb { flex: none; background: #202024; padding: 8px 6px 10px; display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; }
@@ -620,6 +620,9 @@ body {
   <symbol id="i-send" viewBox="0 0 24 24" data-page-node-id="7tNL2RGrRLpHwd9B9PKdKm" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"><path d="M21 3L3 10.500l7 3 3 7z" data-page-node-id="0bWuQjdq2lpbDkYu3olMMO" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></path><path d="M10 13.500L21 3" data-page-node-id="CQ4F0h1VHhe5SS5fMbT0SJ" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></path></symbol>
   <symbol id="i-image" viewBox="0 0 24 24" data-page-node-id="mKEwvdsA4XAAAOuRJqBgKG" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"><rect x="4" y="4" width="16" height="16" rx="3" data-page-node-id="TFYYCqLl00Wlhdsj3BpGDL" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></rect><circle cx="9" cy="9" r="1.500" data-page-node-id="BmbQJEpdxQ8oDtWLPoRGvc" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></circle><path d="M4 17l5-5 4 4 3-3 4 4" data-page-node-id="affFSmICX1IN5Kmuas6exn" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></path></symbol>
   <symbol id="i-quote" viewBox="0 0 24 24" data-page-node-id="XA45jiqEfquMJ5HR32Mdec" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"><path d="M4 5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-7l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" data-page-node-id="4L32ExyLLkOB5rcNLwFr6O" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></path><path d="M9 9v3M14 9v3" data-page-node-id="kCPzbjal241HqfiEKeFVm6" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></path></symbol>
+  <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M8 14a4.500 4.500 0 0 0 8 0"></path><path d="M9 9.500v.01M15 9.500v.01" style="stroke-width:2.600"></path></symbol>
+  <symbol id="i-hash" viewBox="0 0 24 24"><path d="M9.500 4L7.500 20M16.500 4L14.500 20M4.500 9h15M4 15h15"></path></symbol>
+  <symbol id="i-at" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.500"></circle><path d="M15.500 8.500V13a2.500 2.500 0 0 0 5 0v-1a8.500 8.500 0 1 0-3.400 6.800"></path></symbol>
   <symbol id="i-cite-note" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2.5"></rect><path d="M9 9h6M9 13h6M9 17h3"></path></symbol>
   <symbol id="i-group" viewBox="0 0 24 24" data-page-node-id="qfzTI7UbYKZOxmWCQziH7F" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"><circle cx="9" cy="8" r="3.500" data-page-node-id="6qCtdOvElEDfPVIam607Sb" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></circle><path d="M2.500 20c0-3.500 3-6 6.500-6s6.500 2.500 6.500 6" data-page-node-id="nJIqt1u7ehHj8Iq5GVQRIP" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></path><path d="M16 5a3 3 0 0 1 0 6M18 14c2 .8 3.500 2.800 3.500 6" data-page-node-id="WRgXWA97q8caWH766UIJ1Z" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></path></symbol>
 </svg>
@@ -1015,9 +1018,9 @@ body {
       <div class="pub-toolbar" data-page-node-id="pubToolbar1">
         <div class="tools">
           <span class="tool" onclick="alert('语音输入（演示）')"><svg class="ic"><use href="#i-voice"/></svg></span>
-          <span class="tool" onclick="alert('表情（演示）')" style="font-size:18px">☺</span>
-          <span class="tool" onclick="alert('插入话题（演示）')" style="font-size:20px">#</span>
-          <span class="tool" onclick="alert('@提及（演示）')" style="font-size:20px">@</span>
+          <span class="tool" onclick="alert('表情（演示）')"><svg class="ic"><use href="#i-smile"/></svg></span>
+          <span class="tool" onclick="alert('插入话题（演示）')"><svg class="ic"><use href="#i-hash"/></svg></span>
+          <span class="tool" onclick="alert('@提及（演示）')"><svg class="ic"><use href="#i-at"/></svg></span>
           <span class="tool ref" onclick="openInsertNote()"><svg class="ic"><use href="#i-cite-note"/></svg></span>
         </div>
         <span class="done" onclick="alert('收起键盘（演示）')">完成</span>
