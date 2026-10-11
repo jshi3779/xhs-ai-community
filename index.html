@@ -943,8 +943,9 @@ body {
           <!-- 开场：专属上下文说明 -->
           <div class="bubble" data-page-node-id="jBgYjQSKRXDDE57MTiEhmV" style="box-sizing: border-box; margin: 0px; padding: 14px 16px; -webkit-tap-highlight-color: transparent; font-size: 15px; line-height: 1.7; border-radius: 22px; background: rgb(42, 42, 47);">
             <p data-page-node-id="Ayt5HtnX7KldULykwWUkBe" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;">这是「意大利旅行」合集的<b data-page-node-id="ijgPdHINhD1kUjDTjWnkj3" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;">专属点点</b> 🎯</p>
-            <p data-page-node-id="eVBWDLOugPG1DjROuZ5UBU" style="box-sizing: border-box; margin: 8px 0px 0px; padding: 0px; -webkit-tap-highlight-color: transparent;">我会只从合集里的笔记出发回答你，涉及笔记外的问题，我会如实告诉你。先试试问我：</p>
+            <p data-page-node-id="eVBWDLOugPG1DjROuZ5UBU" style="box-sizing: border-box; margin: 8px 0px 0px; padding: 0px; -webkit-tap-highlight-color: transparent;">我只从合集里的笔记出发回答你，也能<b data-page-node-id="ddSumHint" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; color: rgb(61, 220, 132);">一键总结整个合集</b>。先试试：</p>
             <div class="add-chips" data-page-node-id="cBW2ciflNmlpQKeslgjFPj" style="box-sizing: border-box; margin: 12px 0px 0px; padding: 0px; -webkit-tap-highlight-color: transparent; display: flex; flex-wrap: wrap; gap: 8px;">
+              <span class="dd-sum-chip" onclick="askDD('总结这个合集')" data-page-node-id="ddSumChip" style="box-sizing: border-box; margin: 0px; padding: 7px 13px; -webkit-tap-highlight-color: transparent; background: rgb(27, 58, 46); border: 1px solid rgb(61, 220, 132); border-radius: 999px; font-size: 13px; color: rgb(61, 220, 132); font-weight: 600; cursor: pointer;">✨ 总结这个合集</span>
               <span onclick="askDD('博尔盖塞美术馆现在怎么订票？')" data-page-node-id="xx19IxUa1ZxfZpzJrHgTX6" style="box-sizing: border-box; margin: 0px; padding: 7px 13px; -webkit-tap-highlight-color: transparent; background: rgb(31, 31, 36); border: 1px solid rgb(43, 43, 49); border-radius: 999px; font-size: 13px; color: rgb(242, 242, 244); cursor: pointer;">博尔盖塞美术馆怎么订票？</span>
               <span onclick="askDD('这篇里提到的注意事项有哪些？')" data-page-node-id="cSgNERyixZXvn1s96sDDvA" style="box-sizing: border-box; margin: 0px; padding: 7px 13px; -webkit-tap-highlight-color: transparent; background: rgb(31, 31, 36); border: 1px solid rgb(43, 43, 49); border-radius: 999px; font-size: 13px; color: rgb(242, 242, 244); cursor: pointer;">这篇里有哪些注意事项？</span>
             </div>
@@ -1226,6 +1227,11 @@ body {
       ref: { t: '「博尔盖塞美术馆」订票攻略｜预约流程', m: '用户 · 03-09 · 罗马攻略合集', src: '来自本合集 · 1 篇笔记' },
       answer: '<p><b style="color:#3DDC84">三个重点：</b></p><p>① <b>提前约</b>：提前 1-2 个月放票，多刷官网；</p><p>② <b>带现金</b>：现场 POS 机故障，只收现金；</p><p>③ <b>备选</b>：没约上可清晨去现场排退票。</p>',
       follow: ['把这三个重点加进我的链路', '附近还有哪些值得去的点？']
+    },
+    summary: {
+      text: '我把「意大利旅行」合集里的笔记过了一遍，给你总结出这条主脉络：',
+      answer: '<p><b style="color:#3DDC84">🗺 整体路线</b>：米兰落地 → 罗马（博尔盖塞美术馆）→ 佛罗伦萨（美食），走的是「落地交通—门票—餐饮」的核心动线。</p><p><b style="color:#3DDC84">🎫 最常踩的坑</b>：博尔盖塞门票要提前 1-2 个月约、现场 POS 只收现金；佛罗伦萨热门店要提前 3 天约。</p><p><b style="color:#3DDC84">💡 一句提醒</b>：随身带欧元现金，热门点尽量错峰清晨去。</p>',
+      follow: ['把这份总结生成一篇笔记', '展开看看交通部分']
     }
   };
   function ddReply(key) {
@@ -1235,11 +1241,12 @@ body {
     var d = DD_ANSWERS[key] || DD_ANSWERS.default;
     var bubble = document.createElement('div');
     bubble.className = 'bubble';
-    bubble.innerHTML = '<p>' + d.text + '</p>' +
-      '<div class="add-ref" onclick="openNote(\'a\',\'album-dd\')"><div class="thumb"></div>' +
-      '<div class="bd"><div class="t">' + d.ref.t + '</div><div class="m">' + d.ref.m + '</div><div class="src">' + d.ref.src + '</div></div>' +
-      '<svg class="ic arrow"><use href="#i-right"/></svg></div>' +
-      d.answer +
+    var refHtml = d.ref
+      ? '<div class="add-ref" onclick="openNote(\'a\',\'album-dd\')"><div class="thumb"></div>' +
+        '<div class="bd"><div class="t">' + d.ref.t + '</div><div class="m">' + d.ref.m + '</div><div class="src">' + d.ref.src + '</div></div>' +
+        '<svg class="ic arrow"><use href="#i-right"/></svg></div>'
+      : '';
+    bubble.innerHTML = '<p>' + d.text + '</p>' + refHtml + d.answer +
       '<div class="add-chips">' + (d.follow || []).map(function (f) { return '<span onclick="askDD(\'' + f + '\')">' + f + '</span>'; }).join('') + '</div>';
     chat.appendChild(bubble);
     addScrollBottom();
@@ -1248,7 +1255,8 @@ body {
     if (!text) return;
     addUser(text);
     addThinking();
-    var key = (text.indexOf('订票') >= 0 || text.indexOf('买票') >= 0 || text.indexOf('现金') >= 0) ? 'default'
+    var key = (text.indexOf('总结') >= 0) ? 'summary'
+      : (text.indexOf('订票') >= 0 || text.indexOf('买票') >= 0 || text.indexOf('现金') >= 0) ? 'default'
       : (text.indexOf('注意事项') >= 0 || text.indexOf('重点') >= 0) ? 'note' : 'default';
     setTimeout(function () { ddReply(key); }, 700);
   }
