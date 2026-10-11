@@ -1331,7 +1331,7 @@ body {
   /* 启动时清理：文件里带有编辑工具存下的「当前状态」内联样式，会盖住 class 切换（Tab 高亮、面板显隐等），这里去掉状态相关的几项 */
   [['.tab', ['color', 'font-weight']], ['#me-tabs span', ['color', 'font-weight']], ['#fav-sub span', ['color', 'font-weight']],
    ['.me-panel', ['display']], ['.fav-panel', ['display']], ['.tg', ['background-color']],
-   ['.np-follow', ['color', 'border-color']], ['.np-act', ['color']]].forEach(function (x) {
+   ['.np-follow', ['color', 'border-color']], ['.np-act', ['color']], ['.np-act .ic', ['fill']], ['#ans-star .ic', ['fill']]].forEach(function (x) {
     $$(x[0]).forEach(function (el) { x[1].forEach(function (p) { el.style.removeProperty(p); }); });
   });
   var chainFrom = 'album';
