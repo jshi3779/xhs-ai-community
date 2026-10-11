@@ -273,22 +273,24 @@ body {
 .share-sheet .lbl { font-size: 12px; color: var(--c-text-2); line-height: 1.3; }
 .share-sheet .lbl small { display: block; font-size: 10px; color: var(--c-text-3); }
 
-/* ---------- 插入引用笔记（发笔记器工具栏 → 底部 sheet 选择合集内笔记） ---------- */
-.insert-sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 41; background: #0F0F12; border-radius: 16px 16px 0 0; padding: 6px 0 12px; display: none; }
-.insert-sheet.show { display: block; }
-.insert-sheet .is-head { position: relative; text-align: center; font-size: 15px; font-weight: 700; color: #F2F2F4; padding: 12px 0 10px; }
-.insert-sheet .is-head .x { position: absolute; right: 16px; top: 8px; font-size: 22px; color: #F2F2F4; cursor: pointer; display: flex; }
-.insert-sheet .is-hint { font-size: 11px; color: #8E8E95; text-align: center; padding: 0 16px 12px; }
-.insert-sheet .is-list { max-height: 320px; overflow: hidden auto; scrollbar-width: none; }
-.insert-sheet .is-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-top: 1px solid #1E1E23; }
-.insert-sheet .is-item:first-child { border-top: 0; }
-.insert-sheet .is-item:active { background: #1A1A1F; }
-.insert-sheet .is-item .is-thumb { width: 48px; height: 48px; border-radius: 8px; background: linear-gradient(160deg,#34343B,#2A2A30); flex: none; }
-.insert-sheet .is-item .is-bd { flex: 1; min-width: 0; }
-.insert-sheet .is-item .is-t { font-size: 14px; color: #F2F2F4; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.insert-sheet .is-item .is-m { font-size: 11px; color: #8E8E95; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.insert-sheet .is-item .is-sel { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #55555C; flex: none; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; }
-.insert-sheet .is-item.sel .is-sel { background: #FF2442; border-color: #FF2442; }
+/* ---------- 选择要引用的笔记（整页，双列卡片流） ---------- */
+.cite-pick-page { background: var(--c-bg); }
+.cp-tabs { display: flex; gap: 26px; padding: 0 16px; border-bottom: 1px solid var(--c-line); flex: none; }
+.cp-tabs .cp-tab { position: relative; padding: 10px 2px; font-size: 15px; color: var(--c-text-2); cursor: pointer; }
+.cp-tabs .cp-tab.on { color: var(--c-text); font-weight: 700; }
+.cp-tabs .cp-tab.on::after { content: ''; position: absolute; left: 50%; transform: translateX(-50%); bottom: 0; width: 24px; height: 3px; border-radius: 2px; background: var(--c-primary); }
+.cp-scroll { flex: 1; overflow: hidden auto; scrollbar-width: none; }
+.cp-grid { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 10px 24px; }
+.cp-card { width: calc(50% - 3px); border-radius: 10px; overflow: hidden; background: var(--c-card); cursor: pointer; position: relative; }
+.cp-card:active { opacity: .85; }
+.cp-card .cp-cover { height: 150px; background: linear-gradient(160deg,#34343B,#2A2A30); position: relative; }
+.cp-card .cp-cover .cp-tt { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 8px 8px; font-size: 12px; color: #fff; line-height: 1.4; background: linear-gradient(transparent, rgba(0,0,0,.55)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cp-card .cp-ft { display: flex; align-items: center; gap: 5px; padding: 6px 8px; font-size: 11px; color: var(--c-text-2); }
+.cp-card .cp-ft .cp-av { width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(160deg,#4A4A52,#33333A); flex: none; }
+.cp-card .cp-ft .cp-nm { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cp-card .cp-ft .cp-lk { display: flex; align-items: center; gap: 2px; flex: none; }
+.cp-card .cp-ft .cp-lk .ic { font-size: 12px; }
+.cp-empty { text-align: center; color: var(--c-text-3); font-size: 13px; padding: 60px 0; }
 
 /* ---------- 正文里插入的引用卡片（与 cite-ref 同构，可点跳详情） ---------- */
 .body-edit .cite-ref { margin: 10px 0 0; }
@@ -618,6 +620,7 @@ body {
   <symbol id="i-send" viewBox="0 0 24 24" data-page-node-id="7tNL2RGrRLpHwd9B9PKdKm" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"><path d="M21 3L3 10.500l7 3 3 7z" data-page-node-id="0bWuQjdq2lpbDkYu3olMMO" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></path><path d="M10 13.500L21 3" data-page-node-id="CQ4F0h1VHhe5SS5fMbT0SJ" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></path></symbol>
   <symbol id="i-image" viewBox="0 0 24 24" data-page-node-id="mKEwvdsA4XAAAOuRJqBgKG" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"><rect x="4" y="4" width="16" height="16" rx="3" data-page-node-id="TFYYCqLl00Wlhdsj3BpGDL" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></rect><circle cx="9" cy="9" r="1.500" data-page-node-id="BmbQJEpdxQ8oDtWLPoRGvc" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></circle><path d="M4 17l5-5 4 4 3-3 4 4" data-page-node-id="affFSmICX1IN5Kmuas6exn" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></path></symbol>
   <symbol id="i-quote" viewBox="0 0 24 24" data-page-node-id="XA45jiqEfquMJ5HR32Mdec" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"><path d="M4 5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-7l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" data-page-node-id="4L32ExyLLkOB5rcNLwFr6O" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></path><path d="M9 9v3M14 9v3" data-page-node-id="kCPzbjal241HqfiEKeFVm6" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></path></symbol>
+  <symbol id="i-cite-note" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2.5"></rect><path d="M9 9h6M9 13h6M9 17h3"></path></symbol>
   <symbol id="i-group" viewBox="0 0 24 24" data-page-node-id="qfzTI7UbYKZOxmWCQziH7F" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"><circle cx="9" cy="8" r="3.500" data-page-node-id="6qCtdOvElEDfPVIam607Sb" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></circle><path d="M2.500 20c0-3.500 3-6 6.500-6s6.500 2.500 6.500 6" data-page-node-id="nJIqt1u7ehHj8Iq5GVQRIP" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></path><path d="M16 5a3 3 0 0 1 0 6M18 14c2 .8 3.500 2.800 3.500 6" data-page-node-id="WRgXWA97q8caWH766UIJ1Z" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></path></symbol>
 </svg>
 
@@ -1014,7 +1017,7 @@ body {
           <span class="tool" onclick="alert('表情（演示）')">☺</span>
           <span class="tool" onclick="alert('插入话题（演示）')">#</span>
           <span class="tool" onclick="alert('@提及（演示）')">@</span>
-          <span class="tool ref" onclick="openInsertNote()"><svg class="ic"><use href="#i-quote"/></svg></span>
+          <span class="tool ref" onclick="openInsertNote()"><svg class="ic"><use href="#i-cite-note"/></svg></span>
         </div>
         <span class="done" onclick="alert('收起键盘（演示）')">完成</span>
       </div>
@@ -1103,13 +1106,19 @@ body {
     </div>
   </div>
 
-  <!-- 插入引用笔记面板（发笔记器工具栏 → 选择合集内笔记，增量层 v3） -->
-  <div class="sheet-mask" id="insert-mask" onclick="closeInsertNote()" style="position: absolute; inset: 0; background: rgba(0,0,0,.55); z-index: 50; display: none;"></div>
-  <div class="insert-sheet" id="insert-sheet">
-    <div class="is-head">插入引用笔记<span class="x" onclick="closeInsertNote()"><svg class="ic"><use href="#i-close"/></svg></span></div>
-    <div class="is-hint">从「意大利旅行」合集里选一篇，插入到正文</div>
-    <div class="is-list" id="insert-list"></div>
-  </div>
+  <!-- 选择要引用的笔记（整页，增量层 v3；发笔记器工具栏进入） -->
+  <section class="page cite-pick-page" id="page-cite-pick">
+    <div class="chain-nav">
+      <span class="nb" onclick="XHS.go('chain-edit')"><svg class="ic"><use href="#i-left"/></svg></span>
+      <span class="tt">选择要引用的笔记</span>
+      <span class="nb" style="visibility:hidden"><svg class="ic"><use href="#i-left"/></svg></span>
+    </div>
+    <div class="cp-tabs">
+      <span class="cp-tab on" data-tab="fav" onclick="cpTab('fav')">当前收藏夹</span>
+      <span class="cp-tab" data-tab="my" onclick="cpTab('my')">我的笔记</span>
+    </div>
+    <div class="cp-scroll"><div class="cp-grid" id="cp-grid"></div></div>
+  </section>
 </div>
 
 <script data-page-node-id="LYnRUdLGNTV9RRhEk2u3QQ" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;">
@@ -1130,7 +1139,7 @@ body {
   /* 页面切换：问一问/点点设置/链路编辑/发布/笔记/合集 属于子页面，Tab 高亮保持「首页」或「我」 */
   function go(name) {
     $$('.page').forEach(function (p) { p.classList.toggle('active', p.id === 'page-' + name); });
-    var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album', 'search', 'album-dd'];
+    var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album', 'search', 'album-dd', 'cite-pick'];
     document.getElementById('phone').classList.toggle('full', subPages.indexOf(name) >= 0);
     var tabName;
     if (subPages.indexOf(name) >= 0) {
@@ -1336,13 +1345,21 @@ body {
   }
   window.openNote = function (key, from) { noteFrom = from || 'home'; renderNote(key); go('note'); };
 
-  /* ============ 插入引用笔记（发笔记器：从合集选一篇插入正文） ============ */
-  // 合集内可供插入的笔记（与 NOTES 的 key 对应；展示用元信息）
-  var CHAIN_NOTES = [
-    { key: 'a', title: '「博尔盖塞美术馆」订票攻略｜预约流程', meta: '用户 · 03-09 · 罗马攻略合集' },
-    { key: 'b', title: '没提前约上也进了博尔盖塞？', meta: '用户 · 09-29 · 意大利碎片记录' },
-    { key: 'c', title: '佛罗伦萨美食探店笔记｜这几家不排队', meta: '用户 · 10-02 · 意大利碎片记录' }
-  ];
+  /* ============ 选择要引用的笔记（整页：当前收藏夹 / 我的笔记，双列卡片流） ============ */
+  // 两个 tab 的笔记数据（key 对应 NOTES，点击卡片即插入正文）
+  var CP_DATA = {
+    fav: [
+      { key: 'a', title: '「博尔盖塞美术馆」订票攻略｜预约流程', nm: '用户', lk: '2680' },
+      { key: 'b', title: '没提前约上也进了博尔盖塞？', nm: '用户', lk: '7424' },
+      { key: 'c', title: '佛罗伦萨美食探店笔记｜这几家不排队', nm: '用户', lk: '2.1万' },
+      { key: 'a', title: '米兰机场大巴乘坐攻略', nm: '用户', lk: '6847' },
+      { key: 'b', title: '罗马清晨退票实测', nm: '用户', lk: '4081' }
+    ],
+    my: [
+      { key: 'c', title: '佛罗伦萨美食探店笔记｜这几家不排队', nm: '用户', lk: '866' },
+      { key: 'a', title: '意大利 5 日游 · 我走过的路', nm: '用户', lk: '342' }
+    ]
+  };
   function citeRefHtml(key) {
     var d = NOTES[key];
     if (!d) return '';
@@ -1351,23 +1368,23 @@ body {
       '<div class="cr-bd"><div class="cr-tag"><svg class="ic"><use href="#i-link"/></svg>引用笔记</div>' +
       '<div class="cr-t">' + d.title + '</div></div></div>';
   }
-  function renderInsertList() {
-    var list = document.getElementById('insert-list');
-    list.innerHTML = CHAIN_NOTES.map(function (n) {
-      return '<div class="is-item" onclick="insertCite(\'' + n.key + '\')">' +
-        '<div class="is-thumb"></div>' +
-        '<div class="is-bd"><div class="is-t">' + n.title + '</div><div class="is-m">' + n.meta + '</div></div>' +
-        '<div class="is-sel"><svg class="ic" style="font-size:11px"><use href="#i-check"/></svg></div></div>';
-    }).join('');
+  function renderCpGrid(tab) {
+    var grid = document.getElementById('cp-grid');
+    var list = CP_DATA[tab] || [];
+    grid.innerHTML = list.length ? list.map(function (n) {
+      return '<div class="cp-card" onclick="insertCite(\'' + n.key + '\')">' +
+        '<div class="cp-cover"><div class="cp-tt">' + n.title + '</div></div>' +
+        '<div class="cp-ft"><span class="cp-av"></span><span class="cp-nm">' + n.nm + '</span>' +
+        '<span class="cp-lk"><svg class="ic"><use href="#i-heart"/></svg>' + n.lk + '</span></div></div>';
+    }).join('') : '<div class="cp-empty">这里还没有笔记</div>';
   }
-  window.openInsertNote = function () {
-    renderInsertList();
-    document.getElementById('insert-mask').style.display = 'block';
-    document.getElementById('insert-sheet').classList.add('show');
+  window.cpTab = function (tab) {
+    $$('.cp-tabs .cp-tab').forEach(function (t) { t.classList.toggle('on', t.dataset.tab === tab); });
+    renderCpGrid(tab);
   };
-  window.closeInsertNote = function () {
-    document.getElementById('insert-mask').style.display = 'none';
-    document.getElementById('insert-sheet').classList.remove('show');
+  window.openInsertNote = function () {
+    cpTab('fav');
+    go('cite-pick');
   };
   window.insertCite = function (key) {
     var body = document.getElementById('bodyEdit1');
@@ -1380,7 +1397,7 @@ body {
     });
     // 去重：同一篇笔记不重复插入
     if (body.querySelector('[data-cite-key="' + key + '"]')) {
-      closeInsertNote();
+      go('chain-edit');
       return;
     }
     var ref = document.createElement('div');
@@ -1388,7 +1405,7 @@ body {
     var el = ref.firstChild;
     el.setAttribute('data-cite-key', key);
     body.appendChild(el);
-    closeInsertNote();
+    go('chain-edit');
     // 滚动到正文编辑区可见
     var sc = document.querySelector('#page-chain-edit .scroll');
     if (sc) sc.scrollTop = 0;
