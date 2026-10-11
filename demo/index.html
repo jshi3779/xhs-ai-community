@@ -668,6 +668,13 @@ body {
 .qa-rel-c .t { font-size: 14px; font-weight: 600; }
 .qa-rel-c .q { font-size: 13px; color: #D8D8DC; line-height: 1.6; margin-top: 6px; }
 .qa-rel-c .stale { display: inline-block; margin-top: 8px; font-size: 11px; color: #E0A52A; background: #3A3020; border-radius: 4px; padding: 1px 6px; }
+
+/* ==================== 演示控制：以一条评论的形式放在评论区 ==================== */
+.qa-demo-c .avatar { display: flex; align-items: center; justify-content: center; background: #26262C; font-size: 18px; }
+.qa-demo-c .au { color: #4C9BFF; background: #1D2D4B; }
+.qa-demo-c .tx { color: #8E8E95; font-size: 13px; }
+.qa-dbtns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.qa-dbtn { font-size: 13px; color: #4C9BFF; border: 1px solid #2B3B55; background: #1A2233; border-radius: 999px; padding: 5px 12px; cursor: pointer; }
 </style>
 <style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
 <body data-page-node-id="s7kZU0yUpyZo5TJpiBt1KG" style="position: relative; box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; background: rgb(217, 217, 222); height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: -apple-system, &quot;PingFang SC&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, sans-serif; color: rgb(242, 242, 244); font-size: 14px;">
@@ -1430,13 +1437,26 @@ body {
     document.querySelector('#qa-row-ask .sub').textContent = '有人在问你可能知道的：' + q;
     addScrollBottom();
   };
+  /* 演示控制：作为评论区里的一条评论，随时能找到（切换视角、快进时间） */
+  function qaDemoComment(role) {
+    var btns = [];
+    if (role === 'asker') {
+      btns.push('<span class="qa-dbtn" data-q-sw="answerer">切到被问到的人</span>');
+      if (!QA.a) btns.push('<span class="qa-dbtn" data-q-ff>快进 24 小时（无人回答）</span>');
+    } else {
+      btns.push('<span class="qa-dbtn" data-q-sw="asker">切到提问者</span>');
+    }
+    return '<div class="np-c qa-demo-c"><div class="avatar"><i class="dd-ghost"></i></div><div class="bd"><div class="nm">演示控制<span class="au">演示</span></div>' +
+      '<div class="tx">' + (role === 'asker' ? '切换视角，或让时间往前走：' : '切换视角：') + '</div><div class="qa-dbtns">' + btns.join('') + '</div></div></div>';
+  }
   /* 用普通帖子详情页展示这条问题帖；评论区就是普通评论 */
   function qaPostData(role) {
+    var demoHtml = qaDemoComment(role);
     var comments = QA.a ? [{ n: '用户', t: QA.a, d: '刚刚', loc: '意大利', lk: 0 }] : [];
     var why;
     if (role === 'answerer') {
       why = QA.a
-        ? '<div class="np-why"><span>已公开回答，署名为你</span><span class="np-why-x" data-q-demo>演示：切到提问者 →</span></div>'
+        ? '<div class="np-why"><span>已公开回答，署名为你</span></div>'
         : '<div class="np-why"><span>点点为什么推给你：你最近发过博尔盖塞相关笔记</span><span class="np-why-x" data-q-decline>不方便答</span></div>';
     } else {
       if (QA.a) {
@@ -1461,7 +1481,7 @@ body {
       text: QA.ai ? ['<span class="qa-ai-l">✦ 点点帮忙整理，发布前已由本人确认</span>'] : [],
       tags: '#博尔盖塞美术馆 #罗马 #求助',
       chipsHtml: '<div class="np-chip link" data-q-note><svg class="ic"><use href="#i-link"/></svg><span>相关笔记 <b>「博尔盖塞美术馆」订票攻略｜预约流程</b></span></div>',
-      why: why, date: '刚刚 · 点点代发', total: comments.length, comments: comments
+      why: why, date: '刚刚 · 点点代发', total: comments.length, comments: comments, demoHtml: demoHtml
     };
   }
   window.openQaPost = function (role, from) {
@@ -1477,11 +1497,12 @@ body {
     go('msg'); qaToast('好的，之后会少给你推送这类问题');
   };
   /* 演示：快进 24 小时，没人回答 → 点点提醒提问者，并给出相关内容 */
-  window.qaFastForward = function () {
+  window.qaFastForward = function (stay) {
     QA.noAns = true; QA.repushed = false; QA.closed = false; QA.a = '';
     var r = document.getElementById('qa-row-ask'); if (r) r.remove();
     addMsgRow('qa-row-noans', '<div class="ava white"></div><div class="mid"><div class="nm">点点问题 <span class="ai">代发</span></div><div class="sub">你的问题 24 小时没人回答，点点帮你找了几条相关内容</div></div><span class="tm">刚刚</span><span class="dot"></span>', "openQaPost('asker', 'msg')");
-    go('msg'); qaToast('已快进 24 小时');
+    if (stay) { openQaPost('asker', QA.from); } else { go('msg'); }
+    qaToast('已快进 24 小时');
   };
   window.qaSend = function () {
     var input = document.getElementById('np-q-input');
@@ -1612,7 +1633,7 @@ body {
       '<div class="np-meta"><span>' + d.date + '</span><span>不喜欢</span></div>' +
       (d.why || '') + '<div class="np-cm-head">共 ' + d.total + ' 条评论</div>' +
       '<div class="np-cm-input"><span class="avatar"></span><div class="f"><span>让大家听到你的声音</span><svg class="ic" style="font-size:20px"><use href="#i-camera"/></svg></div></div>' +
-      d.comments.map(function (c) {
+      (d.demoHtml || '') + d.comments.map(function (c) {
         return cmHtml(c, false) + (c.rp || []).map(function (r) { return cmHtml(r, true); }).join('') + (c.more ? '<div class="np-more">展开 ' + c.more + ' 条回复 ﹀</div>' : '');
       }).join('') + '<div style="height:24px"></div></div>';
     if (isQ) html = html.replace(/<div class="np-chip">[\s\S]*?<\/div><div class="np-chip">[\s\S]*?<\/div>/, d.chipsHtml || '');
@@ -1620,6 +1641,8 @@ body {
     sc.querySelectorAll('[data-q-note]').forEach(function (el) { el.addEventListener('click', function () { openNote('a', 'q-post'); }); });
     sc.querySelectorAll('[data-q-decline]').forEach(function (el) { el.addEventListener('click', function () { qaDecline(); }); });
     sc.querySelectorAll('[data-q-demo]').forEach(function (el) { el.addEventListener('click', function () { go('msg'); }); });
+    sc.querySelectorAll('[data-q-sw]').forEach(function (el) { el.addEventListener('click', function () { openQaPost(el.dataset.qSw, QA.from); }); });
+    sc.querySelectorAll('[data-q-ff]').forEach(function (el) { el.addEventListener('click', function () { qaFastForward(true); }); });
     sc.querySelectorAll('[data-q-note-b]').forEach(function (el) { el.addEventListener('click', function () { openNote('b', 'q-post'); }); });
     sc.querySelectorAll('[data-q-repush]').forEach(function (el) { el.addEventListener('click', function () { QA.repushed = true; openQaPost('asker', QA.from); qaToast('好的，点点会再推送一次'); }); });
     sc.querySelectorAll('[data-q-close]').forEach(function (el) { el.addEventListener('click', function () { QA.closed = true; openQaPost('asker', QA.from); qaToast('已关闭这个问题'); }); });
