@@ -161,10 +161,10 @@ body {
 /* 键盘上方工具栏（还原截图：语音/表情/#/@/插入笔记/完成） */
 .pub-toolbar { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; background: #1B1B1F; border-top: 1px solid #26262C; }
 .pub-toolbar .tools { display: flex; align-items: center; gap: 22px; }
-.pub-toolbar .tool { font-size: 20px; color: #C9C9CE; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.pub-toolbar .tool .ic { font-size: 20px; }
+.pub-toolbar .tool { font-size: 20px; color: #C9C9CE; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; height: 24px; line-height: 1; }
+.pub-toolbar .tool .ic { font-size: 22px; }
 .pub-toolbar .tool.ref { color: #C9C9CE; }
-.pub-toolbar .tool.ref .ic { font-size: 20px; color: #FF2442; }
+.pub-toolbar .tool.ref .ic { font-size: 22px; color: #FF2442; }
 .pub-toolbar .done { font-size: 15px; color: #F2F2F4; cursor: pointer; }
 /* 模拟键盘区（演示用） */
 .mock-kb { flex: none; background: #202024; padding: 8px 6px 10px; display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; }
@@ -1014,9 +1014,9 @@ body {
       <div class="pub-toolbar" data-page-node-id="pubToolbar1">
         <div class="tools">
           <span class="tool" onclick="alert('语音输入（演示）')"><svg class="ic"><use href="#i-voice"/></svg></span>
-          <span class="tool" onclick="alert('表情（演示）')">☺</span>
-          <span class="tool" onclick="alert('插入话题（演示）')">#</span>
-          <span class="tool" onclick="alert('@提及（演示）')">@</span>
+          <span class="tool" onclick="alert('表情（演示）')" style="font-size:18px">☺</span>
+          <span class="tool" onclick="alert('插入话题（演示）')" style="font-size:20px">#</span>
+          <span class="tool" onclick="alert('@提及（演示）')" style="font-size:20px">@</span>
           <span class="tool ref" onclick="openInsertNote()"><svg class="ic"><use href="#i-cite-note"/></svg></span>
         </div>
         <span class="done" onclick="alert('收起键盘（演示）')">完成</span>
