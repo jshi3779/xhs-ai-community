@@ -1491,6 +1491,19 @@ body {
   buildWaterfall($('#waterfall-me'), [240, 180, 200, 220]);
   buildWaterfall($('#waterfall-fav'), [200, 230, 220, 190]);
   makeFirstCardClickable();
+
+  /* 启动复位：文件里带有编辑工具存下的运行时状态（弹层显示、Tab 栏隐藏、已建合集等），统一复位成初始态，默认打开首页 */
+  ['#share-mask', '#share-sheet'].forEach(function (q) { var e = $(q); e.classList.remove('show'); e.style.removeProperty('display'); });
+  $('#tabbar').style.removeProperty('display');
+  $('#dd-ask-bubble').style.display = 'block';
+  $('#dd-done-bubble').style.display = 'none';
+  $('#dd-decline-bubble').style.display = 'none';
+  var italy = $('#album-italy'); if (italy) italy.remove();
+  $('#fav-album-tab').textContent = '专辑 2';
+  $$('.np-act, .np-follow').forEach(function (e) { e.classList.remove('on'); });
+  $('#me-tabs [data-k=note]').click();
+  $('#fav-sub [data-f=fdd]').click();
+  go('home');
 })();
 
 /* ==================== 增量层 v3：验证过的链路 ====================
