@@ -738,6 +738,13 @@ body {
 .lp-menu .lp-btn { height: 50px; padding: 0 28px; border-radius: 999px; background: #3A3A40; display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; cursor: pointer; color: #F2F2F4; }
 .lp-menu .lp-btn .ic { font-size: 22px; }
 .card.lp-gone { opacity: 0; transform: scale(.96); transition: opacity .25s, transform .25s; }
+
+/* ==================== 首页信息流里的帖子（带标题）+ 其他用户发布的「点点问题」帖 ==================== */
+.qa-cover { display: flex; flex-direction: column; justify-content: space-between; padding: 14px 14px 12px; background: linear-gradient(160deg, #1F3A33, #17211F) !important; position: relative; }
+.qa-cover .dd-ghost { font-size: 18px; }
+.qa-cover .qa-ct { font-size: 19px; font-weight: 800; line-height: 1.45; color: #F2F2F4; }
+.qa-cover .qa-badge { position: absolute; top: 12px; right: 12px; font-size: 11px; color: #3DDC84; background: #1B3A2E; border-radius: 4px; padding: 1px 7px; }
+.sr-card .au .qa-tg { font-size: 10px; color: #3DDC84; background: #1B3A2E; border-radius: 4px; padding: 0 5px; margin-left: -2px; }
 </style>
 <style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
 <body data-page-node-id="s7kZU0yUpyZo5TJpiBt1KG" style="position: relative; box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; background: rgb(217, 217, 222); height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: -apple-system, &quot;PingFang SC&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, sans-serif; color: rgb(242, 242, 244); font-size: 14px;">
@@ -1535,6 +1542,7 @@ body {
   }
   /* 首页推送卡片：只显示给被推送的人，没有点赞、收藏、浏览数——不是推荐流里的流量内容 */
   function showHomeQA(q) {
+    return;   // 首页改为信息流里的帖子，不再插横幅
     var slot = document.getElementById('home-qa-slot');
     slot.innerHTML = '<div class="hq-card"><div class="hq-top"><i class="dd-ghost"></i><b>点点问题</b><span class="hq-tg">代发</span><span class="hq-why">为你推送</span></div>' +
       '<div class="hq-asker"><span class="avatar"></span><span>用户 · 通过点点提问</span></div><div class="hq-q"></div>' +
@@ -1638,7 +1646,37 @@ body {
     if (stay) { openQaPost('asker', QA.from); } else { go('msg'); }
     qaToast('已快进 24 小时');
   };
+  /* ============ 首页上「其他用户」发布的点点问题帖（模拟：别人通过点点提的问） ============ */
+  var Q2_Q = '罗马现在还能买 48 小时的交通通票吗？我周末到，想确认要不要提前买。';
+  var Q2_COMMENTS = [
+    { n: '用户', t: '还有的，机场和地铁站的自动售票机都能买。', d: '1 小时前', loc: '罗马', lk: 0, thanks: true },
+    { n: '用户', t: '建议在手机 App 上买，不用排队。', d: '40 分钟前', loc: '意大利', lk: 0, thanks: true }
+  ];
+  var q2Answered = false;
+  function q2Data() {
+    var why = q2Answered
+      ? '<div class="np-why"><span>已公开回答，署名为你</span></div>'
+      : '<div class="np-why"><span>点点为什么推给你：你最近看过罗马交通相关的笔记</span></div>';
+    return {
+      author: '点点问题', n: ['', '', String(Q2_COMMENTS.length)], cover: 'none',
+      askerRow: '<div class="qa-asker"><span class="avatar"></span><div><b>用户</b><span>通过点点提问 · 2 小时前</span></div></div>',
+      title: Q2_Q, text: [], tags: '#罗马 #交通 #求助', chipsHtml: '',
+      why: why, date: '2 小时前 · 点点代发', total: Q2_COMMENTS.length, comments: Q2_COMMENTS.slice()
+    };
+  }
+  window.openQ2 = function () {
+    QA.role = 'answerer'; QA.from = 'home'; noteFrom = 'home';
+    NOTES.q2 = q2Data(); renderNote('q2'); go('note');
+  };
+  function q2Send() {
+    var input = document.getElementById('np-q-input');
+    var v = input ? input.value.trim() : '';
+    Q2_COMMENTS.push({ n: '用户', t: v || '我上周买过，48 小时的还有，App 里直接买就行。', d: '刚刚', loc: '意大利', lk: 0, thanks: true });
+    q2Answered = true;
+    NOTES.q2 = q2Data(); renderNote('q2'); qaToast('已公开回答');
+  }
   window.qaSend = function () {
+    if (window.__curNote === 'q2') { q2Send(); return; }
     var input = document.getElementById('np-q-input');
     var v = input ? input.value.trim() : '';
     QA.a = v || '前阵子去过，现场已经能刷卡了，不过还是建议带点现金备用。';
@@ -1875,7 +1913,7 @@ body {
   function renderNote(key) {
     var d = NOTES[key];
     window.__curNote = key;
-    var isQ = (key === 'q');
+    var isQ = (key === 'q' || key === 'q2');
     var auEl = document.querySelector('#page-note .np-author');
     auEl.innerHTML = isQ ? '<i class="dd-ghost" style="font-size:24px"></i><span class="nm" id="np-nm"></span><span class="np-tg">代发</span>' : '<span class="avatar"></span><span class="nm" id="np-nm"></span>';
     $('#np-nm').textContent = d.author;
@@ -2009,9 +2047,9 @@ body {
 
   /* 首页瀑布流第一张卡片 → 笔记详情页（给首张卡片加点击） */
   function makeFirstCardClickable() {
-    var cols = $$('#waterfall .wf-col');
-    [[cols[0] && cols[0].firstChild, 'a'], [cols[1] && cols[1].firstChild, 'b']].forEach(function (x) {
-      if (x[0]) { x[0].style.cursor = 'pointer'; x[0].addEventListener('click', function () { openNote(x[1], 'home'); }); }
+    $$('#waterfall .card[data-home]').forEach(function (c) {
+      c.style.cursor = 'pointer';
+      c.addEventListener('click', function () { var k = c.dataset.home; if (k === 'q2') { openQ2(); } else { openNote(k, 'home'); } });
     });
   }
 
@@ -2054,7 +2092,37 @@ body {
       cols[i % 2].appendChild(card);
     });
   }
-  buildWaterfall($('#waterfall'), [220, 250, 230, 200, 190, 240, 210, 180, 230, 200]);
+  function buildHomeFeed(el) {
+    el.innerHTML = '';
+    var cols = [document.createElement('div'), document.createElement('div')];
+    cols.forEach(function (c) { c.className = 'wf-col'; el.appendChild(c); });
+    var specs = [
+      { k: 'a', h: 220, t: NOTES.a.title, l: '1.2w' },
+      { k: 'b', h: 250, t: NOTES.b.title, l: '246' },
+      { k: 'q2', h: 200 },
+      { h: 190, t: '罗马三天两晚路线与预算', l: '87' },
+      { h: 230, t: '佛罗伦萨美食探店笔记｜这几家不排队', l: '2.1万' },
+      { h: 200, t: '米兰机场大巴乘坐攻略', l: '6847' },
+      { h: 240, t: '罗马周边一日游清单', l: '312' },
+      { h: 180, t: '威尼斯避坑指南', l: '1534' },
+      { h: 210, t: '意大利自由行必备 App', l: '903' },
+      { h: 190, t: '罗马清晨退票实测', l: '4081' }
+    ];
+    specs.forEach(function (sp, i) {
+      var c = document.createElement('div'); c.className = 'card sr-card'; if (sp.k) c.dataset.home = sp.k;
+      if (sp.k === 'q2') {
+        c.innerHTML = '<div class="cover qa-cover" style="height:' + sp.h + 'px"><i class="dd-ghost"></i><div class="qa-ct"></div><span class="qa-badge">求助</span></div>' +
+          '<div class="tt"></div><div class="au"><i class="dd-ghost" style="font-size:16px"></i><div class="who"><b>点点问题</b></div><span class="qa-tg">代发</span><span class="lk">求助</span></div>';
+        c.querySelector('.qa-ct').textContent = '罗马现在还能买 48 小时交通通票吗？';
+        c.querySelector('.tt').textContent = Q2_Q;
+      } else {
+        c.innerHTML = '<div class="cover" style="height:' + sp.h + 'px"></div><div class="tt"></div><div class="au"><span class="avatar"></span><div class="who"><b>用户</b></div><span class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>' + sp.l + '</span></div>';
+        c.querySelector('.tt').textContent = sp.t;
+      }
+      cols[i % 2].appendChild(c);
+    });
+  }
+  buildHomeFeed($('#waterfall'));
   buildWaterfall($('#waterfall-me'), [240, 180, 200, 220]);
   buildWaterfall($('#waterfall-fav'), [200, 230, 220, 190]);
   makeFirstCardClickable();
