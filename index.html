@@ -273,6 +273,27 @@ body {
 .share-sheet .lbl { font-size: 12px; color: var(--c-text-2); line-height: 1.3; }
 .share-sheet .lbl small { display: block; font-size: 10px; color: var(--c-text-3); }
 
+/* ---------- 插入引用笔记（发笔记器工具栏 → 底部 sheet 选择合集内笔记） ---------- */
+.insert-sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 41; background: #0F0F12; border-radius: 16px 16px 0 0; padding: 6px 0 12px; display: none; }
+.insert-sheet.show { display: block; }
+.insert-sheet .is-head { position: relative; text-align: center; font-size: 15px; font-weight: 700; color: #F2F2F4; padding: 12px 0 10px; }
+.insert-sheet .is-head .x { position: absolute; right: 16px; top: 8px; font-size: 22px; color: #F2F2F4; cursor: pointer; display: flex; }
+.insert-sheet .is-hint { font-size: 11px; color: #8E8E95; text-align: center; padding: 0 16px 12px; }
+.insert-sheet .is-list { max-height: 320px; overflow: hidden auto; scrollbar-width: none; }
+.insert-sheet .is-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-top: 1px solid #1E1E23; }
+.insert-sheet .is-item:first-child { border-top: 0; }
+.insert-sheet .is-item:active { background: #1A1A1F; }
+.insert-sheet .is-item .is-thumb { width: 48px; height: 48px; border-radius: 8px; background: linear-gradient(160deg,#34343B,#2A2A30); flex: none; }
+.insert-sheet .is-item .is-bd { flex: 1; min-width: 0; }
+.insert-sheet .is-item .is-t { font-size: 14px; color: #F2F2F4; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.insert-sheet .is-item .is-m { font-size: 11px; color: #8E8E95; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.insert-sheet .is-item .is-sel { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #55555C; flex: none; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; }
+.insert-sheet .is-item.sel .is-sel { background: #FF2442; border-color: #FF2442; }
+
+/* ---------- 正文里插入的引用卡片（与 cite-ref 同构，可点跳详情） ---------- */
+.body-edit .cite-ref { margin: 10px 0 0; }
+.body-edit .cite-ref:first-child { margin-top: 4px; }
+
 /* ---------- 点点询问建合集（对话内的动作气泡） ---------- */
 .dd-question { margin-top: 12px; background: #1F1F24; border: 1px solid #2B2B31; border-radius: 14px; padding: 12px 14px; }
 .dd-question .q-text { font-size: 14px; color: #F2F2F4; line-height: 1.6; }
@@ -993,7 +1014,7 @@ body {
           <span class="tool" onclick="alert('表情（演示）')">☺</span>
           <span class="tool" onclick="alert('插入话题（演示）')">#</span>
           <span class="tool" onclick="alert('@提及（演示）')">@</span>
-          <span class="tool ref" onclick="alert('从合集插入引用笔记（演示）')"><svg class="ic"><use href="#i-quote"/></svg></span>
+          <span class="tool ref" onclick="openInsertNote()"><svg class="ic"><use href="#i-quote"/></svg></span>
         </div>
         <span class="done" onclick="alert('收起键盘（演示）')">完成</span>
       </div>
@@ -1080,6 +1101,14 @@ body {
       <div class="s-item" data-page-node-id="t3xgO3zIrFViEZXDtlSS82" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 72px; flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; text-align: center;"><div class="ico tool" data-page-node-id="Jq1aMhlHOqjR4qCVif5IYU" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; position: relative; color: rgb(216, 216, 220); background: rgb(38, 38, 43);"><svg class="ic" data-page-node-id="DMcYcqIB70uC17pK5XIxXx" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto;"><use href="#i-quote" data-page-node-id="yoJE31m44EBjvHRGsKLR1M" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg></div><div class="lbl" data-page-node-id="G8HmBe04vez41BV1XNL1NN" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 12px; color: rgb(142, 142, 149); line-height: 1.3;">引用发笔记</div></div>
       <div class="s-item" data-page-node-id="H6G5WylouyvxLVgPtNaRJl" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 72px; flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; text-align: center;"><div class="ico tool" data-page-node-id="3qqtHBIIaVBWs7V1oX7Egc" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; position: relative; color: rgb(216, 216, 220); background: rgb(38, 38, 43);"><svg class="ic" data-page-node-id="pVmoZFcQi8ETD1jNvgGdEo" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto;"><use href="#i-group" data-page-node-id="Xz0ntGGlk29T7G0DEwkiy7" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg></div><div class="lbl" data-page-node-id="eGWH9EACeh8Sj41APXsSXB" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 12px; color: rgb(142, 142, 149); line-height: 1.3;">建群分享</div></div>
     </div>
+  </div>
+
+  <!-- 插入引用笔记面板（发笔记器工具栏 → 选择合集内笔记，增量层 v3） -->
+  <div class="sheet-mask" id="insert-mask" onclick="closeInsertNote()" style="position: absolute; inset: 0; background: rgba(0,0,0,.55); z-index: 50; display: none;"></div>
+  <div class="insert-sheet" id="insert-sheet">
+    <div class="is-head">插入引用笔记<span class="x" onclick="closeInsertNote()"><svg class="ic"><use href="#i-close"/></svg></span></div>
+    <div class="is-hint">从「意大利旅行」合集里选一篇，插入到正文</div>
+    <div class="is-list" id="insert-list"></div>
   </div>
 </div>
 
@@ -1260,6 +1289,20 @@ body {
           rp: [{ n: '用户', au: 1, t: '窗口可刷卡，带点备用。', d: '09-30', loc: '意大利', lk: 3 }] },
         { n: '用户', t: '周末基本没戏。', d: '09-29', loc: '广东', lk: 9 }
       ]
+    },
+    c: {
+      author: '用户', n: ['866', '452', '5'], cover: 'photo', count: '1/4', coverH: 380,
+      title: '佛罗伦萨美食探店笔记｜这几家不排队',
+      text: [
+        '这家排 2 小时，提前 3 天约；隔壁那家不用排队更实在。',
+        '牛肚包在中央市场旁边，下午 4 点前就卖光。'
+      ],
+      tags: '#佛罗伦萨 #美食探店 #不排队',
+      album: '意大利碎片记录', sug: '佛罗伦萨中央市场', date: '10-02 · 已声明原创', total: 3,
+      comments: [
+        { n: '用户', t: '牛肚包真的好吃，就是排队。', d: '10-03', loc: '意大利', lk: 6,
+          rp: [{ n: '用户', au: 1, t: '下午早去不用排～', d: '10-03', loc: '意大利', lk: 2 }] }
+      ]
     }
   };
   var noteFrom = 'home';
@@ -1292,6 +1335,65 @@ body {
     var sc = $('#np-scroll'); sc.innerHTML = html; sc.scrollTop = 0;
   }
   window.openNote = function (key, from) { noteFrom = from || 'home'; renderNote(key); go('note'); };
+
+  /* ============ 插入引用笔记（发笔记器：从合集选一篇插入正文） ============ */
+  // 合集内可供插入的笔记（与 NOTES 的 key 对应；展示用元信息）
+  var CHAIN_NOTES = [
+    { key: 'a', title: '「博尔盖塞美术馆」订票攻略｜预约流程', meta: '用户 · 03-09 · 罗马攻略合集' },
+    { key: 'b', title: '没提前约上也进了博尔盖塞？', meta: '用户 · 09-29 · 意大利碎片记录' },
+    { key: 'c', title: '佛罗伦萨美食探店笔记｜这几家不排队', meta: '用户 · 10-02 · 意大利碎片记录' }
+  ];
+  function citeRefHtml(key) {
+    var d = NOTES[key];
+    if (!d) return '';
+    return '<div class="cite-ref" onclick="openNote(\'' + key + '\',\'chain-edit\')">' +
+      '<div class="cr-thumb"></div>' +
+      '<div class="cr-bd"><div class="cr-tag"><svg class="ic"><use href="#i-link"/></svg>引用笔记</div>' +
+      '<div class="cr-t">' + d.title + '</div></div></div>';
+  }
+  function renderInsertList() {
+    var list = document.getElementById('insert-list');
+    list.innerHTML = CHAIN_NOTES.map(function (n) {
+      return '<div class="is-item" onclick="insertCite(\'' + n.key + '\')">' +
+        '<div class="is-thumb"></div>' +
+        '<div class="is-bd"><div class="is-t">' + n.title + '</div><div class="is-m">' + n.meta + '</div></div>' +
+        '<div class="is-sel"><svg class="ic" style="font-size:11px"><use href="#i-check"/></svg></div></div>';
+    }).join('');
+  }
+  window.openInsertNote = function () {
+    renderInsertList();
+    document.getElementById('insert-mask').style.display = 'block';
+    document.getElementById('insert-sheet').classList.add('show');
+  };
+  window.closeInsertNote = function () {
+    document.getElementById('insert-mask').style.display = 'none';
+    document.getElementById('insert-sheet').classList.remove('show');
+  };
+  window.insertCite = function (key) {
+    var body = document.getElementById('bodyEdit1');
+    // 移除「添加正文」占位（首次插入时）
+    var cursor = body.querySelector('.cursor');
+    if (cursor) cursor.remove();
+    // 清掉纯占位文字节点「添加正文」
+    Array.prototype.slice.call(body.childNodes).forEach(function (n) {
+      if (n.nodeType === 3 && n.textContent.trim() === '添加正文') n.remove();
+    });
+    // 去重：同一篇笔记不重复插入
+    if (body.querySelector('[data-cite-key="' + key + '"]')) {
+      closeInsertNote();
+      return;
+    }
+    var ref = document.createElement('div');
+    ref.innerHTML = citeRefHtml(key);
+    var el = ref.firstChild;
+    el.setAttribute('data-cite-key', key);
+    body.appendChild(el);
+    closeInsertNote();
+    // 滚动到正文编辑区可见
+    var sc = document.querySelector('#page-chain-edit .scroll');
+    if (sc) sc.scrollTop = 0;
+  };
+
   $('#np-back').addEventListener('click', function () { go(noteFrom); });
   $('#np-follow').addEventListener('click', function () { this.classList.toggle('on'); this.textContent = this.classList.contains('on') ? '已关注' : '关注'; });
   $('#np-share').addEventListener('click', openShare);
