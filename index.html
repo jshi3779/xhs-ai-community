@@ -617,6 +617,30 @@ body {
 .qa-ans .ft .like.on { color: var(--c-primary); } .qa-ans .ft .like.on .ic { fill: var(--c-primary); }
 .qa-status { font-size: 12px; color: #8E8E95; margin-top: 10px; line-height: 1.6; }
 .qa-toast { position: absolute; left: 50%; top: 96px; transform: translateX(-50%); background: rgba(46,46,52,.97); color: #F2F2F4; border-radius: 999px; padding: 9px 18px; font-size: 14px; z-index: 60; display: none; white-space: nowrap; }
+
+/* ==================== 增量层：点点问题账号（公开发布 + 公开评论回答） ==================== */
+.qa-card .q-opts { display: flex; flex-direction: column; gap: 8px; }
+.qa-card .q-opt { border: 1px solid #2B2B31; background: #26262C; border-radius: 10px; padding: 10px 12px; cursor: pointer; }
+.qa-card .q-opt.on { border-color: #2FA58C; background: #1F2B28; }
+.qa-card .q-opt .q-tag { display: inline-block; font-size: 11px; color: #3DDC84; background: #1B3A2E; border-radius: 4px; padding: 0 6px; margin-bottom: 6px; }
+.qa-card .q-opt .q-tag.gray { color: #8E8E95; background: #2B2B31; }
+.qa-card .q-opt .q-opt-t { font-size: 15px; line-height: 1.6; color: #F2F2F4; outline: none; }
+.qa-post { background: #202025; border-radius: 14px; padding: 14px; }
+.qa-post .qp-acct { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #8E8E95; }
+.qa-post .qp-acct .dd-ghost { font-size: 16px; }
+.qa-post .qp-acct .nm { color: #D8D8DC; font-weight: 600; }
+.qa-post .qp-acct .tg, .qa-cm .tg { font-size: 11px; color: #3DDC84; background: #1B3A2E; border-radius: 4px; padding: 0 6px; }
+.qa-post .qp-asker { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+.qa-post .qp-asker .avatar, .qa-cm .avatar { width: 30px; height: 30px; border-radius: 50%; background: #3A3A41; flex: none; }
+.qa-post .qp-asker .nm { font-size: 14px; font-weight: 600; }
+.qa-post .qp-asker .sub { font-size: 12px; color: #8E8E95; }
+.qa-post .t { font-size: 17px; font-weight: 700; margin-top: 10px; line-height: 1.5; }
+.qa-post .qp-ai { display: none; align-items: center; gap: 5px; margin-top: 8px; font-size: 12px; color: #3DDC84; }
+.qa-sec { font-size: 14px; color: #8E8E95; margin: 16px 0 4px; }
+.qa-empty { font-size: 13px; color: #55555C; padding: 14px 0; }
+.qa-cm { display: flex; gap: 10px; padding: 10px 0; }
+.qa-cm .nm { font-size: 13px; color: #8E8E95; display: flex; align-items: center; gap: 6px; }
+.qa-cm .tx { font-size: 15px; line-height: 1.6; margin-top: 3px; }
 </style>
 <style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
 <body data-page-node-id="s7kZU0yUpyZo5TJpiBt1KG" style="position: relative; box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; background: rgb(217, 217, 222); height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: -apple-system, &quot;PingFang SC&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, sans-serif; color: rgb(242, 242, 244); font-size: 14px;">
@@ -1111,24 +1135,28 @@ body {
       </div>
     </section>
 
-  <!-- ========== 页面：回答一个问题（增量层；被问者视角，入口：消息里「点点」的推送） ========== -->
+  <!-- ========== 页面：点点问题帖（增量层；被问者视角，入口：消息里「点点问题」的推送；用评论公开回答） ========== -->
     <section class="page qa-page" id="page-qa-answer">
       <div class="chain-nav">
         <span class="nb" onclick="XHS.go('msg')"><svg class="ic"><use href="#i-left"/></svg></span>
-        <span class="tt">回答一个问题</span>
+        <span class="tt">点点问题</span>
         <span class="nb"></span>
       </div>
       <div class="scroll">
         <div class="qa-body">
-          <div class="qa-q">
-            <div class="who">点点替一位用户转问 · 对方未公开身份</div>
+          <div class="qa-post">
+            <div class="qp-acct"><i class="dd-ghost"></i><span class="nm">点点问题</span><span class="tg">代发</span></div>
+            <div class="qp-asker"><span class="avatar"></span><div><div class="nm">用户</div><div class="sub">通过点点提问</div></div></div>
             <div class="t" id="qa-a-q"></div>
-            <div class="qa-why">点点为什么问你：<b>你最近发过博尔盖塞相关笔记</b></div>
+            <div class="qp-ai" id="qa-a-ai"><svg class="ic" style="font-size:13px"><use href="#i-sparkle"/></svg>点点帮他把问题问得更清楚（已由本人确认）</div>
+            <div class="qa-why">点点为什么推给你：<b>你最近发过博尔盖塞相关笔记</b></div>
           </div>
+          <div class="qa-sec">回答</div>
+          <div id="qa-a-list"><div class="qa-empty" id="qa-a-empty">还没有回答，你可以先来</div></div>
           <textarea class="qa-input" id="qa-a-input" placeholder="用一两句话说说你的亲身经验（不确定就别答）"></textarea>
-          <div class="qa-rule">只写你亲身经历的事。点点不会改写你的回答，原文会连同署名展示给提问的人。</div>
-          <div class="qa-act"><div class="btn no" onclick="qaDecline()">不方便答</div><div class="btn yes" onclick="qaSend()">发送回答</div></div>
-          <div class="qa-rule" style="text-align:center">选「不方便答」后，会少给你推送这类问题</div>
+          <div class="qa-rule">回答会公开显示在帖子下，署名为你。只写你亲身经历的事；点点不会改写你的回答。</div>
+          <div class="qa-act"><div class="btn no" onclick="qaDecline()">不方便答</div><div class="btn yes" onclick="qaSend()">公开回答</div></div>
+          <div class="qa-demo" id="qa-a-demo" style="display:none" onclick="XHS.go('msg')">演示：切到提问者，去消息里看 →</div>
         </div>
       </div>
     </section>
@@ -1142,17 +1170,21 @@ body {
       </div>
       <div class="scroll">
         <div class="qa-body">
-          <div class="qa-q">
-            <div class="who">我通过点点发布</div>
+          <div class="qa-post">
+            <div class="qp-acct"><i class="dd-ghost"></i><span class="nm">点点问题</span><span class="tg">代发</span></div>
+            <div class="qp-asker"><span class="avatar"></span><div><div class="nm">用户</div><div class="sub">我 · 通过点点提问</div></div></div>
             <div class="t" id="qa-t-q"></div>
-            <div class="qa-status">已发布 · 已推送给 12 位近期看过或发过相关内容的人 · 1 人回答</div>
+            <div class="qp-ai" id="qa-t-ai"><svg class="ic" style="font-size:13px"><use href="#i-sparkle"/></svg>由点点帮忙整理，发布前已由我确认</div>
+            <div class="qa-status" id="qa-t-status"></div>
           </div>
-          <div class="qa-ans">
+          <div class="qa-sec">回答</div>
+          <div class="qa-empty" id="qa-t-empty">还没有回答。24 小时内没人回，点点会提醒你，并推荐相关笔记。</div>
+          <div class="qa-ans" id="qa-t-ans" style="display:none">
             <div class="h"><span class="avatar"></span><span class="nm">用户</span><span class="tg">近期发过相关笔记</span></div>
             <div class="tx" id="qa-t-a"></div>
             <div class="ft"><span class="link" onclick="openNote('a','qa-thread')">查看他的笔记 ›</span><span class="like" id="qa-like"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>有用</span></div>
           </div>
-          <div class="qa-rule" style="margin-top:12px">回答由真人写成，点点没有改写。这条回答也会沉淀下来，下一个问同样问题的人，点点能直接找到。</div>
+          <div class="qa-rule" style="margin-top:12px">回答是公开评论，由真人写成，点点没有改写。它会沉淀下来，下一个问同样问题的人，点点能直接找到。</div>
         </div>
       </div>
     </section>
@@ -1360,8 +1392,8 @@ body {
     window.__draftFromSummary = true;
     XHS.go('chain-edit');
   };
-  /* ============ 点点代问：前台（接收问题并发布）+ 后台（推送给近期看过/发过相关内容的人） ============ */
-  var QA = { q: '', a: '' };
+  /* ============ 点点问题账号：前台（以提问者头像公开发布）+ 后台（推送给相关的人，不展示给提问者） ============ */
+  var QA = { q: '', a: '', ai: false };
   function qaToast(t) {
     var e = document.getElementById('qa-toast'); e.textContent = t; e.style.display = 'block';
     clearTimeout(qaToast._t); qaToast._t = setTimeout(function () { e.style.display = 'none'; }, 2000);
@@ -1376,36 +1408,56 @@ body {
   function qaStep(kind, label, title, sub) {
     return '<div class="qa-step"><span class="tag ' + kind + '">' + label + '</span><div>' + title + '<span class="s">' + sub + '</span></div></div>';
   }
+  /* 点点帮忙把问题问得更清楚：只补全上下文，最终用哪一版由用户确认（可直接用原话） */
+  function qaRefine(orig) {
+    var t = orig.replace(/[？?。.!！\s]+$/, '');
+    return '请问' + t + '？我正在规划意大利行程，想提前确认一下，避免白跑。';
+  }
   function renderNoMatch() {
     var chat = document.getElementById('add-chat');
     var b = document.createElement('div'); b.className = 'bubble';
     b.innerHTML = '<p>合集里的笔记没有提到这个，我在站内也没找到足够可靠的答案，不想编一个给你。</p>' +
-      '<div class="qa-card"><div class="q-lbl">要不要问问走过的人？</div><div class="q-edit" contenteditable="true"></div>' +
-      '<div class="q-tip">点点会把你的问题发布出去，并只推送给近期看过或发过相关内容的人。你不用专门发帖，有回答会在消息里通知你。</div>' +
-      '<div class="q-btns"><div class="btn no" onclick="qaCancel(this)">算了</div><div class="btn yes" onclick="qaPublish(this)">发布并去问</div></div></div>';
-    b.querySelector('.q-edit').textContent = QA.q;
+      '<div class="qa-card"><div class="q-lbl">要不要问问走过的人？</div>' +
+      '<div class="q-opts">' +
+      '<div class="q-opt on" data-k="ai"><span class="q-tag">点点帮你问得更清楚</span><div class="q-opt-t" contenteditable="true"></div></div>' +
+      '<div class="q-opt" data-k="orig"><span class="q-tag gray">我的原话</span><div class="q-opt-t" contenteditable="true"></div></div>' +
+      '</div>' +
+      '<div class="q-tip">选一版（可以再改）。问题会以你的头像公开发布在「点点问题」账号下，回答也是公开评论；推给谁，由点点在后台决定。</div>' +
+      '<div class="q-btns"><div class="btn no" onclick="qaCancel(this)">算了</div><div class="btn yes" onclick="qaPublish(this)">发布</div></div></div>';
+    var opts = b.querySelectorAll('.q-opt');
+    opts[0].querySelector('.q-opt-t').textContent = qaRefine(QA.q);
+    opts[1].querySelector('.q-opt-t').textContent = QA.q;
+    opts.forEach(function (o) {
+      o.addEventListener('click', function () { opts.forEach(function (x) { x.classList.toggle('on', x === o); }); });
+    });
     chat.appendChild(b); addScrollBottom();
   }
   window.qaCancel = function (btn) { btn.closest('.qa-card').remove(); };
   window.qaPublish = function (btn) {
     var card = btn.closest('.qa-card');
-    var q = card.querySelector('.q-edit').textContent.trim() || QA.q;
-    QA.q = q;
+    var sel = card.querySelector('.q-opt.on');
+    var q = sel.querySelector('.q-opt-t').textContent.trim() || QA.q;
+    QA.q = q; QA.ai = sel.dataset.k === 'ai'; QA.a = '';
     var st = document.createElement('div'); st.className = 'qa-card';
-    st.innerHTML = '<div class="q-lbl">点点已替你去问了</div>' +
-      qaStep('fg', '前台', '问题已发布', '') +
-      qaStep('bg', '后台', '已推送给 12 位近期看过或发过相关内容的人', '只推给相关的人，不广播') +
-      qaStep('wt', '等待', '暂无回复', '有人回答会在消息里通知你；24 小时没人回，点点会提醒你并推荐相关笔记') +
+    st.innerHTML = '<div class="q-lbl">已发布到「点点问题」</div>' +
+      qaStep('fg', '已发出', '以你的头像公开发布', '') +
+      qaStep('wt', '等待', '有人回答会在消息里通知你', '24 小时没人回，点点会提醒你并推荐相关笔记') +
+      '<div class="q-btns"><div class="btn no" onclick="qaOpenThread()">查看我的提问</div></div>' +
       '<div class="qa-demo" onclick="XHS.go(\'msg\')">演示：切到被问到的人，去消息里看 →</div>';
     st.querySelector('.qa-step .s').textContent = '「' + q + '」';
     card.parentNode.replaceChild(st, card);
-    addMsgRow('qa-row-ask', '<div class="ava white"></div><div class="mid"><div class="nm">点点 <span class="ai">ai</span></div><div class="sub"></div></div><span class="tm">刚刚</span><span class="dot"></span>', 'qaOpenAnswer()');
-    document.querySelector('#qa-row-ask .sub').textContent = '有人想问你：' + q;
+    /* 后台推送：只在被问者的消息里出现，提问者看不到推给了谁 */
+    addMsgRow('qa-row-ask', '<div class="ava white"></div><div class="mid"><div class="nm">点点问题 <span class="ai">代发</span></div><div class="sub"></div></div><span class="tm">刚刚</span><span class="dot"></span>', 'qaOpenAnswer()');
+    document.querySelector('#qa-row-ask .sub').textContent = '有人在问你可能知道的：' + q;
     addScrollBottom();
   };
   window.qaOpenAnswer = function () {
     document.getElementById('qa-a-q').textContent = QA.q;
+    document.getElementById('qa-a-ai').style.display = QA.ai ? 'flex' : 'none';
     document.getElementById('qa-a-input').value = '';
+    var list = document.getElementById('qa-a-list');
+    list.innerHTML = '<div class="qa-empty" id="qa-a-empty">还没有回答，你可以先来</div>';
+    document.getElementById('qa-a-demo').style.display = 'none';
     go('qa-answer');
   };
   window.qaDecline = function () {
@@ -1415,13 +1467,23 @@ body {
   window.qaSend = function () {
     var v = document.getElementById('qa-a-input').value.trim();
     QA.a = v || '周一闭馆，我上周日去的时候看到公告了，别排周一。';
+    var list = document.getElementById('qa-a-list');
+    list.innerHTML = '<div class="qa-cm"><span class="avatar"></span><div><div class="nm">用户 <span class="tg">已公开</span></div><div class="tx"></div></div></div>';
+    list.querySelector('.tx').textContent = QA.a;
+    document.getElementById('qa-a-input').value = '';
+    document.getElementById('qa-a-demo').style.display = 'block';
     var r = document.getElementById('qa-row-ask'); if (r) r.remove();
-    addMsgRow('qa-row-reply', '<div class="ava white"></div><div class="mid"><div class="nm">点点 <span class="ai">ai</span></div><div class="sub"></div></div><span class="tm">刚刚</span><span class="dot"></span>', 'qaOpenThread()');
+    addMsgRow('qa-row-reply', '<div class="ava white"></div><div class="mid"><div class="nm">点点问题 <span class="ai">代发</span></div><div class="sub"></div></div><span class="tm">刚刚</span><span class="dot"></span>', 'qaOpenThread()');
     document.querySelector('#qa-row-reply .sub').textContent = '你的问题有人回答了：' + QA.q;
-    go('msg'); qaToast('已回答，谢谢你');
+    qaToast('已公开回答');
   };
   window.qaOpenThread = function () {
     document.getElementById('qa-t-q').textContent = QA.q;
+    document.getElementById('qa-t-ai').style.display = QA.ai ? 'flex' : 'none';
+    var has = !!QA.a;
+    document.getElementById('qa-t-status').textContent = has ? '已发布 · 1 人回答' : '已发布 · 等待回答';
+    document.getElementById('qa-t-empty').style.display = has ? 'none' : 'block';
+    document.getElementById('qa-t-ans').style.display = has ? 'block' : 'none';
     document.getElementById('qa-t-a').textContent = QA.a;
     var d = document.querySelector('#qa-row-reply .dot'); if (d) d.remove();
     go('qa-thread');
