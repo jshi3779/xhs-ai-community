@@ -695,6 +695,23 @@ body {
 .ans-dlg .b .no { border: 1px solid #3A3A41; color: #F2F2F4; }
 .chat-cover { display: flex; align-items: center; justify-content: center; }
 .chat-cover .cc-t { font-size: 12px; color: #8E8E95; padding: 0 12px; line-height: 1.6; }
+
+/* ==================== 增量层：笔记内收藏 → 「收藏成功 / 加入专辑」 ==================== */
+.np-toast { position: absolute; left: 16px; right: 16px; bottom: 86px; height: 52px; border-radius: 14px; background: #2A2A2F; display: none; align-items: center; gap: 14px; padding: 0 20px; z-index: 6; box-shadow: 0 6px 20px rgba(0,0,0,.4); }
+.np-toast .ck { width: 30px; height: 30px; border-radius: 50%; background: #fff; color: #111; display: flex; align-items: center; justify-content: center; font-size: 18px; flex: none; }
+.np-toast .tx { flex: 1; font-size: 16px; font-weight: 700; }
+.np-toast .go { display: flex; align-items: center; gap: 2px; font-size: 15px; font-weight: 600; cursor: pointer; }
+.fav-sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 41; background: #0F0F12; border-radius: 18px 18px 0 0; padding: 14px 16px 34px; display: none; }
+.fav-sheet.show { display: block; }
+.fav-sheet .fs-h { display: flex; align-items: center; justify-content: space-between; height: 40px; margin-bottom: 14px; }
+.fav-sheet .fs-x { display: flex; font-size: 24px; cursor: pointer; width: 70px; }
+.fav-sheet .fs-t { font-size: 17px; font-weight: 700; }
+.fav-sheet .fs-new { width: 70px; justify-content: flex-end; display: flex; align-items: center; gap: 2px; color: var(--c-primary); font-size: 16px; font-weight: 700; cursor: pointer; }
+.fav-sheet .fs-row { display: flex; align-items: center; gap: 14px; background: #1B1B1F; border-radius: 16px; padding: 16px; margin-bottom: 12px; cursor: pointer; }
+.fav-sheet .fs-th { width: 52px; height: 52px; border-radius: 8px; background: linear-gradient(160deg, #3E3E46, #2B2B31); flex: none; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #8E8E95; }
+.fav-sheet .fs-n { flex: 1; font-size: 17px; font-weight: 600; }
+.fav-sheet .fs-n small { display: block; font-size: 14px; color: #8E8E95; font-weight: 400; margin-top: 4px; }
+.fav-sheet .fs-ar { color: #55555C; font-size: 18px; display: flex; }
 </style>
 <style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
 <body data-page-node-id="s7kZU0yUpyZo5TJpiBt1KG" style="position: relative; box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; background: rgb(217, 217, 222); height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: -apple-system, &quot;PingFang SC&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, sans-serif; color: rgb(242, 242, 244); font-size: 14px;">
@@ -973,6 +990,7 @@ body {
         <div class="np-act star" id="nb-star" data-page-node-id="cNwCqsz7hFavfapBYQbOja" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; display: flex; align-items: center; gap: 4px; height: 38px; font-size: 15px; cursor: pointer;"><svg class="ic" data-page-node-id="ZXxwQkPvFDhqnFYfwUfu51" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; font-size: 25px;"><use href="#i-star" data-page-node-id="4QDZtUWV4KbtGejFAMKmR0" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg><span id="np-n2" data-page-node-id="c1gKLvdshfT2wHiADw1BdA" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;">3421</span></div>
         <div class="np-act" data-page-node-id="ZRfEmUMD1O7goWRe73YDd9" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; display: flex; align-items: center; gap: 4px; height: 38px; font-size: 15px; cursor: pointer;"><svg class="ic" data-page-node-id="YyQ9w2O5WROZX8eeLmpuYg" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; font-size: 25px;"><use href="#i-bubble" data-page-node-id="bAlJr0QrghjOppDeaxB3Qy" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg><span id="np-n3" data-page-node-id="clcHDt7JqmGiQKZFSZXv0y" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;">3</span></div>
       </div>
+    <div class="np-toast" id="np-toast"><span class="ck"><svg class="ic" style="stroke-width:3"><use href="#i-check"/></svg></span><span class="tx">收藏成功</span><span class="go" id="np-toast-go">加入专辑<svg class="ic"><use href="#i-right"/></svg></span></div>
     </section>
 
     <!-- ========== 页面：搜索结果页（增量层 v3；入口：首页右上角搜索图标；含「问点点」摘要卡） ========== -->
@@ -1239,6 +1257,12 @@ body {
     <div class="home-ind" data-page-node-id="QqRgy3FW2ux8FM6chgcQ4e" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; position: absolute; left: 50%; bottom: 7px; transform: translateX(-50%); width: 130px; height: 5px; border-radius: 3px; background: rgb(255, 255, 255); opacity: 0.9;"></div>
   </nav>
 
+  <div class="sheet-mask" id="fav-sheet-mask"></div>
+  <div class="fav-sheet" id="fav-sheet">
+    <div class="fs-h"><span class="fs-x" id="fs-x"><svg class="ic"><use href="#i-close"/></svg></span><span class="fs-t">加入专辑</span><span class="fs-new" id="fs-new"><svg class="ic" style="stroke-width:2.4"><use href="#i-plus"/></svg>新建</span></div>
+    <div id="fs-list"></div>
+    <div class="fs-row" id="fs-share"><div class="fs-th"><svg class="ic"><use href="#i-plus"/></svg></div><div class="fs-n">新建共享专辑<small>与好友一起收藏笔记到专辑</small></div><span class="fs-ar"><svg class="ic"><use href="#i-right"/></svg></span></div>
+  </div>
   <div class="sheet-mask" id="ans-dlg-mask"></div>
   <div class="ans-dlg" id="ans-dlg">
     <div class="t">要不要创建「意大利旅行」收藏夹？</div>
@@ -1584,10 +1608,57 @@ body {
     document.getElementById('ans-dlg-mask').classList.toggle('show', show);
     document.getElementById('ans-dlg').classList.toggle('show', show);
   }
-  function setScopeText(withChat) {
+  /* 「意大利旅行」专辑里有什么：笔记 key 列表 + 是否有一段点点对话；统一刷新各处的计数文案 */
+  var albumState = { notes: ['a'], chat: false };
+  function refreshAlbumMeta() {
+    var n = albumState.notes.length;
+    var meta = document.querySelector('#page-album .r3 > span:last-child'); if (meta) meta.textContent = '笔记 · ' + n + (albumState.chat ? ' · 对话 · 1' : '');
+    var fm = document.querySelector('#album-italy .m span'); if (fm) fm.textContent = '笔记 · ' + n;
     var sp = document.querySelector('#add-scope-bar > span');
-    if (sp) sp.textContent = '专属点点 · 只基于「意大利旅行」合集（' + (withChat ? '1 篇笔记 + 1 段对话' : '1 篇笔记') + '）回答，不会用到合集外内容';
+    if (sp) sp.textContent = '专属点点 · 只基于「意大利旅行」合集（' + n + ' 篇笔记' + (albumState.chat ? ' + 1 段对话' : '') + '）回答，不会用到合集外内容';
   }
+  function addNoteToItaly(key) {
+    if (albumState.notes.indexOf(key) >= 0) return false;
+    var cols = document.querySelectorAll('#page-album .waterfall .wf-col');
+    var col = cols[1] || cols[0]; if (!col || !NOTES[key]) return false;
+    albumState.notes.push(key);
+    var c = document.createElement('div'); c.className = 'card sr-card';
+    c.setAttribute('onclick', "openNote('" + key + "','album')");
+    c.innerHTML = '<div class="cover" style="height:200px"></div><div class="tt"></div><div class="au"><span class="avatar"></span><div class="who"><b>用户</b></div></div>';
+    c.querySelector('.tt').textContent = NOTES[key].title;
+    col.insertBefore(c, col.firstChild);
+    refreshAlbumMeta();
+    return true;
+  }
+  /* 笔记页：点收藏 → 底部「收藏成功 · 加入专辑」；点加入专辑 → 选专辑 */
+  var npToastTimer;
+  function showNpToast() { var t = document.getElementById('np-toast'); t.style.display = 'flex'; clearTimeout(npToastTimer); npToastTimer = setTimeout(function () { t.style.display = 'none'; }, 5000); }
+  function hideNpToast() { clearTimeout(npToastTimer); document.getElementById('np-toast').style.display = 'none'; }
+  function favSheet(show) {
+    document.getElementById('fav-sheet-mask').classList.toggle('show', show);
+    document.getElementById('fav-sheet').classList.toggle('show', show);
+  }
+  function openFavSheet() {
+    var list = document.getElementById('fs-list'); list.innerHTML = '';
+    Array.prototype.slice.call(document.querySelectorAll('#fav-album-list .fab .t')).forEach(function (t) {
+      var name = t.textContent;
+      var row = document.createElement('div'); row.className = 'fs-row';
+      row.innerHTML = '<div class="fs-th"></div><div class="fs-n"></div><span class="fs-ar"><svg class="ic"><use href="#i-right"/></svg></span>';
+      row.querySelector('.fs-n').textContent = name;
+      row.addEventListener('click', function () {
+        favSheet(false);
+        if (name === '意大利旅行') { qaToast(addNoteToItaly(window.__curNote || 'a') ? '已加入「意大利旅行」' : '「意大利旅行」里已有这篇笔记'); }
+        else { qaToast('已加入「' + name + '」'); }
+      });
+      list.appendChild(row);
+    });
+    hideNpToast(); favSheet(true);
+  }
+  document.getElementById('np-toast-go').addEventListener('click', openFavSheet);
+  document.getElementById('fs-x').addEventListener('click', function () { favSheet(false); });
+  document.getElementById('fav-sheet-mask').addEventListener('click', function () { favSheet(false); });
+  document.getElementById('fs-new').addEventListener('click', function () { favSheet(false); qaToast('新建专辑（演示）'); });
+  document.getElementById('fs-share').addEventListener('click', function () { favSheet(false); qaToast('新建共享专辑（演示）'); });
   function addChatToAlbum() {
     var col = document.querySelector('#page-album .waterfall .wf-col');
     if (!col || document.getElementById('album-chat-card')) return;
@@ -1597,13 +1668,11 @@ body {
     c.innerHTML = '<div class="cover chat-cover" style="height:120px"><div class="cc-t"><i class="dd-ghost" style="font-size:20px"></i><br>想进博尔盖塞美术馆，建议提前预约…</div></div>' +
       '<div class="tt">点点对话｜博尔盖塞美术馆门票</div><div class="au"><span class="avatar"></span><div class="who"><b>我</b><span>刚刚收藏</span></div></div>';
     col.insertBefore(c, col.firstChild);
-    var meta = document.querySelector('#page-album .r3 > span:last-child'); if (meta) meta.textContent = '笔记 · 1 · 对话 · 1';
-    setScopeText(true);
+    albumState.chat = true; refreshAlbumMeta();
   }
   function removeChatFromAlbum() {
     var c = document.getElementById('album-chat-card'); if (c) c.remove();
-    var meta = document.querySelector('#page-album .r3 > span:last-child'); if (meta) meta.textContent = '笔记 · 1';
-    setScopeText(false);
+    albumState.chat = false; refreshAlbumMeta();
   }
   window.ansStar = function () {
     var st = document.getElementById('ans-star');
@@ -1717,6 +1786,7 @@ body {
   }
   function renderNote(key) {
     var d = NOTES[key];
+    window.__curNote = key;
     var isQ = (key === 'q');
     var auEl = document.querySelector('#page-note .np-author');
     auEl.innerHTML = isQ ? '<i class="dd-ghost" style="font-size:24px"></i><span class="nm" id="np-nm"></span><span class="np-tg">代发</span>' : '<span class="avatar"></span><span class="nm" id="np-nm"></span>';
@@ -1840,7 +1910,7 @@ body {
   $('#np-follow').addEventListener('click', function () { this.classList.toggle('on'); this.textContent = this.classList.contains('on') ? '已关注' : '关注'; });
   $('#np-share').addEventListener('click', openShare);
   $('#nb-heart').addEventListener('click', function () { this.classList.toggle('on'); });
-  $('#nb-star').addEventListener('click', function () { this.classList.toggle('on'); });
+  $('#nb-star').addEventListener('click', function () { var on = this.classList.toggle('on'); if (on) { showNpToast(); } else { hideNpToast(); qaToast('已取消收藏'); } });
 
   /* ============ 搜索结果页（截图 3） ============ */
   $('#sr-back').addEventListener('click', function () { go('home'); });
