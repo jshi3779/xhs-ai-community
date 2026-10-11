@@ -641,6 +641,21 @@ body {
 .qa-cm { display: flex; gap: 10px; padding: 10px 0; }
 .qa-cm .nm { font-size: 13px; color: #8E8E95; display: flex; align-items: center; gap: 6px; }
 .qa-cm .tx { font-size: 15px; line-height: 1.6; margin-top: 3px; }
+
+/* ==================== 增量层：点点问题帖（复用普通帖子样式） ==================== */
+.np-author .np-tg { flex: none; font-size: 11px; color: #3DDC84; background: #1B3A2E; border-radius: 4px; padding: 0 6px; }
+.np-author .dd-ghost { flex: none; }
+.qa-asker { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.qa-asker .avatar { width: 32px; height: 32px; border-radius: 50%; background: #3A3A41; flex: none; }
+.qa-asker b { display: block; font-size: 14px; font-weight: 600; }
+.qa-asker span { font-size: 12px; color: #8E8E95; }
+.qa-ai-l { font-size: 12px; color: #3DDC84; }
+.np-why { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; padding: 10px 12px; border-radius: 10px; background: #1F1F24; border: 1px solid #2B2B31; font-size: 13px; color: #8E8E95; line-height: 1.5; }
+.np-why .np-why-x { flex: none; color: #4C9BFF; cursor: pointer; }
+.np-chip.link { cursor: pointer; }
+.np-q-input { flex: 1; min-width: 0; background: transparent; border: 0; outline: none; color: #F2F2F4; font-size: 14px; font-family: inherit; }
+.np-q-input::placeholder { color: #8E8E95; }
+.np-send { flex: none; color: var(--c-primary); font-weight: 700; cursor: pointer; }
 </style>
 <style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
 <body data-page-node-id="s7kZU0yUpyZo5TJpiBt1KG" style="position: relative; box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; background: rgb(217, 217, 222); height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: -apple-system, &quot;PingFang SC&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, sans-serif; color: rgb(242, 242, 244); font-size: 14px;">
@@ -1013,7 +1028,7 @@ body {
             <div class="add-chips" data-page-node-id="cBW2ciflNmlpQKeslgjFPj" style="box-sizing: border-box; margin: 12px 0px 0px; padding: 0px; -webkit-tap-highlight-color: transparent; display: flex; flex-wrap: wrap; gap: 8px;">
               <span class="dd-sum-chip" onclick="askDD('总结这个合集')" data-page-node-id="ddSumChip" style="box-sizing: border-box; margin: 0px; padding: 7px 13px; -webkit-tap-highlight-color: transparent; background: rgb(27, 58, 46); border: 1px solid rgb(61, 220, 132); border-radius: 999px; font-size: 13px; color: rgb(61, 220, 132); font-weight: 600; cursor: pointer;">✨ 总结这个合集</span>
               <span onclick="askDD('博尔盖塞美术馆现在怎么订票？')" data-page-node-id="xx19IxUa1ZxfZpzJrHgTX6" style="box-sizing: border-box; margin: 0px; padding: 7px 13px; -webkit-tap-highlight-color: transparent; background: rgb(31, 31, 36); border: 1px solid rgb(43, 43, 49); border-radius: 999px; font-size: 13px; color: rgb(242, 242, 244); cursor: pointer;">博尔盖塞美术馆怎么订票？</span>
-              <span onclick="askDD('这篇里提到的注意事项有哪些？')" data-page-node-id="cSgNERyixZXvn1s96sDDvA" style="box-sizing: border-box; margin: 0px; padding: 7px 13px; -webkit-tap-highlight-color: transparent; background: rgb(31, 31, 36); border: 1px solid rgb(43, 43, 49); border-radius: 999px; font-size: 13px; color: rgb(242, 242, 244); cursor: pointer;">这篇里有哪些注意事项？</span><span onclick="askDD('博尔盖塞周一开门吗？')">博尔盖塞周一开门吗？</span>
+              <span onclick="askDD('这篇里提到的注意事项有哪些？')" data-page-node-id="cSgNERyixZXvn1s96sDDvA" style="box-sizing: border-box; margin: 0px; padding: 7px 13px; -webkit-tap-highlight-color: transparent; background: rgb(31, 31, 36); border: 1px solid rgb(43, 43, 49); border-radius: 999px; font-size: 13px; color: rgb(242, 242, 244); cursor: pointer;">这篇里有哪些注意事项？</span><span onclick="askDD('看到之前博尔盖塞美术馆 POS 机坏了，现在修好了吗？还要准备现金吗？')">POS 机现在修好了吗？还要带现金吗？</span>
             </div>
           </div>
         </div>
@@ -1135,59 +1150,6 @@ body {
       </div>
     </section>
 
-  <!-- ========== 页面：点点问题帖（增量层；被问者视角，入口：消息里「点点问题」的推送；用评论公开回答） ========== -->
-    <section class="page qa-page" id="page-qa-answer">
-      <div class="chain-nav">
-        <span class="nb" onclick="XHS.go('msg')"><svg class="ic"><use href="#i-left"/></svg></span>
-        <span class="tt">点点问题</span>
-        <span class="nb"></span>
-      </div>
-      <div class="scroll">
-        <div class="qa-body">
-          <div class="qa-post">
-            <div class="qp-acct"><i class="dd-ghost"></i><span class="nm">点点问题</span><span class="tg">代发</span></div>
-            <div class="qp-asker"><span class="avatar"></span><div><div class="nm">用户</div><div class="sub">通过点点提问</div></div></div>
-            <div class="t" id="qa-a-q"></div>
-            <div class="qp-ai" id="qa-a-ai"><svg class="ic" style="font-size:13px"><use href="#i-sparkle"/></svg>点点帮他把问题问得更清楚（已由本人确认）</div>
-            <div class="qa-why">点点为什么推给你：<b>你最近发过博尔盖塞相关笔记</b></div>
-          </div>
-          <div class="qa-sec">回答</div>
-          <div id="qa-a-list"><div class="qa-empty" id="qa-a-empty">还没有回答，你可以先来</div></div>
-          <textarea class="qa-input" id="qa-a-input" placeholder="用一两句话说说你的亲身经验（不确定就别答）"></textarea>
-          <div class="qa-rule">回答会公开显示在帖子下，署名为你。只写你亲身经历的事；点点不会改写你的回答。</div>
-          <div class="qa-act"><div class="btn no" onclick="qaDecline()">不方便答</div><div class="btn yes" onclick="qaSend()">公开回答</div></div>
-          <div class="qa-demo" id="qa-a-demo" style="display:none" onclick="XHS.go('msg')">演示：切到提问者，去消息里看 →</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== 页面：我的提问（增量层；提问者视角，入口：消息里「你的问题有人回答了」） ========== -->
-    <section class="page qa-page" id="page-qa-thread">
-      <div class="chain-nav">
-        <span class="nb" onclick="XHS.go('msg')"><svg class="ic"><use href="#i-left"/></svg></span>
-        <span class="tt">我的提问</span>
-        <span class="nb"></span>
-      </div>
-      <div class="scroll">
-        <div class="qa-body">
-          <div class="qa-post">
-            <div class="qp-acct"><i class="dd-ghost"></i><span class="nm">点点问题</span><span class="tg">代发</span></div>
-            <div class="qp-asker"><span class="avatar"></span><div><div class="nm">用户</div><div class="sub">我 · 通过点点提问</div></div></div>
-            <div class="t" id="qa-t-q"></div>
-            <div class="qp-ai" id="qa-t-ai"><svg class="ic" style="font-size:13px"><use href="#i-sparkle"/></svg>由点点帮忙整理，发布前已由我确认</div>
-            <div class="qa-status" id="qa-t-status"></div>
-          </div>
-          <div class="qa-sec">回答</div>
-          <div class="qa-empty" id="qa-t-empty">还没有回答。24 小时内没人回，点点会提醒你，并推荐相关笔记。</div>
-          <div class="qa-ans" id="qa-t-ans" style="display:none">
-            <div class="h"><span class="avatar"></span><span class="nm">用户</span><span class="tg">近期发过相关笔记</span></div>
-            <div class="tx" id="qa-t-a"></div>
-            <div class="ft"><span class="link" onclick="openNote('a','qa-thread')">查看他的笔记 ›</span><span class="like" id="qa-like"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>有用</span></div>
-          </div>
-          <div class="qa-rule" style="margin-top:12px">回答是公开评论，由真人写成，点点没有改写。它会沉淀下来，下一个问同样问题的人，点点能直接找到。</div>
-        </div>
-      </div>
-    </section>
 
   </div>
 
@@ -1393,7 +1355,7 @@ body {
     XHS.go('chain-edit');
   };
   /* ============ 点点问题账号：前台（以提问者头像公开发布）+ 后台（推送给相关的人，不展示给提问者） ============ */
-  var QA = { q: '', a: '', ai: false };
+  var QA = { q: '', a: '', ai: false, role: 'asker', from: 'msg' };
   function qaToast(t) {
     var e = document.getElementById('qa-toast'); e.textContent = t; e.style.display = 'block';
     clearTimeout(qaToast._t); qaToast._t = setTimeout(function () { e.style.display = 'none'; }, 2000);
@@ -1410,13 +1372,17 @@ body {
   }
   /* 点点帮忙把问题问得更清楚：只补全上下文，最终用哪一版由用户确认（可直接用原话） */
   function qaRefine(orig) {
+    if (/POS/.test(orig)) return '请问博尔盖塞美术馆之前 POS 机故障、只收现金，现在修好了吗？我这周去，还需要准备现金吗？';
     var t = orig.replace(/[？?。.!！\s]+$/, '');
     return '请问' + t + '？我正在规划意大利行程，想提前确认一下，避免白跑。';
   }
   function renderNoMatch() {
     var chat = document.getElementById('add-chat');
+    var stale = /修好|现在/.test(QA.q);
     var b = document.createElement('div'); b.className = 'bubble';
-    b.innerHTML = '<p>合集里的笔记没有提到这个，我在站内也没找到足够可靠的答案，不想编一个给你。</p>' +
+    b.innerHTML = '<p>' + (stale
+        ? '合集里那篇笔记（03-09）说 POS 机故障、只收现金，但这是几个月前的信息，我没找到更新的确认，不想替你猜。'
+        : '合集里的笔记没有提到这个，我在站内也没找到足够可靠的答案，不想编一个给你。') + '</p>' +
       '<div class="qa-card"><div class="q-lbl">要不要问问走过的人？</div>' +
       '<div class="q-opts">' +
       '<div class="q-opt on" data-k="ai"><span class="q-tag">点点帮你问得更清楚</span><div class="q-opt-t" contenteditable="true"></div></div>' +
@@ -1442,53 +1408,58 @@ body {
     st.innerHTML = '<div class="q-lbl">已发布到「点点问题」</div>' +
       qaStep('fg', '已发出', '以你的头像公开发布', '') +
       qaStep('wt', '等待', '有人回答会在消息里通知你', '24 小时没人回，点点会提醒你并推荐相关笔记') +
-      '<div class="q-btns"><div class="btn no" onclick="qaOpenThread()">查看我的提问</div></div>' +
+      '<div class="q-btns"><div class="btn no" onclick="openQaPost(\'asker\', \'album-dd\')">查看我的提问</div></div>' +
       '<div class="qa-demo" onclick="XHS.go(\'msg\')">演示：切到被问到的人，去消息里看 →</div>';
     st.querySelector('.qa-step .s').textContent = '「' + q + '」';
     card.parentNode.replaceChild(st, card);
     /* 后台推送：只在被问者的消息里出现，提问者看不到推给了谁 */
-    addMsgRow('qa-row-ask', '<div class="ava white"></div><div class="mid"><div class="nm">点点问题 <span class="ai">代发</span></div><div class="sub"></div></div><span class="tm">刚刚</span><span class="dot"></span>', 'qaOpenAnswer()');
+    addMsgRow('qa-row-ask', '<div class="ava white"></div><div class="mid"><div class="nm">点点问题 <span class="ai">代发</span></div><div class="sub"></div></div><span class="tm">刚刚</span><span class="dot"></span>', 'openQaPost(\'answerer\', \'msg\')');
     document.querySelector('#qa-row-ask .sub').textContent = '有人在问你可能知道的：' + q;
     addScrollBottom();
   };
-  window.qaOpenAnswer = function () {
-    document.getElementById('qa-a-q').textContent = QA.q;
-    document.getElementById('qa-a-ai').style.display = QA.ai ? 'flex' : 'none';
-    document.getElementById('qa-a-input').value = '';
-    var list = document.getElementById('qa-a-list');
-    list.innerHTML = '<div class="qa-empty" id="qa-a-empty">还没有回答，你可以先来</div>';
-    document.getElementById('qa-a-demo').style.display = 'none';
-    go('qa-answer');
+  /* 用普通帖子详情页展示这条问题帖；评论区就是普通评论 */
+  function qaPostData(role) {
+    var comments = QA.a ? [{ n: '用户', t: QA.a, d: '刚刚', loc: '意大利', lk: 0 }] : [];
+    var why;
+    if (role === 'answerer') {
+      why = QA.a
+        ? '<div class="np-why"><span>已公开回答，署名为你</span><span class="np-why-x" data-q-demo>演示：切到提问者 →</span></div>'
+        : '<div class="np-why"><span>点点为什么推给你：你最近发过博尔盖塞相关笔记</span><span class="np-why-x" data-q-decline>不方便答</span></div>';
+    } else {
+      why = '<div class="np-why"><span>已发布 · ' + (QA.a ? '1 人回答' : '等待回答，24 小时没人回，点点会提醒你并推荐相关笔记') + '</span></div>';
+    }
+    return {
+      author: '点点问题', n: ['', '', String(comments.length)], cover: 'none',
+      askerRow: '<div class="qa-asker"><span class="avatar"></span><div><b>用户</b><span>' + (role === 'asker' ? '我 · ' : '') + '通过点点提问 · 刚刚</span></div></div>',
+      title: QA.q,
+      text: QA.ai ? ['<span class="qa-ai-l">✦ 点点帮忙整理，发布前已由本人确认</span>'] : [],
+      tags: '#博尔盖塞美术馆 #罗马 #求助',
+      chipsHtml: '<div class="np-chip link" data-q-note><svg class="ic"><use href="#i-link"/></svg><span>相关笔记 <b>「博尔盖塞美术馆」订票攻略｜预约流程</b></span></div>',
+      why: why, date: '刚刚 · 点点代发', total: comments.length, comments: comments
+    };
+  }
+  window.openQaPost = function (role, from) {
+    QA.role = role; QA.from = from || 'msg';
+    NOTES.q = qaPostData(role);
+    noteFrom = QA.from;
+    renderNote('q');
+    if (role === 'asker') { var d = document.querySelector('#qa-row-reply .dot'); if (d) d.remove(); }
+    go('note');
   };
   window.qaDecline = function () {
     var r = document.getElementById('qa-row-ask'); if (r) r.remove();
     go('msg'); qaToast('好的，之后会少给你推送这类问题');
   };
   window.qaSend = function () {
-    var v = document.getElementById('qa-a-input').value.trim();
-    QA.a = v || '周一闭馆，我上周日去的时候看到公告了，别排周一。';
-    var list = document.getElementById('qa-a-list');
-    list.innerHTML = '<div class="qa-cm"><span class="avatar"></span><div><div class="nm">用户 <span class="tg">已公开</span></div><div class="tx"></div></div></div>';
-    list.querySelector('.tx').textContent = QA.a;
-    document.getElementById('qa-a-input').value = '';
-    document.getElementById('qa-a-demo').style.display = 'block';
+    var input = document.getElementById('np-q-input');
+    var v = input ? input.value.trim() : '';
+    QA.a = v || '前阵子去过，现场已经能刷卡了，不过还是建议带点现金备用。';
     var r = document.getElementById('qa-row-ask'); if (r) r.remove();
-    addMsgRow('qa-row-reply', '<div class="ava white"></div><div class="mid"><div class="nm">点点问题 <span class="ai">代发</span></div><div class="sub"></div></div><span class="tm">刚刚</span><span class="dot"></span>', 'qaOpenThread()');
+    addMsgRow('qa-row-reply', '<div class="ava white"></div><div class="mid"><div class="nm">点点问题 <span class="ai">代发</span></div><div class="sub"></div></div><span class="tm">刚刚</span><span class="dot"></span>', 'openQaPost(\'asker\', \'msg\')');
     document.querySelector('#qa-row-reply .sub').textContent = '你的问题有人回答了：' + QA.q;
+    openQaPost('answerer', QA.from);
     qaToast('已公开回答');
   };
-  window.qaOpenThread = function () {
-    document.getElementById('qa-t-q').textContent = QA.q;
-    document.getElementById('qa-t-ai').style.display = QA.ai ? 'flex' : 'none';
-    var has = !!QA.a;
-    document.getElementById('qa-t-status').textContent = has ? '已发布 · 1 人回答' : '已发布 · 等待回答';
-    document.getElementById('qa-t-empty').style.display = has ? 'none' : 'block';
-    document.getElementById('qa-t-ans').style.display = has ? 'block' : 'none';
-    document.getElementById('qa-t-a').textContent = QA.a;
-    var d = document.querySelector('#qa-row-reply .dot'); if (d) d.remove();
-    go('qa-thread');
-  };
-  document.getElementById('qa-like').addEventListener('click', function () { this.classList.toggle('on'); });
 
   function ddReply(key) {
     var chat = document.getElementById('add-chat');
@@ -1513,6 +1484,7 @@ body {
     addUser(text);
     addThinking();
     var key = (text.indexOf('总结') >= 0) ? 'summary'
+      : (text.indexOf('修好') >= 0) ? 'nomatch'
       : (text.indexOf('订票') >= 0 || text.indexOf('买票') >= 0 || text.indexOf('现金') >= 0 || text.indexOf('链路') >= 0) ? 'default'
       : (text.indexOf('注意事项') >= 0 || text.indexOf('重点') >= 0) ? 'note' : 'nomatch';
     if (key === 'nomatch') QA.q = text;
@@ -1588,6 +1560,9 @@ body {
   }
   function renderNote(key) {
     var d = NOTES[key];
+    var isQ = (key === 'q');
+    var auEl = document.querySelector('#page-note .np-author');
+    auEl.innerHTML = isQ ? '<i class="dd-ghost" style="font-size:24px"></i><span class="nm" id="np-nm"></span><span class="np-tg">代发</span>' : '<span class="avatar"></span><span class="nm" id="np-nm"></span>';
     $('#np-nm').textContent = d.author;
     var f = $('#np-follow'); f.textContent = '关注'; f.classList.remove('on');
     $('#np-n1').textContent = d.n[0]; $('#np-n2').textContent = d.n[1]; $('#np-n3').textContent = d.n[2];
@@ -1595,19 +1570,31 @@ body {
     var cover = d.cover === 'poster'
       ? '<div class="mock"><div class="sk" style="width:90%"></div><div class="sk" style="width:70%"></div><div class="sk" style="width:80%"></div></div><div class="band">预订流程 一图看懂</div><div class="band2">官方渠道 · 分时段 · 带现金</div>'
       : '';
-    var html = '<div class="np-cover" style="height:' + d.coverH + 'px">' + (d.live ? '<span class="live">实况</span>' : '') + '<span class="cnt">' + d.count + '</span>' + cover + '</div>' +
-      '<div class="np-dots"><i></i><i></i><i></i></div>' +
-      '<div class="np-body"><div class="np-title">' + d.title + '</div>' +
+    var html = (d.cover === 'none' ? '' : '<div class="np-cover" style="height:' + d.coverH + 'px">' + (d.live ? '<span class="live">实况</span>' : '') + '<span class="cnt">' + d.count + '</span>' + cover + '</div>' +
+      '<div class="np-dots"><i></i><i></i><i></i></div>') +
+      '<div class="np-body">' + (d.askerRow || '') + '<div class="np-title">' + d.title + '</div>' +
       '<div class="np-text">' + d.text.map(function (t) { return '<p>' + t + '</p>'; }).join('') + '<p class="tags">' + d.tags + '</p></div>' +
       '<div class="np-chip"><svg class="ic"><use href="#i-star"/></svg><span>合集 <b>' + d.album + '</b></span></div>' +
       '<div class="np-chip"><svg class="ic"><use href="#i-search"/></svg><span>猜你想搜 <b>' + d.sug + '</b></span></div>' +
       '<div class="np-meta"><span>' + d.date + '</span><span>不喜欢</span></div>' +
-      '<div class="np-cm-head">共 ' + d.total + ' 条评论</div>' +
+      (d.why || '') + '<div class="np-cm-head">共 ' + d.total + ' 条评论</div>' +
       '<div class="np-cm-input"><span class="avatar"></span><div class="f"><span>让大家听到你的声音</span><svg class="ic" style="font-size:20px"><use href="#i-camera"/></svg></div></div>' +
       d.comments.map(function (c) {
         return cmHtml(c, false) + (c.rp || []).map(function (r) { return cmHtml(r, true); }).join('') + (c.more ? '<div class="np-more">展开 ' + c.more + ' 条回复 ﹀</div>' : '');
       }).join('') + '<div style="height:24px"></div></div>';
+    if (isQ) html = html.replace(/<div class="np-chip">[\s\S]*?<\/div><div class="np-chip">[\s\S]*?<\/div>/, d.chipsHtml || '');
     var sc = $('#np-scroll'); sc.innerHTML = html; sc.scrollTop = 0;
+    sc.querySelectorAll('[data-q-note]').forEach(function (el) { el.addEventListener('click', function () { openNote('a', 'q-post'); }); });
+    sc.querySelectorAll('[data-q-decline]').forEach(function (el) { el.addEventListener('click', function () { qaDecline(); }); });
+    sc.querySelectorAll('[data-q-demo]').forEach(function (el) { el.addEventListener('click', function () { go('msg'); }); });
+    var say = document.querySelector('#page-note .np-say');
+    if (isQ && QA.role === 'answerer') {
+      say.innerHTML = '<svg class="ic"><use href="#i-edit"/></svg><input id="np-q-input" class="np-q-input" placeholder="写下你的回答（公开，署名为你）"><span class="np-send" id="np-q-send">发送</span>';
+      document.getElementById('np-q-send').addEventListener('click', function () { qaSend(); });
+      document.getElementById('np-q-input').addEventListener('keydown', function (e) { if (e.key === 'Enter') qaSend(); });
+    } else {
+      say.innerHTML = '<svg class="ic"><use href="#i-edit"/></svg>说点什么...';
+    }
   }
   window.openNote = function (key, from) { noteFrom = from || 'home'; renderNote(key); go('note'); };
 
@@ -1677,7 +1664,7 @@ body {
     if (sc) sc.scrollTop = 0;
   };
 
-  $('#np-back').addEventListener('click', function () { go(noteFrom); });
+  $('#np-back').addEventListener('click', function () { if (noteFrom === 'q-post') { openQaPost(QA.role, QA.from); } else { go(noteFrom); } });
   $('#np-follow').addEventListener('click', function () { this.classList.toggle('on'); this.textContent = this.classList.contains('on') ? '已关注' : '关注'; });
   $('#np-share').addEventListener('click', openShare);
   $('#nb-heart').addEventListener('click', function () { this.classList.toggle('on'); });
