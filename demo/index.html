@@ -681,6 +681,20 @@ body {
 .np-c .lk.thanks span { font-size: 12px; }
 .np-c .lk.thanks.on { color: var(--c-primary); }
 .np-c .lk.thanks.on .ic { fill: var(--c-primary); }
+
+/* ==================== 增量层：搜索摘要 → 点点对话（收藏 / 询问建收藏夹） ==================== */
+#ans-star.on { color: #FFC83D; }
+#ans-star.on .ic { fill: #FFC83D; }
+.ans-dlg { position: absolute; left: 16px; right: 16px; bottom: 44px; z-index: 41; background: #1D1D22; border-radius: 18px; padding: 20px 18px 18px; display: none; box-shadow: 0 8px 30px rgba(0,0,0,.5); }
+.ans-dlg.show { display: block; }
+.ans-dlg .t { font-size: 17px; font-weight: 700; line-height: 1.5; }
+.ans-dlg .d { font-size: 14px; color: #8E8E95; line-height: 1.7; margin-top: 8px; }
+.ans-dlg .b { display: flex; gap: 10px; margin-top: 16px; }
+.ans-dlg .b div { flex: 1; height: 42px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; cursor: pointer; }
+.ans-dlg .b .yes { background: var(--c-primary); color: #fff; }
+.ans-dlg .b .no { border: 1px solid #3A3A41; color: #F2F2F4; }
+.chat-cover { display: flex; align-items: center; justify-content: center; }
+.chat-cover .cc-t { font-size: 12px; color: #8E8E95; padding: 0 12px; line-height: 1.6; }
 </style>
 <style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
 <body data-page-node-id="s7kZU0yUpyZo5TJpiBt1KG" style="position: relative; box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; background: rgb(217, 217, 222); height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: -apple-system, &quot;PingFang SC&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, sans-serif; color: rgb(242, 242, 244); font-size: 14px;">
@@ -1176,7 +1190,44 @@ body {
     </section>
 
 
-  </div>
+  <!-- ========== 页面：点点对话（从搜索摘要进入；可收藏进「意大利旅行」） ========== -->
+    <section class="page" id="page-ask-ans">
+      <div class="dd-nav">
+        <span class="nb" id="ans-back"><svg class="ic"><use href="#i-close"/></svg></span>
+        <span class="dd-title"><i class="dd-ghost"></i>点点</span>
+        <span class="nb"><svg class="ic fill"><use href="#i-more"/></svg></span>
+      </div>
+      <div class="scroll">
+        <div class="chat">
+          <div class="msg user"><div class="bubble">博尔盖塞美术馆门票</div></div>
+          <div class="bubble">
+            <div class="sm-t">想进博尔盖塞美术馆，<span class="hl-g">建议提前预约</span>，旺季现场很难碰到余票。</div>
+            <div class="sm-h"><i></i>门票与预约</div>
+            <ul class="sm-ul">
+              <li><b>预约方式：</b>通过官方渠道按时段预订，含预约费约 18 欧/人。</li>
+              <li><b>入场规则：</b>分时段入场，每个时段约 2 小时，需提前到场。</li>
+            </ul>
+            <div class="sm-h"><i></i>现场要留意</div>
+            <ul class="sm-ul">
+              <li><b>支付：</b>03-09 的笔记提到 POS 机故障、只收现金，建议带现金备用。</li>
+              <li><b>排队：</b>偶有退票，建议开馆前排队。</li>
+            </ul>
+            <div class="ref">总结 36 篇笔记生成</div>
+            <div class="act-row">
+              <div><span><svg class="ic"><use href="#i-copy"/></svg></span><span id="ans-star" onclick="ansStar()"><svg class="ic"><use href="#i-star"/></svg></span><span><svg class="ic"><use href="#i-share"/></svg></span></div>
+              <div><span><svg class="ic"><use href="#i-thumb"/></svg></span><span><svg class="ic"><use href="#i-refresh"/></svg></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dd-input">
+        <svg class="ic"><use href="#i-voice"/></svg><span class="ph">发消息或按住说话…</span>
+        <svg class="ic"><use href="#i-camera"/></svg><svg class="ic"><use href="#i-plus-c"/></svg>
+      </div>
+      <div class="dd-foot">内容由 AI 生成</div>
+    </section>
+
+    </div>
 
   <!-- 底部 Tab（基座层）：首页 / 市集 / ＋ / 消息 / 我 -->
   <nav class="tabbar" id="tabbar" data-page-node-id="y0RDccYLFYvk9EJWqWEroB" style="box-sizing: border-box; margin: 0px; padding: 10px 0px 0px; -webkit-tap-highlight-color: transparent; flex: 0 0 auto; height: 76px; display: none; align-items: flex-start; background: rgb(20, 20, 24); border-top: 1px solid rgb(30, 30, 35); position: relative; z-index: 7;">
@@ -1188,6 +1239,12 @@ body {
     <div class="home-ind" data-page-node-id="QqRgy3FW2ux8FM6chgcQ4e" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; position: absolute; left: 50%; bottom: 7px; transform: translateX(-50%); width: 130px; height: 5px; border-radius: 3px; background: rgb(255, 255, 255); opacity: 0.9;"></div>
   </nav>
 
+  <div class="sheet-mask" id="ans-dlg-mask"></div>
+  <div class="ans-dlg" id="ans-dlg">
+    <div class="t">要不要创建「意大利旅行」收藏夹？</div>
+    <div class="d">点点会把这段对话收进去，并按主题建好收藏夹。之后这个收藏夹里的内容，可以继续向点点提问这个主题，也可以只总结收藏夹里的内容。</div>
+    <div class="b"><div class="no" onclick="ansDlgNo()">先不用</div><div class="yes" onclick="ansDlgYes()">创建并收藏</div></div>
+  </div>
   <div class="qa-toast" id="qa-toast"></div>
 
   <!-- 分享面板（全局覆盖层，增量层 v3） -->
@@ -1275,7 +1332,7 @@ body {
       var pb = document.querySelector('#page-chain-pub .notif .n-body b'); if (pb) pb.textContent = '「' + tt + '」';
     }
     $$('.page').forEach(function (p) { p.classList.toggle('active', p.id === 'page-' + name); });
-    var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album', 'search', 'album-dd', 'cite-pick', 'qa-answer', 'qa-thread'];
+    var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album', 'search', 'album-dd', 'cite-pick', 'qa-answer', 'qa-thread', 'ask-ans'];
     document.getElementById('phone').classList.toggle('full', subPages.indexOf(name) >= 0);
     var tabName;
     if (subPages.indexOf(name) >= 0) {
@@ -1302,6 +1359,7 @@ body {
   };
   /* 建合集：询问气泡消失 → 完成气泡出现 → 收藏页「专辑」里新增合集卡片 */
   window.buildAlbum = function () {
+    window.__albumBuilt = true;
     document.getElementById('dd-ask-bubble').style.display = 'none';
     document.getElementById('dd-done-bubble').style.display = 'block';
     var list = document.getElementById('fav-album-list');
@@ -1520,6 +1578,44 @@ body {
     openQaPost('answerer', QA.from);
     qaToast('已公开回答');
   };
+
+  /* ============ 搜索摘要 → 点点对话：收藏进「意大利旅行」；还没有收藏夹时，询问是否按主题创建 ============ */
+  function ansDlg(show) {
+    document.getElementById('ans-dlg-mask').classList.toggle('show', show);
+    document.getElementById('ans-dlg').classList.toggle('show', show);
+  }
+  function setScopeText(withChat) {
+    var sp = document.querySelector('#add-scope-bar > span');
+    if (sp) sp.textContent = '专属点点 · 只基于「意大利旅行」合集（' + (withChat ? '1 篇笔记 + 1 段对话' : '1 篇笔记') + '）回答，不会用到合集外内容';
+  }
+  function addChatToAlbum() {
+    var col = document.querySelector('#page-album .waterfall .wf-col');
+    if (!col || document.getElementById('album-chat-card')) return;
+    var c = document.createElement('div');
+    c.className = 'card sr-card'; c.id = 'album-chat-card';
+    c.setAttribute('onclick', "XHS.go('album-dd')");
+    c.innerHTML = '<div class="cover chat-cover" style="height:120px"><div class="cc-t"><i class="dd-ghost" style="font-size:20px"></i><br>想进博尔盖塞美术馆，建议提前预约…</div></div>' +
+      '<div class="tt">点点对话｜博尔盖塞美术馆门票</div><div class="au"><span class="avatar"></span><div class="who"><b>我</b><span>刚刚收藏</span></div></div>';
+    col.insertBefore(c, col.firstChild);
+    var meta = document.querySelector('#page-album .r3 > span:last-child'); if (meta) meta.textContent = '笔记 · 1 · 对话 · 1';
+    setScopeText(true);
+  }
+  function removeChatFromAlbum() {
+    var c = document.getElementById('album-chat-card'); if (c) c.remove();
+    var meta = document.querySelector('#page-album .r3 > span:last-child'); if (meta) meta.textContent = '笔记 · 1';
+    setScopeText(false);
+  }
+  window.ansStar = function () {
+    var st = document.getElementById('ans-star');
+    if (st.classList.contains('on')) { st.classList.remove('on'); removeChatFromAlbum(); qaToast('已取消收藏'); return; }
+    st.classList.add('on');
+    if (window.__albumBuilt) { addChatToAlbum(); qaToast('已收藏到「意大利旅行」'); }
+    else { ansDlg(true); }
+  };
+  window.ansDlgYes = function () { ansDlg(false); buildAlbum(); addChatToAlbum(); qaToast('已创建「意大利旅行」，对话已收藏进去'); };
+  window.ansDlgNo = function () { ansDlg(false); qaToast('已收藏这段对话'); };
+  document.getElementById('ans-back').addEventListener('click', function () { go('search'); });
+  document.getElementById('ans-dlg-mask').addEventListener('click', function () { ansDlg(false); });
 
   function ddReply(key) {
     var chat = document.getElementById('add-chat');
@@ -1748,8 +1844,9 @@ body {
 
   /* ============ 搜索结果页（截图 3） ============ */
   $('#sr-back').addEventListener('click', function () { go('home'); });
-  $('#sr-dd').addEventListener('click', function () { go('ask'); });
-  $('#sr-go').addEventListener('click', function () { go('ask'); });
+  $('#sr-dd').addEventListener('click', function () { go('ask-ans'); });
+  $('#sr-go').addEventListener('click', function () { go('ask-ans'); });
+  $('.sr-sum').addEventListener('click', function () { go('ask-ans'); });   // 点摘要卡 → 点点对话
   $$('#page-search .sr-card[data-note]').forEach(function (c) { c.addEventListener('click', function () { openNote(c.dataset.note, 'search'); }); });
 
   /* 首页瀑布流第一张卡片 → 笔记详情页（给首张卡片加点击） */
