@@ -578,6 +578,45 @@ body {
 .plus-btn { width: 44px; height: 32px; border-radius: 10px; background: var(--c-primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px; }
 .plus-btn .ic { stroke-width: 3; }
 .home-ind { position: absolute; left: 50%; bottom: 7px; transform: translateX(-50%); width: 130px; height: 5px; border-radius: 3px; background: #fff; opacity: .9; }
+
+/* ==================== 增量层：点点代问（前台发布 + 后台推送） ==================== */
+.qa-card { margin-top: 12px; background: #1F1F24; border: 1px solid #2B2B31; border-radius: 14px; padding: 12px 14px; }
+.qa-card .q-lbl { font-size: 12px; color: #3DDC84; margin-bottom: 8px; }
+.qa-card .q-edit { font-size: 15px; line-height: 1.6; color: #F2F2F4; background: #26262C; border-radius: 10px; padding: 10px 12px; outline: none; }
+.qa-card .q-tip { font-size: 12px; color: #8E8E95; line-height: 1.6; margin-top: 10px; }
+.qa-card .q-btns, .qa-act { display: flex; gap: 10px; margin-top: 12px; }
+.qa-card .q-btns .btn, .qa-act .btn { flex: 1; height: 38px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; cursor: pointer; }
+.qa-card .q-btns .btn.yes, .qa-act .btn.yes { background: #FF2442; color: #fff; }
+.qa-card .q-btns .btn.no, .qa-act .btn.no { border: 1px solid #3A3A41; color: #F2F2F4; }
+.qa-step { display: flex; gap: 10px; padding: 6px 0; font-size: 14px; line-height: 1.5; }
+.qa-step .tag { flex: none; font-size: 11px; border-radius: 4px; padding: 0 6px; height: 18px; line-height: 18px; margin-top: 2px; }
+.qa-step .tag.fg { background: #1B3A2E; color: #3DDC84; }
+.qa-step .tag.bg { background: #1D2D4B; color: #4C9BFF; }
+.qa-step .tag.wt { background: #2B2B31; color: #8E8E95; }
+.qa-step .s { display: block; color: #8E8E95; font-size: 12px; margin-top: 2px; }
+.qa-demo { margin-top: 10px; font-size: 13px; color: #4C9BFF; cursor: pointer; }
+.chat-row .dot { width: 8px; height: 8px; border-radius: 50%; background: #FF2442; flex: none; align-self: center; }
+.qa-page { background: var(--c-bg); }
+.qa-body { padding: 8px 16px 24px; }
+.qa-q { background: #202025; border-radius: 14px; padding: 14px; }
+.qa-q .who { font-size: 12px; color: #8E8E95; }
+.qa-q .t { font-size: 17px; font-weight: 700; margin-top: 8px; line-height: 1.5; }
+.qa-why { margin-top: 10px; font-size: 12px; color: #8E8E95; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.qa-why b { font-weight: 500; color: #D8D8DC; background: #2B2B31; border-radius: 999px; padding: 3px 10px; }
+.qa-input { margin-top: 14px; width: 100%; min-height: 110px; background: #202025; border: 1px solid #2B2B31; border-radius: 14px; color: #F2F2F4; font-size: 15px; line-height: 1.6; padding: 12px 14px; outline: none; resize: none; font-family: inherit; }
+.qa-rule { font-size: 12px; color: #8E8E95; line-height: 1.6; margin-top: 8px; }
+.qa-ans { margin-top: 12px; background: #202025; border-radius: 14px; padding: 14px; }
+.qa-ans .h { display: flex; align-items: center; gap: 8px; }
+.qa-ans .h .avatar { width: 30px; height: 30px; border-radius: 50%; background: #3A3A41; }
+.qa-ans .h .nm { font-size: 14px; font-weight: 600; }
+.qa-ans .h .tg { font-size: 11px; color: #3DDC84; background: #1B3A2E; border-radius: 4px; padding: 1px 6px; }
+.qa-ans .tx { font-size: 15px; line-height: 1.7; margin-top: 10px; }
+.qa-ans .ft { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-size: 13px; color: #8E8E95; }
+.qa-ans .ft .link { color: #4C9BFF; cursor: pointer; }
+.qa-ans .ft .like { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.qa-ans .ft .like.on { color: var(--c-primary); } .qa-ans .ft .like.on .ic { fill: var(--c-primary); }
+.qa-status { font-size: 12px; color: #8E8E95; margin-top: 10px; line-height: 1.6; }
+.qa-toast { position: absolute; left: 50%; top: 96px; transform: translateX(-50%); background: rgba(46,46,52,.97); color: #F2F2F4; border-radius: 999px; padding: 9px 18px; font-size: 14px; z-index: 60; display: none; white-space: nowrap; }
 </style>
 <style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
 <body data-page-node-id="s7kZU0yUpyZo5TJpiBt1KG" style="position: relative; box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; background: rgb(217, 217, 222); height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: -apple-system, &quot;PingFang SC&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, sans-serif; color: rgb(242, 242, 244); font-size: 14px;">
@@ -951,7 +990,7 @@ body {
             <div class="add-chips" data-page-node-id="cBW2ciflNmlpQKeslgjFPj" style="box-sizing: border-box; margin: 12px 0px 0px; padding: 0px; -webkit-tap-highlight-color: transparent; display: flex; flex-wrap: wrap; gap: 8px;">
               <span class="dd-sum-chip" onclick="askDD('总结这个合集')" data-page-node-id="ddSumChip" style="box-sizing: border-box; margin: 0px; padding: 7px 13px; -webkit-tap-highlight-color: transparent; background: rgb(27, 58, 46); border: 1px solid rgb(61, 220, 132); border-radius: 999px; font-size: 13px; color: rgb(61, 220, 132); font-weight: 600; cursor: pointer;">✨ 总结这个合集</span>
               <span onclick="askDD('博尔盖塞美术馆现在怎么订票？')" data-page-node-id="xx19IxUa1ZxfZpzJrHgTX6" style="box-sizing: border-box; margin: 0px; padding: 7px 13px; -webkit-tap-highlight-color: transparent; background: rgb(31, 31, 36); border: 1px solid rgb(43, 43, 49); border-radius: 999px; font-size: 13px; color: rgb(242, 242, 244); cursor: pointer;">博尔盖塞美术馆怎么订票？</span>
-              <span onclick="askDD('这篇里提到的注意事项有哪些？')" data-page-node-id="cSgNERyixZXvn1s96sDDvA" style="box-sizing: border-box; margin: 0px; padding: 7px 13px; -webkit-tap-highlight-color: transparent; background: rgb(31, 31, 36); border: 1px solid rgb(43, 43, 49); border-radius: 999px; font-size: 13px; color: rgb(242, 242, 244); cursor: pointer;">这篇里有哪些注意事项？</span>
+              <span onclick="askDD('这篇里提到的注意事项有哪些？')" data-page-node-id="cSgNERyixZXvn1s96sDDvA" style="box-sizing: border-box; margin: 0px; padding: 7px 13px; -webkit-tap-highlight-color: transparent; background: rgb(31, 31, 36); border: 1px solid rgb(43, 43, 49); border-radius: 999px; font-size: 13px; color: rgb(242, 242, 244); cursor: pointer;">这篇里有哪些注意事项？</span><span onclick="askDD('博尔盖塞周一开门吗？')">博尔盖塞周一开门吗？</span>
             </div>
           </div>
         </div>
@@ -1073,6 +1112,52 @@ body {
       </div>
     </section>
 
+  <!-- ========== 页面：回答一个问题（增量层；被问者视角，入口：消息里「点点」的推送） ========== -->
+    <section class="page qa-page" id="page-qa-answer">
+      <div class="chain-nav">
+        <span class="nb" onclick="XHS.go('msg')"><svg class="ic"><use href="#i-left"/></svg></span>
+        <span class="tt">回答一个问题</span>
+        <span class="nb"></span>
+      </div>
+      <div class="scroll">
+        <div class="qa-body">
+          <div class="qa-q">
+            <div class="who">点点替一位用户转问 · 对方未公开身份</div>
+            <div class="t" id="qa-a-q"></div>
+            <div class="qa-why">点点为什么问你：<b>你最近发过博尔盖塞相关笔记</b></div>
+          </div>
+          <textarea class="qa-input" id="qa-a-input" placeholder="用一两句话说说你的亲身经验（不确定就别答）"></textarea>
+          <div class="qa-rule">只写你亲身经历的事。点点不会改写你的回答，原文会连同署名展示给提问的人。</div>
+          <div class="qa-act"><div class="btn no" onclick="qaDecline()">不方便答</div><div class="btn yes" onclick="qaSend()">发送回答</div></div>
+          <div class="qa-rule" style="text-align:center">选「不方便答」后，会少给你推送这类问题</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 页面：我的提问（增量层；提问者视角，入口：消息里「你的问题有人回答了」） ========== -->
+    <section class="page qa-page" id="page-qa-thread">
+      <div class="chain-nav">
+        <span class="nb" onclick="XHS.go('msg')"><svg class="ic"><use href="#i-left"/></svg></span>
+        <span class="tt">我的提问</span>
+        <span class="nb"></span>
+      </div>
+      <div class="scroll">
+        <div class="qa-body">
+          <div class="qa-q">
+            <div class="who">我通过点点发布</div>
+            <div class="t" id="qa-t-q"></div>
+            <div class="qa-status">已发布 · 已推送给 12 位近期看过或发过相关内容的人 · 1 人回答</div>
+          </div>
+          <div class="qa-ans">
+            <div class="h"><span class="avatar"></span><span class="nm">用户</span><span class="tg">近期发过相关笔记</span></div>
+            <div class="tx" id="qa-t-a"></div>
+            <div class="ft"><span class="link" onclick="openNote('a','qa-thread')">查看他的笔记 ›</span><span class="like" id="qa-like"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>有用</span></div>
+          </div>
+          <div class="qa-rule" style="margin-top:12px">回答由真人写成，点点没有改写。这条回答也会沉淀下来，下一个问同样问题的人，点点能直接找到。</div>
+        </div>
+      </div>
+    </section>
+
   </div>
 
   <!-- 底部 Tab（基座层）：首页 / 市集 / ＋ / 消息 / 我 -->
@@ -1084,6 +1169,8 @@ body {
     <div class="tab" data-page="me" data-page-node-id="IoY5B2IEASq58B0w9jFPy2" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; flex: 1 1 0%; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; color: rgb(142, 142, 149); cursor: pointer; user-select: none;">我</div>
     <div class="home-ind" data-page-node-id="QqRgy3FW2ux8FM6chgcQ4e" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; position: absolute; left: 50%; bottom: 7px; transform: translateX(-50%); width: 130px; height: 5px; border-radius: 3px; background: rgb(255, 255, 255); opacity: 0.9;"></div>
   </nav>
+
+  <div class="qa-toast" id="qa-toast"></div>
 
   <!-- 分享面板（全局覆盖层，增量层 v3） -->
   <div class="sheet-mask" id="share-mask" onclick="closeShare()" data-page-node-id="NO2iD81MctbW0XJfSgv9dL" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; position: absolute; inset: 0px; background: rgba(0, 0, 0, 0.55); z-index: 40; display: none;"></div>
@@ -1170,11 +1257,11 @@ body {
       var pb = document.querySelector('#page-chain-pub .notif .n-body b'); if (pb) pb.textContent = '「' + tt + '」';
     }
     $$('.page').forEach(function (p) { p.classList.toggle('active', p.id === 'page-' + name); });
-    var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album', 'search', 'album-dd', 'cite-pick'];
+    var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album', 'search', 'album-dd', 'cite-pick', 'qa-answer', 'qa-thread'];
     document.getElementById('phone').classList.toggle('full', subPages.indexOf(name) >= 0);
     var tabName;
     if (subPages.indexOf(name) >= 0) {
-      tabName = (name === 'album' || name === 'album-dd') ? 'me' : 'home';
+      tabName = (name === 'album' || name === 'album-dd') ? 'me' : (name === 'qa-answer' || name === 'qa-thread') ? 'msg' : 'home';
     } else {
       tabName = name;
     }
@@ -1274,10 +1361,79 @@ body {
     window.__draftFromSummary = true;
     XHS.go('chain-edit');
   };
+  /* ============ 点点代问：前台（接收问题并发布）+ 后台（推送给近期看过/发过相关内容的人） ============ */
+  var QA = { q: '', a: '' };
+  function qaToast(t) {
+    var e = document.getElementById('qa-toast'); e.textContent = t; e.style.display = 'block';
+    clearTimeout(qaToast._t); qaToast._t = setTimeout(function () { e.style.display = 'none'; }, 2000);
+  }
+  function addMsgRow(id, html, onclickCode) {
+    var old = document.getElementById(id); if (old) old.remove();
+    var first = document.querySelector('#page-msg .chat-row');
+    var row = document.createElement('div'); row.className = 'chat-row'; row.id = id;
+    row.setAttribute('onclick', onclickCode); row.innerHTML = html;
+    first.parentNode.insertBefore(row, first);
+  }
+  function qaStep(kind, label, title, sub) {
+    return '<div class="qa-step"><span class="tag ' + kind + '">' + label + '</span><div>' + title + '<span class="s">' + sub + '</span></div></div>';
+  }
+  function renderNoMatch() {
+    var chat = document.getElementById('add-chat');
+    var b = document.createElement('div'); b.className = 'bubble';
+    b.innerHTML = '<p>合集里的笔记没有提到这个，我在站内也没找到足够可靠的答案，不想编一个给你。</p>' +
+      '<div class="qa-card"><div class="q-lbl">要不要问问走过的人？</div><div class="q-edit" contenteditable="true"></div>' +
+      '<div class="q-tip">点点会把你的问题发布出去，并只推送给近期看过或发过相关内容的人。你不用专门发帖，有回答会在消息里通知你。</div>' +
+      '<div class="q-btns"><div class="btn no" onclick="qaCancel(this)">算了</div><div class="btn yes" onclick="qaPublish(this)">发布并去问</div></div></div>';
+    b.querySelector('.q-edit').textContent = QA.q;
+    chat.appendChild(b); addScrollBottom();
+  }
+  window.qaCancel = function (btn) { btn.closest('.qa-card').remove(); };
+  window.qaPublish = function (btn) {
+    var card = btn.closest('.qa-card');
+    var q = card.querySelector('.q-edit').textContent.trim() || QA.q;
+    QA.q = q;
+    var st = document.createElement('div'); st.className = 'qa-card';
+    st.innerHTML = '<div class="q-lbl">点点已替你去问了</div>' +
+      qaStep('fg', '前台', '问题已发布', '') +
+      qaStep('bg', '后台', '已推送给 12 位近期看过或发过相关内容的人', '只推给相关的人，不广播') +
+      qaStep('wt', '等待', '暂无回复', '有人回答会在消息里通知你；24 小时没人回，点点会提醒你并推荐相关笔记') +
+      '<div class="qa-demo" onclick="XHS.go(\'msg\')">演示：切到被问到的人，去消息里看 →</div>';
+    st.querySelector('.qa-step .s').textContent = '「' + q + '」';
+    card.parentNode.replaceChild(st, card);
+    addMsgRow('qa-row-ask', '<div class="ava white"></div><div class="mid"><div class="nm">点点 <span class="ai">ai</span></div><div class="sub"></div></div><span class="tm">刚刚</span><span class="dot"></span>', 'qaOpenAnswer()');
+    document.querySelector('#qa-row-ask .sub').textContent = '有人想问你：' + q;
+    addScrollBottom();
+  };
+  window.qaOpenAnswer = function () {
+    document.getElementById('qa-a-q').textContent = QA.q;
+    document.getElementById('qa-a-input').value = '';
+    go('qa-answer');
+  };
+  window.qaDecline = function () {
+    var r = document.getElementById('qa-row-ask'); if (r) r.remove();
+    go('msg'); qaToast('好的，之后会少给你推送这类问题');
+  };
+  window.qaSend = function () {
+    var v = document.getElementById('qa-a-input').value.trim();
+    QA.a = v || '周一闭馆，我上周日去的时候看到公告了，别排周一。';
+    var r = document.getElementById('qa-row-ask'); if (r) r.remove();
+    addMsgRow('qa-row-reply', '<div class="ava white"></div><div class="mid"><div class="nm">点点 <span class="ai">ai</span></div><div class="sub"></div></div><span class="tm">刚刚</span><span class="dot"></span>', 'qaOpenThread()');
+    document.querySelector('#qa-row-reply .sub').textContent = '你的问题有人回答了：' + QA.q;
+    go('msg'); qaToast('已回答，谢谢你');
+  };
+  window.qaOpenThread = function () {
+    document.getElementById('qa-t-q').textContent = QA.q;
+    document.getElementById('qa-t-a').textContent = QA.a;
+    var d = document.querySelector('#qa-row-reply .dot'); if (d) d.remove();
+    go('qa-thread');
+  };
+  document.getElementById('qa-like').addEventListener('click', function () { this.classList.toggle('on'); });
+
   function ddReply(key) {
     var chat = document.getElementById('add-chat');
     var thinking = document.getElementById('add-thinking');
     if (thinking) thinking.remove();
+    if (key === 'nomatch') { renderNoMatch(); return; }
     var d = DD_ANSWERS[key] || DD_ANSWERS.default;
     var bubble = document.createElement('div');
     bubble.className = 'bubble';
@@ -1296,8 +1452,9 @@ body {
     addUser(text);
     addThinking();
     var key = (text.indexOf('总结') >= 0) ? 'summary'
-      : (text.indexOf('订票') >= 0 || text.indexOf('买票') >= 0 || text.indexOf('现金') >= 0) ? 'default'
-      : (text.indexOf('注意事项') >= 0 || text.indexOf('重点') >= 0) ? 'note' : 'default';
+      : (text.indexOf('订票') >= 0 || text.indexOf('买票') >= 0 || text.indexOf('现金') >= 0 || text.indexOf('链路') >= 0) ? 'default'
+      : (text.indexOf('注意事项') >= 0 || text.indexOf('重点') >= 0) ? 'note' : 'nomatch';
+    if (key === 'nomatch') QA.q = text;
     setTimeout(function () { ddReply(key); }, 700);
   }
   window.askDD = askDD;
