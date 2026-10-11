@@ -151,6 +151,7 @@ body {
 .chain-top { padding: 4px 16px 8px; }
 .chain-top .title-input { font-size: 18px; font-weight: 700; color: #F2F2F4; padding: 8px 0; }
 .chain-top .body-edit { font-size: 15px; color: #55555C; padding: 10px 0 6px; line-height: 1.7; }
+.chain-top .body-edit .ai-draft { color: #D8D8DC; }
 .chain-top .body-edit .cursor { display: inline-block; width: 2px; height: 18px; background: #FF2442; vertical-align: -3px; margin-right: 1px; }
 /* 底部话题行（编辑态：灰底胶囊，还原截图） */
 .chain-add { margin: 10px 0 0; display: flex; flex-direction: column; gap: 10px; }
@@ -973,7 +974,7 @@ body {
       <div class="scroll" data-page-node-id="VZyh1B8qUgJLYpbryWSFpi" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; flex: 1 1 0%; overflow: hidden auto; scrollbar-width: none; min-height: 0px;">
         <div class="chain-top" data-page-node-id="AEmC7p4EX0ErVtdjp4IXzk" style="box-sizing: border-box; margin: 0px; padding: 4px 16px 8px; -webkit-tap-highlight-color: transparent;">
           <div class="title-input" data-page-node-id="Igg3jAE8aPKug2edTUQUlK" style="box-sizing: border-box; margin: 0px; padding: 8px 0px; -webkit-tap-highlight-color: transparent; font-size: 18px; font-weight: 700; color: rgb(242, 242, 244); border-bottom: 1px solid rgb(38, 38, 44);">意大利 5 日游 · 我走过的路</div>
-          <div class="body-edit" data-page-node-id="bodyEdit1"><span class="cursor"></span>添加正文</div>
+          <div class="body-edit" id="bodyEdit1" data-page-node-id="bodyEdit1"><span class="cursor"></span>添加正文</div>
           
           
           <div class="ai-tag" data-page-node-id="14Y4hyL8bRhW7ZSCGE0BiB" style="box-sizing: border-box; margin: 10px 0px 0px; padding: 0px; -webkit-tap-highlight-color: transparent; display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: rgb(61, 220, 132);"><span class="ai-dot" data-page-node-id="sSahH9TvLniyjSZ8gxDO1J" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 14px; height: 14px; border-radius: 5px 5px 5px 2px; background: linear-gradient(135deg, rgb(155, 247, 224), rgb(70, 221, 187)); display: inline-flex; align-items: center; justify-content: center;"><svg class="ic" style="font-size: 9px; color: rgb(18, 69, 59); box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto;" data-page-node-id="7lwM4t4azKpklpZRYVHuuS"><use href="#i-sparkle" data-page-node-id="NW5IxoH4FNaAU82vdSvczz" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg></span> AI 已按行程搭好骨架，共 8 个点</div>
@@ -1147,10 +1148,27 @@ body {
    ['.np-follow', ['color', 'border-color']], ['.np-act', ['color']]].forEach(function (x) {
     $$(x[0]).forEach(function (el) { x[1].forEach(function (p) { el.style.removeProperty(p); }); });
   });
-  var chainFrom = 'album';   // 链路编辑页的来源页（返回上一级用）
+  var chainFrom = 'album';
+  (function () {
+    var ed = document.getElementById('page-chain-edit');
+    var def = { title: ed.querySelector('.title-input').textContent, body: ed.querySelector('.body-edit').innerHTML, tag: ed.querySelector('.ai-tag').lastChild.textContent };
+    window.resetEditor = function () {
+      ed.querySelector('.title-input').textContent = def.title;
+      if (ed.querySelector('.body-edit .ai-draft')) ed.querySelector('.body-edit').innerHTML = def.body;
+      ed.querySelector('.ai-tag').lastChild.textContent = def.tag;
+    };
+  })();   // 链路编辑页的来源页（返回上一级用）
   function go(name) {
     var cur = document.querySelector('.page.active'), curName = cur ? cur.id.replace('page-', '') : '';
-    if (name === 'chain-edit' && ['cite-pick', 'note', 'chain-pub'].indexOf(curName) < 0 && curName) chainFrom = curName;
+    if (name === 'chain-edit' && ['cite-pick', 'note', 'chain-pub'].indexOf(curName) < 0 && curName) {
+      chainFrom = curName;
+      if (window.__draftFromSummary) { window.__draftFromSummary = false; } else if (window.resetEditor) { window.resetEditor(); }
+    }
+    if (name === 'chain-pub') {
+      var tt = document.querySelector('#page-chain-edit .title-input').textContent;
+      var pt = document.querySelector('#page-chain-pub .pub-card .p-title'); if (pt) pt.textContent = tt;
+      var pb = document.querySelector('#page-chain-pub .notif .n-body b'); if (pb) pb.textContent = '「' + tt + '」';
+    }
     $$('.page').forEach(function (p) { p.classList.toggle('active', p.id === 'page-' + name); });
     var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album', 'search', 'album-dd', 'cite-pick'];
     document.getElementById('phone').classList.toggle('full', subPages.indexOf(name) >= 0);
@@ -1246,6 +1264,16 @@ body {
       follow: ['把这份总结生成一篇笔记', '展开看看交通部分']
     }
   };
+  /* 点点总结 → 生成一篇笔记：把总结预填为「AI 草稿」，作者改成自己的话后再发布 */
+  var SUMMARY_DRAFT = '米兰落地 → 罗马（博尔盖塞美术馆）→ 佛罗伦萨（美食）。博尔盖塞门票要提前约，现场只收现金；热门餐厅要提前订。（AI 草稿，请改成你自己的经历）';
+  window.genNoteFromSummary = function () {
+    var ed = document.getElementById('page-chain-edit');
+    ed.querySelector('.title-input').textContent = '意大利旅行 · 合集总结';
+    ed.querySelector('.body-edit').innerHTML = '<span class="cursor"></span><span class="ai-draft">' + SUMMARY_DRAFT + '</span>';
+    ed.querySelector('.ai-tag').lastChild.textContent = ' 点点按合集总结起草，请改成你自己的话再发布';
+    window.__draftFromSummary = true;
+    XHS.go('chain-edit');
+  };
   function ddReply(key) {
     var chat = document.getElementById('add-chat');
     var thinking = document.getElementById('add-thinking');
@@ -1259,7 +1287,7 @@ body {
         '<svg class="ic arrow"><use href="#i-right"/></svg></div>'
       : '';
     bubble.innerHTML = '<p>' + d.text + '</p>' + refHtml + d.answer +
-      '<div class="add-chips">' + (d.follow || []).map(function (f) { return '<span onclick="askDD(\'' + f + '\')">' + f + '</span>'; }).join('') + '</div>';
+      '<div class="add-chips">' + (d.follow || []).map(function (f) { return f.indexOf('生成一篇笔记') >= 0 ? '<span class="dd-sum-chip" onclick="genNoteFromSummary()">✨ ' + f + '</span>' : '<span onclick="askDD(\'' + f + '\')">' + f + '</span>'; }).join('') + '</div>';
     chat.appendChild(bubble);
     addScrollBottom();
   }
