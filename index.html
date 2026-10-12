@@ -752,6 +752,26 @@ body {
 .np-meta .np-dis .ic { font-size: 16px; }
 .ab-hd .avs i.plus { display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 16px; color: #8E8E95; background: #2A2A2F; }
 .ab-hd .r3 .l { cursor: pointer; color: #F2F2F4; }
+
+/* ==================== 与 Figma 逐项对齐（用户在 Figma 里改过的部分） ==================== */
+.np-qcover { border-radius: 0; background: #33333A; }
+.np-meta.q { border-bottom: none; }
+.np-meta .np-dis { gap: 6px; padding: 3px 5px; border: 1px solid #55555C; border-radius: 22px; color: #FFFFFF; font-size: 12px; }
+.np-meta .np-dis .ic { font-size: 18px; stroke-width: 1.25; }
+.np-cm-input.qf .f { background: #1F1F24; border: 1px solid #2B2B31; border-radius: 21px; height: 34px; }
+.np-cm-input.qf .f > * { display: none; }
+.np-cm-input.qf .avatar { width: 34px; height: 34px; background: #34343B; }
+.np-actbtn { min-width: 110px; justify-content: center; }
+.np-actbtn.ghost { background: #26262C; font-weight: 500; }
+.ab-hd .manage { padding: 3px 12px; color: #FFFFFF; }
+.ab-hd .intro { color: #FFFFFF; }
+.ab-hd .avs i { border: none; margin-left: -12px; }
+.ab-hd .avs i:first-child { margin-left: 0; }
+
+.np-actbtn { padding: 0 10px; }
+.np-acts { margin-top: 0; }
+.ab-hd .ttl { line-height: 34px; }
+.np-cm-input.qf { padding-bottom: 0; }
 </style>
 <style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
 <body data-page-node-id="s7kZU0yUpyZo5TJpiBt1KG" style="position: relative; box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; background: rgb(217, 217, 222); height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: -apple-system, &quot;PingFang SC&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, sans-serif; color: rgb(242, 242, 244); font-size: 14px;">
@@ -1676,7 +1696,7 @@ body {
   var albumState = { notes: ['a'], chat: false };
   function refreshAlbumMeta() {
     var n = albumState.notes.length;
-    var meta = document.querySelector('#page-album .r3 > span:last-child'); if (meta) meta.textContent = '笔记·' + n + (albumState.chat ? ' 对话·1' : '');
+    var meta = document.querySelector('#page-album .r3 > span:last-child'); if (meta) meta.textContent = '笔记·' + n + (albumState.chat ? '\u00A0\u00A0对话·1' : '');
     var fm = document.querySelector('#album-italy .m span'); if (fm) fm.textContent = '笔记 · ' + n;
     var sp = document.querySelector('#add-scope-bar > span');
     if (sp) sp.textContent = '专属点点 · 只基于「意大利旅行」主题，帮你整理相关信息。';
@@ -1921,10 +1941,10 @@ body {
       }).join('') + '<div style="height:24px"></div></div>';
     if (isQ) {
       html = html.replace(/<div class="np-chip">[\s\S]*?<\/div><div class="np-chip">[\s\S]*?<\/div>/, d.chipsHtml || '');
-      html = html.replace('<span>不喜欢</span>', '<span class="np-dis"><svg class="ic"><use href="#i-dislike"/></svg>不喜欢</span>');
+      html = html.replace('<span>不喜欢</span>', '<span class="np-dis"><svg class="ic"><use href="#i-dislike"/></svg>不喜欢</span>').replace('<div class="np-meta">', '<div class="np-meta q">');
       var inputRe = /<div class="np-cm-input">[\s\S]*?<\/div><\/div>/;
       var im = html.match(inputRe); html = html.replace(inputRe, '');
-      if (d.showInput && im) html = html.replace('<div class="np-cm-head">', im[0] + '<div class="np-cm-head">');
+      if (d.showInput && im) html = html.replace('<div class="np-cm-head">', im[0].replace('np-cm-input', 'np-cm-input qf') + '<div class="np-cm-head">');
     }
     var sc = $('#np-scroll'); sc.innerHTML = html; sc.scrollTop = 0;
     sc.querySelectorAll('[data-q-note]').forEach(function (el) { el.addEventListener('click', function () { openNote('a', 'q-post'); }); });
