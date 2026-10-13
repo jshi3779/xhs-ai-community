@@ -167,6 +167,26 @@ body {
 .pub-toolbar .tool.ref { color: #C9C9CE; margin-top: 0; }   /* 避免被通用 .ref 的 margin-top 顶歪 */
 .pub-toolbar .tool.ref .ic { font-size: 24px; color: #FF2442; }
 .pub-toolbar .done { font-size: 15px; color: #F2F2F4; cursor: pointer; }
+/* ---------- 点点大纲：发帖前选主题（AI 只给结构，不转述内容） ---------- */
+.ol-intro { display: flex; align-items: flex-start; gap: 8px; margin: 12px 16px 4px; }
+.ol-intro .dd-ghost { flex: none; margin-top: 3px; font-size: 18px; }
+.ol-intro .ol-bubble { flex: 1; background: #2A2A2F; border-radius: 16px; padding: 12px 14px; font-size: 14px; line-height: 1.6; color: #E8E8EA; }
+.ol-intro .ol-bubble b { color: #3DDC84; font-weight: 700; }
+.ol-note { margin: 6px 16px 10px; font-size: 11px; color: #8E8E95; line-height: 1.5; padding-left: 4px; }
+.ol-list { margin: 0 16px; display: flex; flex-direction: column; gap: 10px; }
+.ol-item { background: #202024; border: 1px solid #2B2B31; border-radius: 14px; padding: 13px 14px; cursor: pointer; transition: border-color .15s ease; }
+.ol-item.on { border-color: #3DDC84; background: #1B2E26; }
+.ol-item .ol-head { display: flex; align-items: center; gap: 8px; }
+.ol-item .ol-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #55555C; flex: none; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; transition: background .15s ease, border-color .15s ease; }
+.ol-item.on .ol-check { background: #3DDC84; border-color: #3DDC84; }
+.ol-item .ol-t { font-size: 15px; font-weight: 600; color: #F2F2F4; flex: 1; }
+.ol-item .ol-n { font-size: 11px; color: #8E8E95; flex: none; }
+.ol-item .ol-sub { margin: 6px 0 0 28px; font-size: 12px; color: #8E8E95; line-height: 1.5; }
+.ol-item .ol-sub span { color: #C9C9CE; }
+.ol-foot { position: sticky; bottom: 0; padding: 10px 16px 14px; background: linear-gradient(transparent, #141418 30%); }
+.ol-foot .ol-next { height: 44px; border-radius: 999px; background: #FF2442; color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.ol-foot .ol-next.off { background: #3A3A41; color: #8E8E95; cursor: default; }
+.ol-foot .ol-hint { text-align: center; font-size: 11px; color: #8E8E95; margin-top: 8px; }
 /* 模拟键盘区（演示用） */
 .mock-kb { flex: none; background: #202024; padding: 8px 6px 10px; display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; }
 .mock-kb .k { height: 38px; background: #6B6B70; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #fff; }
@@ -1143,7 +1163,7 @@ body {
       <div class="chain-nav" data-page-node-id="N6Z3unm3YEYcKrQ70kkrGJ" style="box-sizing: border-box; margin: 0px; padding: 0px 12px; -webkit-tap-highlight-color: transparent; flex: 0 0 auto; height: 46px; display: flex; align-items: center; justify-content: space-between;">
         <span class="nb" onclick="XHS.back('chain-edit')" data-page-node-id="4Y5OhAyRmTAwnu7IHWs1ON" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer;"><svg class="ic" data-page-node-id="d25vbOjkA1NE7IcHioFIzV" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto;"><use href="#i-left" data-page-node-id="TFoE2i3Mu2klSF2ACwwfDw" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg></span>
         <span class="tt" data-page-node-id="7WD7swfrm51pCibTH41AG5" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 17px; font-weight: 700;"></span>
-        <div class="nav-right"><span class="draft-pill" onclick="alert('已存草稿（演示）')"><svg class="ic"><use href="#i-copy"/></svg>存草稿</span><span class="pub-pill" onclick="XHS.go('chain-pub')">发笔记</span></div>
+        <div class="nav-right"><span class="draft-pill" onclick="alert('已存草稿（演示）')"><svg class="ic"><use href="#i-copy"/></svg>存草稿</span><span class="pub-pill" onclick="XHS.go('outline')">发笔记</span></div>
       </div>
       <div class="scroll" data-page-node-id="VZyh1B8qUgJLYpbryWSFpi" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; flex: 1 1 0%; overflow: hidden auto; scrollbar-width: none; min-height: 0px;">
         <div class="chain-top" data-page-node-id="AEmC7p4EX0ErVtdjp4IXzk" style="box-sizing: border-box; margin: 0px; padding: 4px 16px 8px; -webkit-tap-highlight-color: transparent;">
@@ -1244,6 +1264,27 @@ body {
             <div class="pub-stat" style="margin: 8px 0px 0px; box-sizing: border-box; padding: 0px; -webkit-tap-highlight-color: transparent; display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgb(142, 142, 149);" data-page-node-id="DegczutnYZXuPlrMA0srAP"><span data-page-node-id="bDuxfmEIgDnDcc6MeNBmAu" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;">比一个赞更有分量——因为有人真的照着走了。</span></div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ========== 页面：点点大纲（发帖前选主题；AI 只给结构，不转述内容） ========== -->
+    <section class="page" id="page-outline" style="box-sizing: border-box; margin: 0px; padding: 44px 0px 0px; -webkit-tap-highlight-color: transparent; position: absolute; inset: 0px; flex-direction: column; background: rgb(20, 20, 24);">
+      <div class="chain-nav" style="box-sizing: border-box; margin: 0px; padding: 0px 12px; -webkit-tap-highlight-color: transparent; flex: 0 0 auto; height: 46px; display: flex; align-items: center; justify-content: space-between;">
+        <span class="nb" onclick="XHS.go('chain-edit')" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer;"><svg class="ic" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto;"><use href="#i-left" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg></span>
+        <span class="tt" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 17px; font-weight: 700;">点点大纲</span>
+        <span class="nb" onclick="XHS.go('home')" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer;"><svg class="ic" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto;"><use href="#i-close" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg></span>
+      </div>
+      <div class="scroll" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; flex: 1 1 0%; overflow: hidden auto; scrollbar-width: none; min-height: 0px;">
+        <div class="ol-intro">
+          <i class="dd-ghost"></i>
+          <div class="ol-bubble">我们从「意大利旅行」合集里聊到了这些方向，点点帮你理成了<b>大纲</b>。挑你想放进笔记的主题，正文还是<b>你自己写</b>，点点只帮你排结构。</div>
+        </div>
+        <div class="ol-note">只总结「聊了哪些方向 + 收藏了哪些」，不替你转述内容，避免洗稿。</div>
+        <div class="ol-list" id="ol-list"></div>
+      </div>
+      <div class="ol-foot">
+        <div class="ol-next" id="ol-next" onclick="olNext()">下一步（已选 <span id="ol-count">0</span>）</div>
+        <div class="ol-hint">选中的主题会带出对应的引用笔记，正文留给你填</div>
       </div>
     </section>
 
@@ -1396,7 +1437,7 @@ body {
       var pb = document.querySelector('#page-chain-pub .notif .n-body b'); if (pb) pb.textContent = '「' + tt + '」';
     }
     $$('.page').forEach(function (p) { p.classList.toggle('active', p.id === 'page-' + name); });
-    var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album', 'search', 'album-dd', 'cite-pick', 'qa-answer', 'qa-thread', 'ask-ans'];
+    var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album', 'search', 'album-dd', 'cite-pick', 'qa-answer', 'qa-thread', 'ask-ans', 'outline'];
     document.getElementById('phone').classList.toggle('full', subPages.indexOf(name) >= 0);
     var tabName;
     if (subPages.indexOf(name) >= 0) {
@@ -1407,6 +1448,66 @@ body {
     $$('.tab[data-page]').forEach(function (t) { t.classList.toggle('active', t.dataset.page === tabName); });
   }
   window.XHS = { go: go, back: function (page) { if (page === 'chain-edit') go(chainFrom); } };   // 暴露给增量层调用
+
+  /* ============ 点点大纲：发帖前选主题（AI 只给结构，不转述内容，防洗稿） ============ */
+  var OUTLINE = [
+    { t: '订票与门票', n: '2 篇', sub: '博尔盖塞美术馆订票、POS 机现金', refs: 'a' },
+    { t: '交通与落地', n: '1 篇', sub: '米兰机场大巴、线下买票', refs: 'a' },
+    { t: '美食探店', n: '1 篇', sub: '佛罗伦萨几家不排队的店', refs: 'c' },
+    { t: '避坑提醒', n: '3 处', sub: '排队、提前约、只收现金', refs: 'b' }
+  ];
+  var OL_SEL = {};   // 记录勾选状态
+  function olRender() {
+    var list = document.getElementById('ol-list');
+    list.innerHTML = OUTLINE.map(function (o, i) {
+      return '<div class="ol-item" data-i="' + i + '" onclick="olToggle(' + i + ')">' +
+        '<div class="ol-head"><span class="ol-check"><svg class="ic" style="font-size:12px"><use href="#i-check"/></svg></span>' +
+        '<span class="ol-t">' + o.t + '</span><span class="ol-n">' + o.n + '</span></div>' +
+        '<div class="ol-sub"><span>' + o.sub + '</span> · 引用对应笔记</div></div>';
+    }).join('');
+  }
+  window.olToggle = function (i) {
+    OL_SEL[i] = !OL_SEL[i];
+    var el = document.querySelector('#ol-list .ol-item[data-i="' + i + '"]');
+    el.classList.toggle('on', !!OL_SEL[i]);
+    olUpdateCount();
+  };
+  function olUpdateCount() {
+    var n = OUTLINE.filter(function (_, i) { return OL_SEL[i]; }).length;
+    document.getElementById('ol-count').textContent = n;
+    var btn = document.getElementById('ol-next');
+    btn.classList.toggle('off', n === 0);
+  }
+  window.olNext = function () {
+    var n = OUTLINE.filter(function (_, i) { return OL_SEL[i]; }).length;
+    if (n === 0) return;
+    // 已选主题
+    var picked = OUTLINE.filter(function (_, i) { return OL_SEL[i]; }).map(function (o) { return o.t; });
+    go('chain-pub');
+    // go 之后追加「已选主题」摘要（DOM 已切换，pub-card 可见）
+    var hero = document.querySelector('#page-chain-pub .pub-card');
+    var tagRow = hero.querySelector('.ol-picked');
+    if (!tagRow) {
+      tagRow = document.createElement('div');
+      tagRow.className = 'ol-picked';
+      tagRow.style.marginTop = '12px';
+      tagRow.style.display = 'flex';
+      tagRow.style.flexWrap = 'wrap';
+      tagRow.style.alignItems = 'center';
+      hero.appendChild(tagRow);
+    }
+    tagRow.innerHTML = '<span style="font-size:12px;color:#8E8E95;">已选主题：</span>' + picked.map(function (t) {
+      return '<span style="font-size:12px;color:#3DDC84;background:#1B3A2E;border-radius:999px;padding:3px 10px;margin-left:6px;">' + t + '</span>';
+    }).join('');
+  };
+  // 进入大纲页时重置勾选状态并渲染
+  (function () {
+    var _origGo = go;
+    go = function (name) {
+      if (name === 'outline') { OL_SEL = {}; olRender(); olUpdateCount(); }
+      _origGo(name);
+    };
+  })();
 
   /* ============ 增量层 v3：收集归集交互 ============ */
   window.closeShare = function () {
