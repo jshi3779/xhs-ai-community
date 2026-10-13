@@ -1436,6 +1436,9 @@ body {
       var pt = document.querySelector('#page-chain-pub .pub-card .p-title'); if (pt) pt.textContent = tt;
       var pb = document.querySelector('#page-chain-pub .notif .n-body b'); if (pb) pb.textContent = '「' + tt + '」';
     }
+    if (name === 'outline') {
+      if (window.__olReset) { window.__olReset(); }
+    }
     $$('.page').forEach(function (p) { p.classList.toggle('active', p.id === 'page-' + name); });
     var subPages = ['ask', 'ddset', 'chain-edit', 'chain-pub', 'note', 'album', 'search', 'album-dd', 'cite-pick', 'qa-answer', 'qa-thread', 'ask-ans', 'outline'];
     document.getElementById('phone').classList.toggle('full', subPages.indexOf(name) >= 0);
@@ -1500,14 +1503,12 @@ body {
       return '<span style="font-size:12px;color:#3DDC84;background:#1B3A2E;border-radius:999px;padding:3px 10px;margin-left:6px;">' + t + '</span>';
     }).join('');
   };
-  // 进入大纲页时重置勾选状态并渲染
-  (function () {
-    var _origGo = go;
-    go = function (name) {
-      if (name === 'outline') { OL_SEL = {}; olRender(); olUpdateCount(); }
-      _origGo(name);
-    };
-  })();
+  // 进入大纲页时重置勾选状态并渲染（由 go 函数内的 __olReset 钩子触发）
+  window.__olReset = function () {
+    OL_SEL = {};
+    olRender();
+    olUpdateCount();
+  };
 
   /* ============ 增量层 v3：收集归集交互 ============ */
   window.closeShare = function () {
