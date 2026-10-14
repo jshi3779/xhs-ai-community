@@ -2770,8 +2770,8 @@ window.API = (function () {
       { main: '点「切到提问者」', sub: '回到提问的那位用户。', t: function () { return T('切到提问者'); } },
       { main: '点评论旁的「感谢」', sub: '提问者感谢回答的人。这里是「感谢」，不是点赞，也不是流量。', t: function () { return Q('[data-thanks]'); } }
     ] },
-    { name: '③ 收藏对话', done: '这段专属点点的对话已经收进了合集。回到合集页，就能看到它作为一张「对话」卡片放在笔记旁边。（需要先有「意大利旅行」合集：完成任务 ① 或 ② 即可。）', steps: [
-      { main: '点底部的「我」', sub: '收藏的东西都在「我」里。（还没有合集？先走任务 ① 或 ②。）', t: function () { return T('我', '.tabbar'); } },
+    { name: '③ 收藏对话', done: '这段专属点点的对话已经收进了合集。回到合集页，就能看到它作为一张「对话」卡片放在笔记旁边。', steps: [
+      { main: '点底部的「我」', sub: '收藏的东西都在「我」里。', t: function () { return T('我', '.tabbar'); } },
       { main: '点「收藏」', sub: '', t: function () { var e = document.querySelectorAll('#page-me .me-tabs > *')[2]; return vis(e) ? e : null; } },
       { main: '点「专辑」', sub: '', t: function () { return Q('#fav-album-tab'); } },
       { main: '点开「意大利旅行」', sub: '', t: function () { return Q('#album-italy'); } },
@@ -2779,8 +2779,8 @@ window.API = (function () {
       { main: '点「总结这个合集」', sub: '先让点点说点东西，才有对话可以收藏。', t: function () { return T('总结这个合集', '#page-album-dd'); } },
       { main: '点右上角的星标，收藏这段对话', sub: '对话会作为一张卡片，收进这个合集。', t: function () { return Q('#dd-star'); } }
     ] },
-    { name: '④ 生成笔记', done: '你从收藏夹出发，让点点总结，再自己改成笔记、引用收藏的笔记、选好主题。发布后，这篇笔记会出现在「我 → 笔记」里。（需要先有「意大利旅行」合集：完成任务 ① 或 ② 即可。）', steps: [
-      { main: '点底部的「我」', sub: '收藏的东西都在「我」里。（还没有合集？先走任务 ① 或 ②。）', t: function () { return T('我', '.tabbar'); } },
+    { name: '④ 生成笔记', done: '你从收藏夹出发，让点点总结，再自己改成笔记、引用收藏的笔记、选好主题。发布后，这篇笔记会出现在「我 → 笔记」里。', steps: [
+      { main: '点底部的「我」', sub: '收藏的东西都在「我」里。', t: function () { return T('我', '.tabbar'); } },
       { main: '点「收藏」', sub: '', t: function () { var e = document.querySelectorAll('#page-me .me-tabs > *')[2]; return vis(e) ? e : null; } },
       { main: '点「专辑」', sub: '', t: function () { return Q('#fav-album-tab'); } },
       { main: '点开「意大利旅行」', sub: '', t: function () { return Q('#album-italy'); } },
@@ -2795,13 +2795,14 @@ window.API = (function () {
       { main: '点「下一步」', sub: '选好主题后进入发布。', t: function () { return Q('#ol-next'); } }
     ] }
   ];
-  var holdUntil = 0, ti = 0, cur = 0, folded = false, missingSince = 0, scrolled = 0, advTimer = null, fin = false;
+  var holdUntil = 0, ti = (function () { try { return Math.max(0, Math.min(3, +sessionStorage.getItem('guideTask') || 0)); } catch (e) { return 0; } })(), cur = 0, folded = false, missingSince = 0, scrolled = 0, advTimer = null, fin = false;
   var $ = function (id) { return document.getElementById(id); };
   function steps() { return TASKS[ti].steps; }
+  function restartTask(i) { try { sessionStorage.setItem('guideTask', String(i)); } catch (e) { } location.reload(); }
   function goHome() { try { ['ans-dlg-mask', 'ans-dlg', 'share-sheet', 'fav-sheet'].forEach(function (id) { var d = document.getElementById(id); if (d) d.classList.remove('show'); }); if (window.XHS) XHS.go('home'); } catch (e) { } }
   function buildTabs() {
     var box = $('g-tasks'); box.innerHTML = '';
-    TASKS.forEach(function (t, i) { var s = document.createElement('span'); s.textContent = t.name; s.className = i === ti ? 'on' : ''; s.onclick = function () { goHome(); ti = i; cur = 0; fin = false; buildTabs(); buildBar(); render(); place(); }; box.appendChild(s); });
+    TASKS.forEach(function (t, i) { var s = document.createElement('span'); s.textContent = t.name; s.className = i === ti ? 'on' : ''; s.onclick = function () { restartTask(i); }; box.appendChild(s); });
   }
   function buildBar() { var b = $('g-bar'); b.innerHTML = ''; steps().forEach(function () { b.appendChild(document.createElement('i')); }); }
   function render() {
@@ -2855,10 +2856,12 @@ window.API = (function () {
   window.addEventListener('resize', place);
   $('g-skip').onclick = function () { set(cur + 1); };
   $('g-prev').onclick = function () { set(cur - 1); };
-  $('g-again').onclick = function () { goHome(); cur = 0; fin = false; buildBar(); render(); place(); };
-  $('g-next').onclick = function () { goHome(); ti = Math.min(TASKS.length - 1, ti + 1); cur = 0; fin = false; buildTabs(); buildBar(); render(); place(); };
+  $('g-again').onclick = function () { restartTask(ti); };
+  $('g-next').onclick = function () { restartTask(Math.min(TASKS.length - 1, ti + 1)); };
   $('g-fold').onclick = function () { folded = true; place(); };
   PILL.onclick = function () { folded = false; place(); };
+  /* ③④ 需要「意大利旅行」合集：开始前自动建好（①② 从零开始，所以要干净状态） */
+  if (ti >= 2 && window.buildAlbum) { try { window.buildAlbum(); } catch (e) { } }
   buildTabs(); buildBar(); render(); place();
 })();
 </script>
