@@ -195,6 +195,7 @@ body {
 .mock-kb .k.wide { grid-column: span 2; }
 .chain-top .ai-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #3DDC84; margin-top: 10px; }
 .chain-top .ai-tag .ai-dot { width: 14px; height: 14px; border-radius: 5px 5px 5px 2px; background: linear-gradient(135deg,#9BF7E0,#46DDBB); display: inline-flex; align-items: center; justify-content: center; }
+.chain-top .sum-edit { font-size: 14px; line-height: 1.7; color: #D8D8DC; padding: 10px 0 2px; }
 .chain-top .ai-note { font-size: 12px; color: #8E8E95; margin-top: 8px; line-height: 1.6; }
 
 /* 链路天分组 */
@@ -1200,6 +1201,7 @@ body {
           
           
           <div class="ai-tag" data-page-node-id="14Y4hyL8bRhW7ZSCGE0BiB" style="box-sizing: border-box; margin: 10px 0px 0px; padding: 0px; -webkit-tap-highlight-color: transparent; display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: rgb(61, 220, 132);"><span class="ai-dot" data-page-node-id="sSahH9TvLniyjSZ8gxDO1J" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 14px; height: 14px; border-radius: 5px 5px 5px 2px; background: linear-gradient(135deg, rgb(155, 247, 224), rgb(70, 221, 187)); display: inline-flex; align-items: center; justify-content: center;"><svg class="ic" style="font-size: 9px; color: rgb(18, 69, 59); box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto;" data-page-node-id="7lwM4t4azKpklpZRYVHuuS"><use href="#i-sparkle" data-page-node-id="NW5IxoH4FNaAU82vdSvczz" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg></span> AI 已按行程搭好骨架，共 8 个点</div>
+          <div class="sum-edit" id="sumEdit" style="display:none"></div>
           
         </div>
 
@@ -1453,6 +1455,7 @@ body {
     window.resetEditor = function () {
       ed.querySelector('.title-input').textContent = def.title;
       ed.querySelector('.body-edit').innerHTML = def.body;
+      var sm = document.getElementById('sumEdit'); sm.style.display = 'none'; sm.innerHTML = '';
       ed.querySelector('.ai-tag').lastChild.textContent = def.tag;
     };
   })();   // 链路编辑页的来源页（返回上一级用）
@@ -1638,7 +1641,7 @@ body {
   window.genNoteFromSummary = function () {
     var ed = document.getElementById('page-chain-edit');
     ed.querySelector('.title-input').textContent = '意大利旅行 · 合集总结';
-    ed.querySelector('.body-edit').innerHTML = '<span class="cursor"></span><span class="ai-draft">' + SUMMARY_DRAFT + '</span>';
+    var sm = document.getElementById('sumEdit'); sm.contentEditable = 'true'; sm.style.display = 'block'; sm.textContent = SUMMARY_DRAFT;
     ed.querySelector('.ai-tag').lastChild.textContent = ' 点点按合集总结起草，请改成你自己的话再发布';
     window.__draftFromSummary = true;
     XHS.go('chain-edit');
@@ -2032,6 +2035,7 @@ body {
   function buildMineNote(title) {
     var paras = [];
     function esc(t) { return t.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+    var sm = document.getElementById('sumEdit'); if (sm && sm.style.display !== 'none' && sm.textContent.trim()) paras.push(esc(sm.textContent.trim()));
     $$('#page-chain-edit .chain-day').forEach(function (dy) {
       var head = dy.querySelector('.day-h').childNodes[1].textContent.trim();
       var txt = [];
