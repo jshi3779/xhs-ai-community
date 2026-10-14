@@ -715,7 +715,10 @@ body {
 .np-c .lk.thanks.on .ic { fill: var(--c-primary); }
 
 /* ==================== 增量层：搜索摘要 → 点点对话（收藏 / 询问建收藏夹） ==================== */
-#ans-star.on { color: #FFC83D; }
+#ans-star.on, #dd-star.on { color: #FFC83D; }
+#dd-star.on .ic { fill: #FFC83D; }
+#page-album-dd .dd-nav { display: flex; align-items: center; }
+#dd-star { margin-left: auto; margin-right: 6px; }
 #ans-star.on .ic { fill: #FFC83D; }
 .ans-dlg { position: absolute; left: 16px; right: 16px; bottom: 44px; z-index: 41; background: #1D1D22; border-radius: 18px; padding: 20px 18px 18px; display: none; box-shadow: 0 8px 30px rgba(0,0,0,.5); }
 .ans-dlg.show { display: block; }
@@ -1158,7 +1161,7 @@ body {
       <div class="dd-nav" data-page-node-id="gzMdUbJrrvc1yxtUnqNS7f" style="box-sizing: border-box; margin: 0px; padding: 0px 12px; -webkit-tap-highlight-color: transparent; flex: 0 0 auto; height: 46px; display: flex; align-items: center; justify-content: space-between;">
         <span class="nb" onclick="XHS.go('album')" data-page-node-id="2vOb93o3XEdAYARJIIV57v" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer;"><svg class="ic" data-page-node-id="FN9ADrHVb0s69QfoLEhBhm" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto;"><use href="#i-left" data-page-node-id="5YMWgItrHaeImA0c7gAi03" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg></span>
         <span class="add-title" data-page-node-id="PDZdsTcEokMndECPqabxIo" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700;"><i class="dd-ghost" data-page-node-id="Y6ONYeGuUWPGGHjdOI5TYX" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; display: inline-block; position: relative; width: 1.2em; height: 1em; border-radius: 0.42em 0.42em 0.42em 0.16em; background: linear-gradient(135deg, rgb(155, 247, 224), rgb(70, 221, 187)); vertical-align: middle; font-size: 20px;"></i>点点 <span class="scope" data-page-node-id="epBsMcMDGcf7CYTsDBKwi6" style="box-sizing: border-box; margin: 0px; padding: 2px 8px; -webkit-tap-highlight-color: transparent; font-size: 12px; font-weight: 600; color: rgb(61, 220, 132); background: rgb(27, 58, 46); border-radius: 6px;">意大利旅行</span></span>
-        <span class="nb" style="opacity: 0; box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer;" data-page-node-id="y90KuGQu5ohqPgVlfibo5Z"><svg class="ic fill" data-page-node-id="XnJWoz8wLpEqVPlLCQ79Zd" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: currentcolor; stroke: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto;"><use href="#i-more" data-page-node-id="97c8LVX72GajblxpI8adiB" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg></span>
+        <span class="nb" id="dd-star" onclick="ddStar()"><svg class="ic"><use href="#i-star"></use></svg></span><span class="nb" style="opacity: 0; box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer;" data-page-node-id="y90KuGQu5ohqPgVlfibo5Z"><svg class="ic fill" data-page-node-id="XnJWoz8wLpEqVPlLCQ79Zd" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: currentcolor; stroke: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto;"><use href="#i-more" data-page-node-id="97c8LVX72GajblxpI8adiB" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg></span>
       </div>
       <div class="add-scope-bar" id="add-scope-bar" data-page-node-id="GLntp0qQMThJO5mMmAvVo8" style="box-sizing: border-box; margin: 10px 16px 0px; padding: 10px 12px; -webkit-tap-highlight-color: transparent; display: flex; align-items: center; gap: 8px; background: rgb(27, 58, 46); border: 1px solid rgb(36, 80, 63); border-radius: 12px; font-size: 12px; color: rgb(142, 220, 180);">
         <svg class="ic" data-page-node-id="lRTJrMBGBf4RXMyxF62okX" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; font-size: 16px; color: rgb(61, 220, 132);"><use href="#i-lock" data-page-node-id="wcVFhcOb33wkooDCzfURNP" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg>
@@ -1445,7 +1448,7 @@ body {
   /* 启动时清理：文件里带有编辑工具存下的「当前状态」内联样式，会盖住 class 切换（Tab 高亮、面板显隐等），这里去掉状态相关的几项 */
   [['.tab', ['color', 'font-weight']], ['#me-tabs span', ['color', 'font-weight']], ['#fav-sub span', ['color', 'font-weight']],
    ['.me-panel', ['display']], ['.fav-panel', ['display']], ['.tg', ['background-color']],
-   ['.np-follow', ['color', 'border-color']], ['.np-act', ['color']], ['.np-act .ic', ['fill']], ['#ans-star .ic', ['fill']]].forEach(function (x) {
+   ['.np-follow', ['color', 'border-color']], ['.np-act', ['color']], ['.np-act .ic', ['fill']], ['#ans-star .ic', ['fill']], ['#dd-star .ic', ['fill']]].forEach(function (x) {
     $$(x[0]).forEach(function (el) { x[1].forEach(function (p) { el.style.removeProperty(p); }); });
   });
   var chainFrom = 'album';
@@ -1902,6 +1905,24 @@ body {
     var c = document.getElementById('album-chat-card'); if (c) c.remove();
     albumState.chat = false; refreshAlbumMeta();
   }
+  /* 专属点点页：收藏这段对话 → 在合集里多一张「对话」卡片 */
+  window.ddStar = function () {
+    var st = document.getElementById('dd-star');
+    var old = document.getElementById('album-dd-chat-card');
+    if (st.classList.contains('on')) { st.classList.remove('on'); if (old) old.remove(); albumState.chat = !!document.getElementById('album-chat-card'); refreshAlbumMeta(); qaToast('已取消收藏'); return; }
+    st.classList.add('on');
+    var col = document.querySelector('#page-album .waterfall .wf-col');
+    if (col && !old) {
+      var q = document.querySelector('#add-chat .msg.user .bubble'); var first = q ? q.textContent.trim() : '专属点点的对话';
+      var c = document.createElement('div'); c.className = 'card sr-card'; c.id = 'album-dd-chat-card';
+      c.setAttribute('onclick', "XHS.go('album-dd')");
+      c.innerHTML = '<div class="cover chat-cover" style="height:120px"><div class="cc-t"><i class="dd-ghost" style="font-size:20px"></i><br></div></div><div class="tt">专属点点对话｜意大利旅行</div><div class="au"><span class="avatar"></span><div class="who"><b>我</b><span>刚刚收藏</span></div></div>';
+      c.querySelector('.cc-t').appendChild(document.createTextNode(first.slice(0, 22)));
+      col.insertBefore(c, col.firstChild);
+    }
+    albumState.chat = true; refreshAlbumMeta();
+    qaToast('已把这段对话收藏进「意大利旅行」');
+  };
   window.ansStar = function () {
     var st = document.getElementById('ans-star');
     if (st.classList.contains('on')) { st.classList.remove('on'); removeChatFromAlbum(); qaToast('已取消收藏'); return; }
@@ -2654,12 +2675,15 @@ window.API = (function () {
 })();
 </script>
 
-<!-- ========== 测试引导（界面外）：文字说明在手机外侧，高亮圈 + 点击动画落在目标上；不改动手机内任何元素 ========== -->
+<!-- ========== 测试引导（界面外）：文字说明在手机外侧，小圆点一圈圈散开指示点哪里；不改动手机内任何元素 ========== -->
 <style>
-#guide { position: fixed; z-index: 9999; width: 320px; background: #fff; color: #151515; border-radius: 24px; padding: 20px 22px 18px; box-shadow: 0 10px 40px rgba(0,0,0,.14); font-family: -apple-system, "PingFang SC", "Noto Sans SC", sans-serif; display: none; }
+#guide { position: fixed; z-index: 9999; width: 320px; background: #fff; color: #151515; border-radius: 24px; padding: 18px 22px 18px; box-shadow: 0 10px 40px rgba(0,0,0,.14); font-family: -apple-system, "PingFang SC", "Noto Sans SC", sans-serif; display: none; }
 #guide .g-top { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #6B6459; font-weight: 700; letter-spacing: .5px; }
 #guide .g-top b { color: #F0675C; }
 #guide .g-top .g-fold { margin-left: auto; cursor: pointer; padding: 2px 10px; border-radius: 999px; background: #F3EAD5; font-weight: 500; }
+#guide .g-tasks { display: flex; gap: 6px; margin: 12px 0 2px; flex-wrap: wrap; }
+#guide .g-tasks span { cursor: pointer; font-size: 12px; padding: 5px 11px; border-radius: 999px; background: #F3EAD5; color: #5B554B; user-select: none; }
+#guide .g-tasks span.on { background: #151515; color: #fff; }
 #guide .g-bar { display: flex; gap: 3px; margin: 10px 0 14px; }
 #guide .g-bar i { flex: 1; height: 5px; border-radius: 3px; background: #EFE7D6; }
 #guide .g-bar i.on { background: #F0675C; } #guide .g-bar i.cur { background: #151515; }
@@ -2671,47 +2695,44 @@ window.API = (function () {
 #guide .g-btns span { cursor: pointer; font-size: 13px; padding: 8px 14px; border-radius: 999px; background: #F3EAD5; user-select: none; }
 #guide .g-btns span.go { background: #151515; color: #fff; margin-left: auto; }
 #guide .g-done { display: none; }
-#guide.fin .g-done { display: block; } #guide.fin .g-nav { display: none; }
+#guide.fin .g-done { display: block; } #guide.fin .g-nav, #guide.fin .g-bar { display: none; }
 #guide .g-arrow { position: absolute; top: 50%; width: 38px; height: 12px; margin-top: -6px; }
 #guide.side-r .g-arrow { left: -46px; } #guide.side-l .g-arrow { right: -46px; transform: scaleX(-1); }
 #guide .g-arrow::before { content: ""; position: absolute; left: 0; right: 10px; top: 5px; border-top: 3px dotted #F0675C; animation: gDash 1s linear infinite; }
 #guide .g-arrow::after { content: ""; position: absolute; left: 4px; top: 0; width: 12px; height: 12px; border-left: 3px solid #F0675C; border-bottom: 3px solid #F0675C; transform: rotate(45deg); }
 @keyframes gDash { 0% { opacity: .35; } 50% { opacity: 1; } 100% { opacity: .35; } }
-#guide-pill { position: fixed; z-index: 9999; display: none; right: 20px; top: 20px; background: #151515; color: #fff; font-size: 13px; padding: 8px 16px; border-radius: 999px; cursor: pointer; font-family: -apple-system, "PingFang SC", "Noto Sans SC", sans-serif; }
-#guide-ring { position: fixed; z-index: 9998; pointer-events: none; display: none; }
-#guide-ring .box { position: absolute; inset: -6px; border: 3px solid #F0675C; border-radius: 14px; animation: gBox 1.3s ease-in-out infinite; }
-#guide-ring .wave { position: absolute; left: 50%; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: rgba(240,103,92,.45); animation: gWave 1.3s ease-out infinite; }
-#guide-ring .hand { position: absolute; left: 50%; top: 50%; width: 34px; height: 34px; margin: -4px 0 0 -6px; filter: drop-shadow(0 3px 5px rgba(0,0,0,.35)); animation: gTap 1.3s ease-in-out infinite; }
-@keyframes gBox { 0%,100% { box-shadow: 0 0 0 0 rgba(240,103,92,.5); } 50% { box-shadow: 0 0 0 10px rgba(240,103,92,0); } }
-@keyframes gWave { 0% { transform: scale(.4); opacity: .9; } 70%,100% { transform: scale(2.6); opacity: 0; } }
-@keyframes gTap { 0%,100% { transform: translate(12px, 14px); } 40% { transform: translate(0, 0); } 55% { transform: translate(0, 0) scale(.88); } 70% { transform: translate(0, 0); } }
+#guide-pill { position: fixed; z-index: 9999; display: none; left: 20px; top: 20px; background: #151515; color: #fff; font-size: 13px; padding: 8px 16px; border-radius: 999px; cursor: pointer; font-family: -apple-system, "PingFang SC", "Noto Sans SC", sans-serif; }
+#guide-ring { position: fixed; z-index: 9998; pointer-events: none; display: none; width: 0; height: 0; }
+#guide-ring .dot { position: absolute; left: -7px; top: -7px; width: 14px; height: 14px; border-radius: 50%; background: #F0675C; border: 2px solid #fff; box-shadow: 0 1px 6px rgba(0,0,0,.35); box-sizing: border-box; }
+#guide-ring .wave { position: absolute; left: -9px; top: -9px; width: 18px; height: 18px; border-radius: 50%; border: 2px solid #F0675C; opacity: 0; animation: gWave 2.1s ease-out infinite; box-sizing: border-box; }
+#guide-ring .wave:nth-child(2) { animation-delay: .7s; } #guide-ring .wave:nth-child(3) { animation-delay: 1.4s; }
+@keyframes gWave { 0% { transform: scale(.5); opacity: .95; } 100% { transform: scale(4.2); opacity: 0; } }
 @media (max-width: 760px) { #guide { width: auto; left: 8px !important; right: 8px; top: 8px !important; padding: 12px 16px; } #guide .g-arrow, #guide .g-bar { display: none; } #guide .g-main { font-size: 16px; } #guide .g-sub { font-size: 12px; } #guide .g-btns { margin-top: 8px; } }
 </style>
 <div id="guide">
   <div class="g-top"><b>测试引导</b><span id="g-count"></span><span class="g-fold" id="g-fold">收起</span></div>
+  <div class="g-tasks" id="g-tasks"></div>
   <div class="g-bar" id="g-bar"></div>
   <div class="g-nav">
     <div class="g-step" id="g-step"></div>
     <div class="g-main" id="g-main"></div>
     <div class="g-sub" id="g-sub"></div>
-    <div class="g-warn" id="g-warn">这一步的按钮没找到。可以点「跳过」，或点页面底部「重置演示」重新开始。</div>
+    <div class="g-warn" id="g-warn"></div>
     <div class="g-btns"><span id="g-prev">上一步</span><span id="g-skip" class="go">跳过</span></div>
   </div>
   <div class="g-done">
-    <div class="g-main">走完了 🎉</div>
-    <div class="g-sub">你刚刚体验的是：点点收集 → 专属点点 → 找不到时代问 → 相关的人公开回答 → 提问者感谢。<br><br>想再试一个分支？回到提问页，点「快进 24 小时」，看看没人回答时点点怎么兜底。</div>
-    <div class="g-btns"><span id="g-restart" class="go">再来一遍</span></div>
+    <div class="g-main" id="g-done-t">这条路线走完了</div>
+    <div class="g-sub" id="g-done-s"></div>
+    <div class="g-btns"><span id="g-again">再走一遍</span><span id="g-next" class="go">试试下一条</span></div>
   </div>
 </div>
 <div id="guide-pill">显示引导</div>
-<div id="guide-ring"><div class="wave"></div><div class="box"></div>
-  <svg class="hand" viewBox="0 0 24 24"><path d="M5 3l14 8-6 2-2 6z" fill="#fff" stroke="#151515" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+<div id="guide-ring"><i class="wave"></i><i class="wave"></i><i class="wave"></i><i class="dot"></i></div>
 <script>
 (function () {
   var phone = document.getElementById('phone'); if (!phone) return;
   var G = document.getElementById('guide'), RING = document.getElementById('guide-ring'), PILL = document.getElementById('guide-pill');
   function vis(e) { if (!e) return false; var r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; }
-  function actPage() { var p = document.querySelector('.page.active'); return p ? p.id.replace('page-', '') : ''; }
   /* 按「自身文字」找目标：不依赖易变的 class */
   function T(txt, scope) {
     var root = document.querySelector(scope || '.page.active') || document, best = null;
@@ -2723,73 +2744,106 @@ window.API = (function () {
     return best;
   }
   function Q(sel) { var e = document.querySelector(sel); return vis(e) ? e : null; }
-  var STEPS = [
-    { main: '点开这篇「博尔盖塞美术馆」订票攻略', sub: '先扮演一个正在查攻略的用户，刷到一篇有用的笔记。', t: function () { return Q('#waterfall .card[data-home="a"]') || T('订票攻略', '#page-home'); } },
-    { main: '点右上角的分享图标', sub: '看看分享面板里，多了一个绿色的「问点点」。', t: function () { return Q('#np-share'); } },
-    { main: '点「问点点」', sub: '把这篇笔记交给点点。点点只负责收集归类，不会替你写内容。', t: function () { return T('问点点', '#share-sheet'); } },
-    { main: '点「好的，建一个」', sub: '点点发现这是新主题，问你要不要建一个「意大利旅行」合集。', t: function () { return T('好的，建一个'); } },
-    { main: '点「去收藏页查看」', sub: '合集已经建好了，去看看它在哪里。', t: function () { return T('去收藏页查看'); } },
-    { main: '点开「意大利旅行」合集', sub: '这是点点帮你归好的主题合集。', t: function () { return Q('#album-italy'); } },
-    { main: '点右上角的「专属点点」', sub: '每个合集有自己的点点，只基于合集里的内容回答。', t: function () { return T('专属点点', '#page-album'); } },
-    { main: '点这条问题：POS 机现在修好了吗？', sub: '合集里那篇笔记是几个月前的。看点点会不会硬编一个答案。', t: function () { return T('POS 机现在', '#page-album-dd'); } },
-    { main: '选一种问法', sub: '点点没有编答案，而是承认「没找到」，并建议去问走过的人。它帮你润色了问法，你也可以用自己的原话。', t: function () { return T('点点帮你问得更清楚', '#page-album-dd'); } },
-    { main: '点「发布」', sub: '你确认后，才会以你的头像公开发出，由「点点提问」账号代发。', t: function () { return Q('#page-album-dd .btn.yes') || T('发布', '#page-album-dd'); } },
-    { main: '点「查看我的提问」', sub: '问题已公开。后台正在把它推给最近看过相关内容的人，你看不到推给了谁。', t: function () { return T('查看我的提问'); } },
-    { main: '点「切到被问到的人」', sub: '换个身份：你现在是被推送到的那位用户。', t: function () { return T('切到被问到的人'); } },
-    { main: '写一句回答', sub: '回答是公开评论，不是私信。随便输入几个字就行。', t: function () { return Q('#np-q-input'); }, done: function () { var i = document.getElementById('np-q-input'); return i && i.value.length > 0; } },
-    { main: '点「发送」', sub: '你的回答会公开出现在评论区。', t: function () { return Q('#np-q-send'); } },
-    { main: '点「切到提问者」', sub: '回到提问的那位用户。', t: function () { return T('切到提问者'); } },
-    { main: '点评论旁的「感谢」', sub: '提问者感谢回答的人。这里是「感谢」，不是点赞，也不是流量。', t: function () { return Q('[data-thanks]'); } }
+  var TASKS = [
+    { name: '① 搜索提问', done: '你从搜索出发，问了点点，并把这段对话收藏进一个新合集。想继续看：收藏页里的「意大利旅行」就是它。', steps: [
+      { main: '点右上角的搜索', sub: '从最常见的动作开始：想查点东西。', t: function () { return Q('#search-entry'); } },
+      { main: '看搜索框：已经搜好「博尔盖塞美术馆门票」', sub: '搜索词是预设的，点一下搜索框，再往下看结果页里点点的总结。', t: function () { return Q('#page-search .sr-field .q'); } },
+      { main: '点「问点点」标签', sub: '搜索结果不用自己一篇篇翻，让点点基于结果回答。', t: function () { return Q('#page-search .sr-tabs .dd'); } },
+      { main: '点右上角的星标，收藏这段对话', sub: '收藏的是你和点点的这段对话，不只是某一篇笔记。', t: function () { return Q('#ans-star'); } },
+      { main: '点「创建并收藏」', sub: '点点发现这是一个新主题，建议建一个「意大利旅行」收藏夹，以后可以在里面继续问。', t: function () { return Q('[onclick*="ansDlgYes"]'); } }
+    ] },
+    { name: '② 专属点点代问', done: '你走完了：点点收集 → 专属点点 → 找不到时代问 → 相关的人公开回答 → 提问者感谢。想再试一个分支？回到提问页点「快进 24 小时」，看没人回答时点点怎么兜底。', steps: [
+      { main: '点开这篇「博尔盖塞美术馆」订票攻略', sub: '先扮演一个正在查攻略的用户，刷到一篇有用的笔记。', t: function () { return Q('#waterfall .card[data-home="a"]') || T('订票攻略', '#page-home'); } },
+      { main: '点右上角的分享图标', sub: '看看分享面板里，多了一个绿色的「问点点」。', t: function () { return Q('#np-share'); } },
+      { main: '点「问点点」', sub: '把这篇笔记交给点点。点点只负责收集归类，不会替你写内容。', t: function () { return T('问点点', '#share-sheet'); } },
+      { main: '点「好的，建一个」', sub: '点点发现这是新主题，问你要不要建一个「意大利旅行」合集。', t: function () { return T('好的，建一个'); } },
+      { main: '点「去收藏页查看」', sub: '合集已经建好了，去看看它在哪里。', t: function () { return T('去收藏页查看'); } },
+      { main: '点开「意大利旅行」合集', sub: '这是点点帮你归好的主题合集。', t: function () { return Q('#album-italy'); } },
+      { main: '点右上角的「专属点点」', sub: '每个合集有自己的点点，只基于合集里的内容回答。', t: function () { return T('专属点点', '#page-album'); } },
+      { main: '点这条问题：POS 机现在修好了吗？', sub: '合集里那篇笔记是几个月前的。看点点会不会硬编一个答案。', t: function () { return T('POS 机现在', '#page-album-dd'); } },
+      { main: '选一种问法', sub: '点点没有编答案，而是承认「没找到」，并建议去问走过的人。它帮你润色了问法，你也可以用自己的原话。', t: function () { return T('点点帮你问得更清楚', '#page-album-dd'); } },
+      { main: '点「发布」', sub: '你确认后，才会以你的头像公开发出，由「点点提问」账号代发。', t: function () { return Q('#page-album-dd .btn.yes') || T('发布', '#page-album-dd'); } },
+      { main: '点「查看我的提问」', sub: '问题已公开。后台正在把它推给最近看过相关内容的人，你看不到推给了谁。', t: function () { return T('查看我的提问'); } },
+      { main: '点「切到被问到的人」', sub: '换个身份：你现在是被推送到的那位用户。', t: function () { return T('切到被问到的人'); } },
+      { main: '写一句回答', sub: '回答是公开评论，不是私信。随便输入几个字就行。', t: function () { return Q('#np-q-input'); }, done: function () { var i = document.getElementById('np-q-input'); return i && i.value.length > 0; } },
+      { main: '点「发送」', sub: '你的回答会公开出现在评论区。', t: function () { return Q('#np-q-send'); } },
+      { main: '点「切到提问者」', sub: '回到提问的那位用户。', t: function () { return T('切到提问者'); } },
+      { main: '点评论旁的「感谢」', sub: '提问者感谢回答的人。这里是「感谢」，不是点赞，也不是流量。', t: function () { return Q('[data-thanks]'); } }
+    ] },
+    { name: '③ 收藏对话', done: '这段专属点点的对话已经收进了合集。回到合集页，就能看到它作为一张「对话」卡片放在笔记旁边。（需要先有「意大利旅行」合集：完成任务 ① 或 ② 即可。）', steps: [
+      { main: '点底部的「我」', sub: '收藏的东西都在「我」里。（还没有合集？先走任务 ① 或 ②。）', t: function () { return T('我', '.tabbar'); } },
+      { main: '点「收藏」', sub: '', t: function () { var e = document.querySelectorAll('#page-me .me-tabs > *')[2]; return vis(e) ? e : null; } },
+      { main: '点「专辑」', sub: '', t: function () { return Q('#fav-album-tab'); } },
+      { main: '点开「意大利旅行」', sub: '', t: function () { return Q('#album-italy'); } },
+      { main: '点右上角的「专属点点」', sub: '', t: function () { return T('专属点点', '#page-album'); } },
+      { main: '点「总结这个合集」', sub: '先让点点说点东西，才有对话可以收藏。', t: function () { return T('总结这个合集', '#page-album-dd'); } },
+      { main: '点右上角的星标，收藏这段对话', sub: '对话会作为一张卡片，收进这个合集。', t: function () { return Q('#dd-star'); } }
+    ] }
   ];
-  var N = STEPS.length, cur = 0, missingSince = 0, folded = false, advTimer = null;
-  var bar = document.getElementById('g-bar');
-  for (var k = 0; k < N; k++) bar.appendChild(document.createElement('i'));
+  var holdUntil = 0, ti = 0, cur = 0, folded = false, missingSince = 0, scrolled = 0, advTimer = null, fin = false;
   var $ = function (id) { return document.getElementById(id); };
-  function render() {
-    var fin = cur >= N; G.classList.toggle('fin', fin);
-    Array.prototype.forEach.call(bar.children, function (b, i) { b.className = i < cur ? 'on' : (i === cur ? 'cur' : ''); });
-    $('g-count').textContent = fin ? '' : ' · ' + (cur + 1) + ' / ' + N;
-    if (!fin) { $('g-step').textContent = '第 ' + (cur + 1) + ' 步'; $('g-main').textContent = STEPS[cur].main; $('g-sub').textContent = STEPS[cur].sub; }
-    $('g-warn').style.display = 'none'; missingSince = 0;
-    ringTarget = null;
+  function steps() { return TASKS[ti].steps; }
+  function buildTabs() {
+    var box = $('g-tasks'); box.innerHTML = '';
+    TASKS.forEach(function (t, i) { var s = document.createElement('span'); s.textContent = t.name; s.className = i === ti ? 'on' : ''; s.onclick = function () { ti = i; cur = 0; fin = false; buildTabs(); buildBar(); render(); place(); }; box.appendChild(s); });
   }
-  var ringTarget = null, scrolled = 0;
+  function buildBar() { var b = $('g-bar'); b.innerHTML = ''; steps().forEach(function () { b.appendChild(document.createElement('i')); }); }
+  function render() {
+    var N = steps().length; G.classList.toggle('fin', fin);
+    Array.prototype.forEach.call($('g-bar').children, function (b, i) { b.className = fin || i < cur ? 'on' : (i === cur ? 'cur' : ''); });
+    if (fin) { $('g-count').textContent = ''; $('g-done-s').textContent = TASKS[ti].done; $('g-next').style.display = ti < TASKS.length - 1 ? '' : 'none'; return; }
+    $('g-count').textContent = ' · ' + (cur + 1) + ' / ' + N;
+    var st = steps()[cur]; $('g-step').textContent = '第 ' + (cur + 1) + ' 步'; $('g-main').textContent = st.main; $('g-sub').textContent = st.sub || '';
+    $('g-warn').style.display = 'none'; missingSince = 0;
+  }
+  function set(to) { var N = steps().length; if (to >= N) { fin = true; } else { cur = Math.max(0, to); fin = false; } scrolled = 0; render(); place(); }
   function place() {
     var pr = phone.getBoundingClientRect(), vw = window.innerWidth, vh = window.innerHeight;
     if (folded) { G.style.display = 'none'; PILL.style.display = 'block'; RING.style.display = 'none'; return; }
     PILL.style.display = 'none'; G.style.display = 'block';
     var gw = G.offsetWidth, gh = G.offsetHeight, side;
-    if (vw <= 760) { side = 'top'; }
+    if (vw <= 760) side = 'top';
     else if (pr.left >= gw + 56) { side = 'l'; G.style.left = (pr.left - gw - 48) + 'px'; }
     else if (vw - pr.right >= gw + 56) { side = 'r'; G.style.left = (pr.right + 48) + 'px'; }
-    else { side = 'top'; }
+    else side = 'top';
     if (side !== 'top') G.style.top = Math.max(16, Math.min(vh - gh - 16, pr.top + pr.height / 2 - gh / 2)) + 'px';
-    G.className = (G.classList.contains('fin') ? 'fin ' : '') + 'side-' + side;
-    if (G.querySelector('.g-arrow') == null) { var a = document.createElement('div'); a.className = 'g-arrow'; G.appendChild(a); }
-    if (cur >= N) { RING.style.display = 'none'; return; }
-    var el = STEPS[cur].t();
-    if (!el) { RING.style.display = 'none'; if (!missingSince) missingSince = Date.now(); else if (Date.now() - missingSince > 3000) $('g-warn').style.display = 'block'; return; }
-    missingSince = 0; $('g-warn').style.display = 'none'; ringTarget = el;
+    G.className = (fin ? 'fin ' : '') + 'side-' + side;
+    if (!G.querySelector('.g-arrow')) { var a = document.createElement('div'); a.className = 'g-arrow'; G.appendChild(a); }
+    if (fin) { RING.style.display = 'none'; return; }
+    var list = steps(), el = list[cur].t();
+    /* 跟着操作走：当前这步的目标不在了，就找界面上现在能点的最靠后的一步 */
+    if (!el && Date.now() < holdUntil) { RING.style.display = 'none'; return; }
+    if (!el) {
+      var pick = -1, k;
+      for (k = cur + 1; k < list.length; k++) { if (list[k].t()) { pick = k; break; } }
+      if (pick < 0) { for (k = cur - 1; k >= 0; k--) { if (list[k].t()) { pick = k; break; } } }
+      if (pick >= 0) { cur = pick; scrolled = 0; render(); el = list[pick].t(); }
+    }
+    if (!el) { RING.style.display = 'none'; if (!missingSince) missingSince = Date.now(); else if (Date.now() - missingSince > 3000) { $('g-warn').textContent = '这一步的按钮没找到。可以点「跳过」，或点页面底部「重置演示」重新开始。'; $('g-warn').style.display = 'block'; } return; }
+    missingSince = 0; $('g-warn').style.display = 'none';
     var r = el.getBoundingClientRect();
     if (r.bottom > pr.bottom - 70 || r.top < pr.top + 4) { if (Date.now() - scrolled > 700) { scrolled = Date.now(); try { el.scrollIntoView({ block: 'center' }); } catch (e) { } } }
     if (r.bottom > pr.bottom || r.top < pr.top) { RING.style.display = 'none'; return; }
-    RING.style.display = 'block'; RING.style.left = r.left + 'px'; RING.style.top = r.top + 'px'; RING.style.width = r.width + 'px'; RING.style.height = r.height + 'px';
+    RING.style.display = 'block'; RING.style.left = (r.left + r.width / 2) + 'px'; RING.style.top = (r.top + r.height / 2) + 'px';
   }
-  function advance(to) { cur = Math.max(0, Math.min(N, to)); scrolled = 0; render(); place(); }
-  /* 点击目标本身 → 进入下一步（捕获阶段，等界面先响应） */
+  /* 点击：点到了某一步的目标（不一定是当前步），就跳到它的下一步 */
   document.addEventListener('click', function (e) {
-    if (cur >= N || !ringTarget || !ringTarget.contains(e.target) || STEPS[cur].done) return;
-    var me = cur; clearTimeout(advTimer);
-    advTimer = setTimeout(function () { if (cur === me) advance(me + 1); }, 450);
+    if (fin || folded) return;
+    var list = steps(), hit = -1;
+    for (var j = list.length - 1; j >= cur; j--) { var el = list[j].t(); if (el && el.contains(e.target) && !list[j].done) { hit = j; break; } }
+    if (hit < 0) return;
+    clearTimeout(advTimer); holdUntil = Date.now() + 4500;
+    advTimer = setTimeout(function () { set(hit + 1); }, 450);
   }, true);
-  setInterval(function () { if (cur < N && STEPS[cur].done && STEPS[cur].done()) advance(cur + 1); place(); }, 160);
+  setInterval(function () { if (!fin && steps()[cur].done && steps()[cur].done()) set(cur + 1); place(); }, 160);
   window.addEventListener('resize', place);
-  $('g-skip').onclick = function () { advance(cur + 1); };
-  $('g-prev').onclick = function () { advance(cur - 1); };
-  $('g-restart').onclick = function () { location.reload(); };
+  $('g-skip').onclick = function () { set(cur + 1); };
+  $('g-prev').onclick = function () { set(cur - 1); };
+  $('g-again').onclick = function () { location.reload(); };
+  $('g-next').onclick = function () { ti = Math.min(TASKS.length - 1, ti + 1); cur = 0; fin = false; buildTabs(); buildBar(); render(); place(); };
   $('g-fold').onclick = function () { folded = true; place(); };
   PILL.onclick = function () { folded = false; place(); };
-  render(); place();
+  buildTabs(); buildBar(); render(); place();
 })();
 </script>
 </body></html>
