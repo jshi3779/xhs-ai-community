@@ -2760,8 +2760,8 @@ window.API = (function () {
     PILL.style.display = 'none'; G.style.display = 'block';
     var gw = G.offsetWidth, gh = G.offsetHeight, side;
     if (vw <= 760) { side = 'top'; }
-    else if (vw - pr.right >= gw + 56) { side = 'r'; G.style.left = (pr.right + 48) + 'px'; }
     else if (pr.left >= gw + 56) { side = 'l'; G.style.left = (pr.left - gw - 48) + 'px'; }
+    else if (vw - pr.right >= gw + 56) { side = 'r'; G.style.left = (pr.right + 48) + 'px'; }
     else { side = 'top'; }
     if (side !== 'top') G.style.top = Math.max(16, Math.min(vh - gh - 16, pr.top + pr.height / 2 - gh / 2)) + 'px';
     G.className = (G.classList.contains('fin') ? 'fin ' : '') + 'side-' + side;
