@@ -2752,7 +2752,7 @@ window.API = (function () {
       { main: '点右上角的星标，收藏这段对话', sub: '收藏的是你和点点的这段对话，不只是某一篇笔记。', t: function () { return Q('#ans-star'); } },
       { main: '点「创建并收藏」', sub: '点点发现这是一个新主题，建议建一个「意大利旅行」收藏夹，以后可以在里面继续问。', t: function () { return Q('[onclick*="ansDlgYes"]'); } }
     ] },
-    { name: '② 专属点点代问', done: '你走完了：点点收集 → 专属点点 → 找不到时代问 → 相关的人公开回答 → 提问者感谢。想再试一个分支？回到提问页点「快进 24 小时」，看没人回答时点点怎么兜底。', steps: [
+    { name: '② 点点代问', done: '你走完了：点点收集 → 专属点点 → 找不到时代问 → 相关的人公开回答 → 提问者感谢。想再试一个分支？回到提问页点「快进 24 小时」，看没人回答时点点怎么兜底。', steps: [
       { main: '点开这篇「博尔盖塞美术馆」订票攻略', sub: '先扮演一个正在查攻略的用户，刷到一篇有用的笔记。', t: function () { return Q('#waterfall .card[data-home="a"]') || T('订票攻略', '#page-home'); } },
       { main: '点右上角的分享图标', sub: '看看分享面板里，多了一个绿色的「问点点」。', t: function () { return Q('#np-share'); } },
       { main: '点「问点点」', sub: '把这篇笔记交给点点。点点只负责收集归类，不会替你写内容。', t: function () { return T('问点点', '#share-sheet'); } },
@@ -2778,14 +2778,30 @@ window.API = (function () {
       { main: '点右上角的「专属点点」', sub: '', t: function () { return T('专属点点', '#page-album'); } },
       { main: '点「总结这个合集」', sub: '先让点点说点东西，才有对话可以收藏。', t: function () { return T('总结这个合集', '#page-album-dd'); } },
       { main: '点右上角的星标，收藏这段对话', sub: '对话会作为一张卡片，收进这个合集。', t: function () { return Q('#dd-star'); } }
+    ] },
+    { name: '④ 生成笔记', done: '你从收藏夹出发，让点点总结，再自己改成笔记、引用收藏的笔记、选好主题。发布后，这篇笔记会出现在「我 → 笔记」里。（需要先有「意大利旅行」合集：完成任务 ① 或 ② 即可。）', steps: [
+      { main: '点底部的「我」', sub: '收藏的东西都在「我」里。（还没有合集？先走任务 ① 或 ②。）', t: function () { return T('我', '.tabbar'); } },
+      { main: '点「收藏」', sub: '', t: function () { var e = document.querySelectorAll('#page-me .me-tabs > *')[2]; return vis(e) ? e : null; } },
+      { main: '点「专辑」', sub: '', t: function () { return Q('#fav-album-tab'); } },
+      { main: '点开「意大利旅行」', sub: '', t: function () { return Q('#album-italy'); } },
+      { main: '点右上角的「专属点点」', sub: '', t: function () { return T('专属点点', '#page-album'); } },
+      { main: '点「总结这个合集」', sub: '让点点先把合集里的内容整理一遍。', t: function () { return T('总结这个合集', '#page-album-dd'); } },
+      { main: '点「把这份总结生成一篇笔记」', sub: '点点会把总结放进发笔记页当草稿，但只是草稿，要你自己改。', t: function () { return T('生成一篇笔记', '#page-album-dd'); } },
+      { main: '点标题下的草稿，改成你自己的话', sub: '点点只起草，发布前要换成你自己的经历。可以点一下草稿，再用下面的键盘改几个字。', t: function () { return Q('#sumEdit'); } },
+      { main: '点工具栏的「插入笔记」图标', sub: '引用你收藏的笔记，是指向原笔记的链接，不是复制内容。', t: function () { return Q('#page-chain-edit .tool.ref'); } },
+      { main: '选一篇要引用的笔记', sub: '', t: function () { return Q('#cp-grid .cp-card'); } },
+      { main: '点右上角「发笔记」', sub: '发之前，点点会帮你整理成大纲。', t: function () { return Q('#page-chain-edit .pub-pill'); } },
+      { main: '勾选想放进笔记的主题', sub: '点点只给结构，正文留给你自己写。', t: function () { return Q('#ol-list .ol-item'); } },
+      { main: '点「下一步」', sub: '选好主题后进入发布。', t: function () { return Q('#ol-next'); } }
     ] }
   ];
   var holdUntil = 0, ti = 0, cur = 0, folded = false, missingSince = 0, scrolled = 0, advTimer = null, fin = false;
   var $ = function (id) { return document.getElementById(id); };
   function steps() { return TASKS[ti].steps; }
+  function goHome() { try { ['ans-dlg-mask', 'ans-dlg', 'share-sheet', 'fav-sheet'].forEach(function (id) { var d = document.getElementById(id); if (d) d.classList.remove('show'); }); if (window.XHS) XHS.go('home'); } catch (e) { } }
   function buildTabs() {
     var box = $('g-tasks'); box.innerHTML = '';
-    TASKS.forEach(function (t, i) { var s = document.createElement('span'); s.textContent = t.name; s.className = i === ti ? 'on' : ''; s.onclick = function () { ti = i; cur = 0; fin = false; buildTabs(); buildBar(); render(); place(); }; box.appendChild(s); });
+    TASKS.forEach(function (t, i) { var s = document.createElement('span'); s.textContent = t.name; s.className = i === ti ? 'on' : ''; s.onclick = function () { goHome(); ti = i; cur = 0; fin = false; buildTabs(); buildBar(); render(); place(); }; box.appendChild(s); });
   }
   function buildBar() { var b = $('g-bar'); b.innerHTML = ''; steps().forEach(function () { b.appendChild(document.createElement('i')); }); }
   function render() {
@@ -2839,8 +2855,8 @@ window.API = (function () {
   window.addEventListener('resize', place);
   $('g-skip').onclick = function () { set(cur + 1); };
   $('g-prev').onclick = function () { set(cur - 1); };
-  $('g-again').onclick = function () { location.reload(); };
-  $('g-next').onclick = function () { ti = Math.min(TASKS.length - 1, ti + 1); cur = 0; fin = false; buildTabs(); buildBar(); render(); place(); };
+  $('g-again').onclick = function () { goHome(); cur = 0; fin = false; buildBar(); render(); place(); };
+  $('g-next').onclick = function () { goHome(); ti = Math.min(TASKS.length - 1, ti + 1); cur = 0; fin = false; buildTabs(); buildBar(); render(); place(); };
   $('g-fold').onclick = function () { folded = true; place(); };
   PILL.onclick = function () { folded = false; place(); };
   buildTabs(); buildBar(); render(); place();
