@@ -156,7 +156,7 @@ body {
 /* 底部话题行（编辑态：灰底胶囊，还原截图） */
 .chain-add { margin: 10px 0 0; display: flex; flex-direction: column; gap: 10px; }
 .chain-add .pub-meta { display: flex; align-items: center; flex-wrap: nowrap; gap: 8px; padding: 0 16px; overflow-x: auto; }
-.chain-add .topic-chip { display: inline-flex; align-items: center; font-size: 12px; color: #C9C9CE; background: #26262C; border-radius: 999px; padding: 6px 12px; cursor: pointer; flex: none; }
+.chain-add .topic-chip { display: inline-flex; align-items: center; font-size: 14px; color: #FF2442; background: none; border-radius: 999px; padding: 6px 0; cursor: pointer; flex: none; }
 .chain-add .topic-add { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; color: #C9C9CE; background: #26262C; border-radius: 999px; padding: 6px 12px; cursor: pointer; flex: none; }
 .chain-add .loc-row { display: none; }
 /* 键盘上方工具栏（还原截图：语音/表情/#/@/插入笔记/完成） */
@@ -195,6 +195,7 @@ body {
 .mock-kb .k.wide { grid-column: span 2; }
 .chain-top .ai-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #3DDC84; margin-top: 10px; }
 .chain-top .ai-tag .ai-dot { width: 14px; height: 14px; border-radius: 5px 5px 5px 2px; background: linear-gradient(135deg,#9BF7E0,#46DDBB); display: inline-flex; align-items: center; justify-content: center; }
+.chain-top .sum-edit { font-size: 14px; line-height: 1.7; color: #D8D8DC; padding: 10px 0 2px; }
 .chain-top .ai-note { font-size: 12px; color: #8E8E95; margin-top: 8px; line-height: 1.6; }
 
 /* 链路天分组 */
@@ -211,7 +212,17 @@ body {
 .cite .c-title { font-size: 14px; font-weight: 600; color: #F2F2F4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cite .c-author { font-size: 11px; color: #8E8E95; margin-top: 3px; display: flex; align-items: center; gap: 4px; }
 .cite .c-author .avatar { width: 14px; height: 14px; border-radius: 50%; background: #3A3A41; flex: none; }
-.cite .c-my { margin-top: 10px; font-size: 13px; color: #E8E8EA; line-height: 1.6; }
+.chain-day .cite { display: flex; flex-direction: column; gap: 10px; }
+.cite .c-label { font-size: 14px; font-weight: 600; color: #FF2442; }
+.cite .body-edit { font-size: 14px; color: #55555C; line-height: 1.6; padding: 4px 0; min-height: 22px; }
+.cite .body-edit .typed { color: #E8E8EA; }
+.cite .body-edit .ai-draft { color: #D8D8DC; }
+.cite .body-edit .cursor { display: inline-block; width: 2px; height: 18px; background: #FF2442; vertical-align: -3px; margin-right: 1px; }
+.cite-chip { display: flex; align-items: center; gap: 4px; background: #26262C; border-radius: 10px; padding: 8px 10px; font-size: 11px; color: #FF2442; cursor: pointer; }
+.cite-chip .ic { font-size: 12px; flex: none; }
+.body-edit .cite-chip { margin-top: 10px; }
+.np-text .cite-chip { background: #202025; margin-top: 10px; }
+.cite .c-my { margin-top: 0; font-size: 13px; color: #E8E8EA; line-height: 1.6; }
 .cite .c-my .my-label { display: block; font-size: 12px; color: #FF5C6C; font-weight: 600; margin-bottom: 4px; }
 .cite .c-foot { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
 .cite .c-foot .verify { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #3DDC84; background: #1B3A2E; border-radius: 999px; padding: 3px 8px; }
@@ -226,9 +237,9 @@ body {
 .cite-ref .cr-tag .ic { font-size: 11px; color: #FF2442; }
 .cite-ref .cr-t { font-size: 13px; color: #F2F2F4; font-weight: 600; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /* 板块照片（模仿发笔记页九宫格：缩略图 + ＋ 格） */
-.day-photos { display: flex; gap: 8px; margin-top: 12px; }
-.day-photos .ph-item { width: 72px; height: 72px; border-radius: 8px; background: linear-gradient(160deg,#34343B,#2A2A30); flex: none; }
-.day-photos .ph-add { width: 72px; height: 72px; border-radius: 8px; background: #26262C; display: flex; align-items: center; justify-content: center; color: #8E8E95; font-size: 28px; font-weight: 300; cursor: pointer; }
+.day-photos { display: flex; gap: 8px; }
+.day-photos .ph-item { width: 64px; height: 64px; border-radius: 8px; background: linear-gradient(160deg,#34343B,#2A2A30); flex: none; }
+.day-photos .ph-add { width: 64px; height: 64px; border-radius: 8px; background: #2B2B31; display: flex; align-items: center; justify-content: center; color: #8E8E95; font-size: 28px; font-weight: 300; cursor: pointer; }
 .day-photos .ph-add:active { background: #2E2E34; }
 
 /* 添加自己的话 / 添加点 */
@@ -424,6 +435,7 @@ body {
 .np-text p + p { margin-top: 10px; }
 .np-text .sec { font-weight: 700; color: #F2F2F4; }
 .np-text .cash { color: #FF5C6C; font-weight: 700; }
+.np-text .cite-link { color: #5C9EFF; text-decoration: underline; cursor: pointer; }
 .np-text .tags { color: #6B9BD2; }
 .np-chip { display: flex; align-items: center; gap: 8px; border: 1px solid #2E2E34; border-radius: 10px; padding: 9px 12px; font-size: 14px; color: #D8D8DC; margin-top: 12px; }
 .np-chip .ic { font-size: 16px; color: var(--c-text-2); } .np-chip b { font-weight: 600; }
@@ -792,6 +804,23 @@ body {
 .np-acts { margin-top: 0; }
 .ab-hd .ttl { line-height: 34px; }
 .np-cm-input.qf { padding-bottom: 0; }
+
+/* ==================== 走查修复 ==================== */
+.top-tabs span:not(.on), .channels span:not(.on), .channels .more, #page-search .sr-field .go, #page-search .sr-tabs span:not(.dd):not(.on), #page-search .sr-filter span, .me-actions *, #page-msg .chat-row:not([id]), .dd-nav > .nb:last-child { cursor: pointer; }
+.tab { position: relative; }
+.tdot { position: absolute; top: 6px; left: calc(50% + 16px); width: 8px; height: 8px; border-radius: 50%; background: #FF2442; display: none; }
+.tdot.on { display: block; }
+.msg-entries .e .sq { position: relative; }
+.ebadge { position: absolute; top: -6px; right: -8px; min-width: 18px; height: 18px; border-radius: 9px; background: #FF2442; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; padding: 0 5px; font-style: normal; }
+#reset-demo { position: fixed; left: 50%; bottom: 8px; transform: translateX(-50%); font-size: 12px; color: #8A8A90; cursor: pointer; padding: 4px 12px; border-radius: 999px; background: rgba(0,0,0,.07); z-index: 100; user-select: none; }
+.undo-toast { position: absolute; left: 16px; right: 16px; bottom: 96px; height: 46px; border-radius: 14px; background: rgba(46,46,52,.98); display: none; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 62; font-size: 14px; box-shadow: 0 6px 20px rgba(0,0,0,.4); }
+.undo-toast .u { color: #FF5C6C; font-weight: 700; cursor: pointer; }
+.mk-feed .tt { margin-top: 0; }
+.mk-price { color: #FF2442; font-weight: 700; font-size: 15px; flex: 1; }
+.mk-sold { font-size: 12px; color: #8E8E95; }
+.mk-chips { display: flex; gap: 8px; padding: 4px 12px 8px; overflow: hidden; white-space: nowrap; }
+.mk-chips span { background: #202025; border-radius: 999px; padding: 6px 14px; font-size: 14px; color: #8E8E95; flex: none; }
+.mk-chips span.on { color: #fff; background: #2A2A30; font-weight: 700; }
 </style>
 <style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
 <body data-page-node-id="s7kZU0yUpyZo5TJpiBt1KG" style="position: relative; box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; background: rgb(217, 217, 222); height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: -apple-system, &quot;PingFang SC&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, sans-serif; color: rgb(242, 242, 244); font-size: 14px;">
@@ -891,7 +920,7 @@ body {
               <div class="q-text" data-page-node-id="6MSRImVxSNIWXx2ZQVK2dC" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 14px; color: rgb(242, 242, 244); line-height: 1.6;">要不要帮你建一个<b data-page-node-id="Q9SctN1M9zN7Z4Lx5aDGPN" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; color: rgb(255, 92, 108);">「意大利旅行」</b>合集，把这类的笔记都归到一起？</div>
               <div class="q-hint" data-page-node-id="4aXKtp8VRAwgkX5Mk9BUJG" style="box-sizing: border-box; margin: 6px 0px 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 11px; color: rgb(85, 85, 92);">建好后，会在你的收藏页出现，之后分享的同类笔记都会自动放进这个合集。</div>
               <div class="q-btns" data-page-node-id="TxbxvDRPA8Rv7ZUm0tACxU" style="box-sizing: border-box; margin: 12px 0px 0px; padding: 0px; -webkit-tap-highlight-color: transparent; display: flex; gap: 10px;">
-                <div class="btn yes" onclick="buildAlbum()" data-page-node-id="DBYptLwRAO2fqPocyfnAHM" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; flex: 1 1 0%; height: 38px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; cursor: pointer; background: rgb(255, 36, 66); color: rgb(255, 255, 255);">好的，建一个</div>
+                <div class="btn yes" onclick="buildAlbumFromShare()" data-page-node-id="DBYptLwRAO2fqPocyfnAHM" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; flex: 1 1 0%; height: 38px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; cursor: pointer; background: rgb(255, 36, 66); color: rgb(255, 255, 255);">好的，建一个</div>
                 <div class="btn no" onclick="declineAlbum()" data-page-node-id="LCuKJs1KX92xN315qZEofG" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; flex: 1 1 0%; height: 38px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; cursor: pointer; border: 1px solid rgb(58, 58, 65); color: rgb(242, 242, 244);">先不用</div>
               </div>
             </div>
@@ -900,7 +929,7 @@ body {
           <div class="bubble" id="dd-done-bubble" style="display: block; box-sizing: border-box; margin: 0px; padding: 14px 16px; -webkit-tap-highlight-color: transparent; font-size: 15px; line-height: 1.7; border-radius: 22px; background: rgb(42, 42, 47);" data-page-node-id="HMsCUkUElazHXMCAsdbv0X">
             <p data-page-node-id="ayLt20I2LCJrMphrJ6atjC" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;">已帮你建好合集 <b style="color: rgb(61, 220, 132); box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;" data-page-node-id="d89Pd7i1fxhLEVyYPC6hG7">「意大利旅行」</b> 🎉</p>
             <p data-page-node-id="t87lERIKfdKODa2sEStXWl" style="box-sizing: border-box; margin: 8px 0px 0px; padding: 0px; -webkit-tap-highlight-color: transparent;">以后分享的同类笔记会自动归进去。去收藏页看看吧。</p>
-            <div class="chain-entry" style="margin: 10px 0px 0px; box-sizing: border-box; padding: 12px 14px; -webkit-tap-highlight-color: transparent; border-radius: 14px; background: rgb(31, 31, 36); border: 1px solid rgb(43, 43, 49); cursor: pointer;" onclick="XHS.go('me')" data-page-node-id="wkJe4iMEpkOFmIlqsKepZj">
+            <div class="chain-entry" style="margin: 10px 0px 0px; box-sizing: border-box; padding: 12px 14px; -webkit-tap-highlight-color: transparent; border-radius: 14px; background: rgb(31, 31, 36); border: 1px solid rgb(43, 43, 49); cursor: pointer;" onclick="goFavAlbums()" data-page-node-id="wkJe4iMEpkOFmIlqsKepZj">
               <div class="ce-cta" style="margin: 0px; box-sizing: border-box; padding: 0px; -webkit-tap-highlight-color: transparent; display: flex; align-items: center; justify-content: space-between;" data-page-node-id="2UpLtz8Ce39niUt7FvdvUj"><span class="go-btn" data-page-node-id="Cma4nkeN36iGJYQHNKXNzK" style="box-sizing: border-box; margin: 0px; padding: 7px 18px; -webkit-tap-highlight-color: transparent; background: rgb(255, 36, 66); color: rgb(255, 255, 255); font-size: 13px; font-weight: 700; border-radius: 999px;">去收藏页查看</span><span class="hint" data-page-node-id="21VADAEME07eZ8MbVyjruI" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 11px; color: rgb(85, 85, 92);">合集内有「专属点点」</span></div>
             </div>
           </div>
@@ -909,7 +938,7 @@ body {
             <p data-page-node-id="ZEGd6Ng6bNx0mW16lbYB72" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;">好的，那先不建。这篇笔记我先帮你记住，之后想整理成合集随时说。</p>
           </div>
           <div class="dd-divider" data-page-node-id="EcFEume5zQPbIs8vu6Hrna" style="box-sizing: border-box; margin: 14px 0px 2px; padding: 0px; -webkit-tap-highlight-color: transparent; text-align: center; font-size: 14px; color: rgb(85, 85, 92);">聊聊新话题</div>
-          <div class="chips-q" data-page-node-id="TNAcOU361ZrG7Q8UxT6PZF" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; display: flex; flex-direction: column; align-items: flex-start; gap: 10px;"><span data-page-node-id="n4XLGJG2Nu6NoRdc8cXGxn" style="box-sizing: border-box; margin: 0px; padding: 14px 16px; -webkit-tap-highlight-color: transparent; background: rgb(31, 31, 36); border: 1px solid rgb(37, 37, 43); border-radius: 26px; font-size: 15px; cursor: pointer;">意大利 7 天 6 晚怎么排更顺？</span><span data-page-node-id="diLSxWExOuTbABi5w2Da7Z" style="box-sizing: border-box; margin: 0px; padding: 14px 16px; -webkit-tap-highlight-color: transparent; background: rgb(31, 31, 36); border: 1px solid rgb(37, 37, 43); border-radius: 26px; font-size: 15px; cursor: pointer;">推荐问题占位二</span><span data-page-node-id="a9SZykMzS4z2JAqZOA5kFC" style="box-sizing: border-box; margin: 0px; padding: 14px 16px; -webkit-tap-highlight-color: transparent; background: rgb(31, 31, 36); border: 1px solid rgb(37, 37, 43); border-radius: 26px; font-size: 15px; cursor: pointer;">推荐问题占位三</span></div>
+          <div class="chips-q" data-page-node-id="TNAcOU361ZrG7Q8UxT6PZF" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; display: flex; flex-direction: column; align-items: flex-start; gap: 10px;"><span data-page-node-id="n4XLGJG2Nu6NoRdc8cXGxn" style="box-sizing: border-box; margin: 0px; padding: 14px 16px; -webkit-tap-highlight-color: transparent; background: rgb(31, 31, 36); border: 1px solid rgb(37, 37, 43); border-radius: 26px; font-size: 15px; cursor: pointer;">意大利 7 天 6 晚怎么排更顺？</span><span data-page-node-id="diLSxWExOuTbABi5w2Da7Z" style="box-sizing: border-box; margin: 0px; padding: 14px 16px; -webkit-tap-highlight-color: transparent; background: rgb(31, 31, 36); border: 1px solid rgb(37, 37, 43); border-radius: 26px; font-size: 15px; cursor: pointer;">博尔盖塞美术馆怎么订票？</span><span data-page-node-id="a9SZykMzS4z2JAqZOA5kFC" style="box-sizing: border-box; margin: 0px; padding: 14px 16px; -webkit-tap-highlight-color: transparent; background: rgb(31, 31, 36); border: 1px solid rgb(37, 37, 43); border-radius: 26px; font-size: 15px; cursor: pointer;">罗马有哪些值得去的博物馆？</span></div>
         </div>
       </div>
       <div class="dd-input" data-page-node-id="7rIDlhPDB5wUZvO84EUy2S" style="box-sizing: border-box; margin: 8px 12px 0px; padding: 0px 14px; -webkit-tap-highlight-color: transparent; flex: 0 0 auto; height: 46px; border-radius: 26px; border: 1px solid rgb(43, 43, 49); background: rgb(25, 25, 29); display: flex; align-items: center; gap: 12px; color: rgb(142, 142, 149);">
@@ -1163,62 +1192,63 @@ body {
       <div class="chain-nav" data-page-node-id="N6Z3unm3YEYcKrQ70kkrGJ" style="box-sizing: border-box; margin: 0px; padding: 0px 12px; -webkit-tap-highlight-color: transparent; flex: 0 0 auto; height: 46px; display: flex; align-items: center; justify-content: space-between;">
         <span class="nb" onclick="XHS.back('chain-edit')" data-page-node-id="4Y5OhAyRmTAwnu7IHWs1ON" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer;"><svg class="ic" data-page-node-id="d25vbOjkA1NE7IcHioFIzV" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto;"><use href="#i-left" data-page-node-id="TFoE2i3Mu2klSF2ACwwfDw" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg></span>
         <span class="tt" data-page-node-id="7WD7swfrm51pCibTH41AG5" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 17px; font-weight: 700;"></span>
-        <div class="nav-right"><span class="draft-pill" onclick="alert('已存草稿（演示）')"><svg class="ic"><use href="#i-copy"/></svg>存草稿</span><span class="pub-pill" onclick="XHS.go('outline')">发笔记</span></div>
+        <div class="nav-right"><span class="draft-pill" onclick="XHS.toast('已存草稿（演示）')"><svg class="ic"><use href="#i-copy"/></svg>存草稿</span><span class="pub-pill" onclick="XHS.go('outline')">发笔记</span></div>
       </div>
       <div class="scroll" data-page-node-id="VZyh1B8qUgJLYpbryWSFpi" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; flex: 1 1 0%; overflow: hidden auto; scrollbar-width: none; min-height: 0px;">
         <div class="chain-top" data-page-node-id="AEmC7p4EX0ErVtdjp4IXzk" style="box-sizing: border-box; margin: 0px; padding: 4px 16px 8px; -webkit-tap-highlight-color: transparent;">
           <div class="title-input" data-page-node-id="Igg3jAE8aPKug2edTUQUlK" style="box-sizing: border-box; margin: 0px; padding: 8px 0px; -webkit-tap-highlight-color: transparent; font-size: 18px; font-weight: 700; color: rgb(242, 242, 244); border-bottom: 1px solid rgb(38, 38, 44);">意大利 5 日游 · 我走过的路</div>
-          <div class="body-edit" id="bodyEdit1" data-page-node-id="bodyEdit1"><span class="cursor"></span>添加正文</div>
+          
           
           
           <div class="ai-tag" data-page-node-id="14Y4hyL8bRhW7ZSCGE0BiB" style="box-sizing: border-box; margin: 10px 0px 0px; padding: 0px; -webkit-tap-highlight-color: transparent; display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: rgb(61, 220, 132);"><span class="ai-dot" data-page-node-id="sSahH9TvLniyjSZ8gxDO1J" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 14px; height: 14px; border-radius: 5px 5px 5px 2px; background: linear-gradient(135deg, rgb(155, 247, 224), rgb(70, 221, 187)); display: inline-flex; align-items: center; justify-content: center;"><svg class="ic" style="font-size: 9px; color: rgb(18, 69, 59); box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 1em; height: 1em; fill: none; stroke: currentcolor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto;" data-page-node-id="7lwM4t4azKpklpZRYVHuuS"><use href="#i-sparkle" data-page-node-id="NW5IxoH4FNaAU82vdSvczz" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;"></use></svg></span> AI 已按行程搭好骨架，共 8 个点</div>
+          <div class="sum-edit" id="sumEdit" style="display:none"></div>
           
         </div>
 
-        <div class="chain-day" data-page-node-id="E85FllYs2vvD5BdZKcDxhm" style="box-sizing: border-box; margin: 6px 12px 10px; padding: 0px; -webkit-tap-highlight-color: transparent;">
-          <div class="day-h" data-page-node-id="6Gvu0oZFBHGPHQNCMgiptW" style="box-sizing: border-box; margin: 0px; padding: 2px 4px 8px; -webkit-tap-highlight-color: transparent; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: rgb(242, 242, 244);"><span class="dot" data-page-node-id="zqRree46yeeBBMnIdYnCT7" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 8px; height: 8px; border-radius: 50%; background: rgb(255, 36, 66);"></span>第 1 天 · 落地米兰 <span class="day-sub" data-page-node-id="CFnA29p3hyv4ElqjMkdjQv" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 11px; font-weight: 500; color: rgb(142, 142, 149);">交通</span></div><div class="cite" data-page-node-id="mGNqvBYjxqZT20Ev7vepZq" style="box-sizing: border-box; margin: 0px 0px 8px; padding: 12px; -webkit-tap-highlight-color: transparent; background: rgb(32, 32, 37); border-radius: 12px; position: relative;">
-            <div class="c-my" data-page-node-id="ujRLpTsnJBS6LKAnQWYv6I" style="box-sizing: border-box; margin: 10px 0px 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 13px; color: rgb(232, 232, 234); line-height: 1.6;"><span class="my-label" data-page-node-id="bzomPd015mNcD6OM3SSlZA" style="box-sizing: border-box; margin: 0px 0px 4px; padding: 0px; -webkit-tap-highlight-color: transparent; display: block; font-size: 12px; color: rgb(255, 92, 108); font-weight: 600;">米兰机场大巴乘坐攻略</span>坐的是机场大巴，可以线下买票也可以线上买，买票机器就在海关出来后。</div><div data-page-node-id="n5YY8fXXHUTzP2EmPFDYOT" class="cite-ref" onclick="openNote('a','chain-edit')" style="box-sizing:border-box;margin:0;padding:8px 10px;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;display:flex;align-items:center;gap:10px;margin-top:10px;background:#26262C;border-radius:10px;cursor:pointer"><div data-page-node-id="KN7Tk8qbnZVXckFpQlrHEm" class="cr-thumb" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;width:38px;height:38px;border-radius:6px;background:linear-gradient(160deg,#34343B,#2A2A30);flex:none"></div><div data-page-node-id="ihAXjQGfyxqTDNuCSruhVP" class="cr-bd" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;flex:1;min-width:0"><div data-page-node-id="obwJh4tT4lVIMeHYCsqsir" class="cr-tag" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;font-size:10px;color:#8E8E95;display:flex;align-items:center;gap:4px"><svg data-page-node-id="tT0pZCB5QJs5PdiEetkbtu" class="ic" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;font-size:11px;color:#FF2442"><use data-page-node-id="mhcLwdCZpmw3zVzOacARHW" href="#i-link" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important"></use></svg>引用笔记</div><div data-page-node-id="FXQBuHDrMvLG1e5wEWbC7f" class="cr-t" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;font-size:13px;color:#F2F2F4;font-weight:600;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">米兰机场大巴乘坐攻略</div></div></div><div data-page-node-id="MhwDNkh32UDFX1eRGrP4Sm" class="day-photos" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;display:flex;gap:8px;margin-top:12px"><div data-page-node-id="UtgDZWxCAH0ojZ6uWPGqR3" class="ph-item" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;width:72px;height:72px;border-radius:8px;background:linear-gradient(160deg,#34343B,#2A2A30);flex:none"></div><div data-page-node-id="cHEKhtxXG3VMJ73TeMzIBU" class="ph-add" onclick="alert('添加照片（演示）')" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;width:72px;height:72px;border-radius:8px;background:#26262C;display:flex;align-items:center;justify-content:center;color:#8E8E95;font-size:28px;font-weight:300;cursor:pointer">＋</div></div>
-            
-            
-          </div>
-          
-        </div>
-
-        <div class="chain-day" data-page-node-id="BnbTERcsrMnPVezgG60P6s" style="box-sizing: border-box; margin: 6px 12px 10px; padding: 0px; -webkit-tap-highlight-color: transparent;">
-          <div class="day-h" data-page-node-id="ToIMhroxQGuHPbeg0PYX9k" style="box-sizing: border-box; margin: 0px; padding: 2px 4px 8px; -webkit-tap-highlight-color: transparent; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: rgb(242, 242, 244);"><span class="dot" data-page-node-id="VrXkQXBCFFdE7BiThlZzkU" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 8px; height: 8px; border-radius: 50%; background: rgb(255, 36, 66);"></span>第 2 天 · 罗马博物馆 <span class="day-sub" data-page-node-id="PgCJDmGHVTpZIbbh6CzgHD" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 11px; font-weight: 500; color: rgb(142, 142, 149);">买票</span></div>
-          <div class="cite" data-page-node-id="V7xsuncj7sG3v6ifwVi67r" style="box-sizing: border-box; margin: 0px 0px 8px; padding: 12px; -webkit-tap-highlight-color: transparent; background: rgb(32, 32, 37); border-radius: 12px; position: relative;">
-            <div class="c-my" data-page-node-id="GywZiYBG0qe285EjPdHCEg" style="box-sizing: border-box; margin: 10px 0px 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 13px; color: rgb(232, 232, 234); line-height: 1.6;"><span class="my-label" data-page-node-id="XzYL74THyzodpbC91Hfq1R" style="box-sizing: border-box; margin: 0px 0px 4px; padding: 0px; -webkit-tap-highlight-color: transparent; display: block; font-size: 12px; color: rgb(255, 92, 108); font-weight: 600;">博尔盖塞美术馆排队买票经验</span>现场 POS 机坏了只收现金，记得带现金，门票要提前 3 天约，可以去附近的超市用monzo卡去现金</div><div data-page-node-id="kEyWJDL125lP6gE4cmGvHl" class="cite-ref" onclick="openNote('a','chain-edit')" style="box-sizing:border-box;margin:0;padding:8px 10px;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;display:flex;align-items:center;gap:10px;margin-top:10px;background:#26262C;border-radius:10px;cursor:pointer"><div data-page-node-id="aUUkCF1mU6Fxod0b0ADGCC" class="cr-thumb" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;width:38px;height:38px;border-radius:6px;background:linear-gradient(160deg,#34343B,#2A2A30);flex:none"></div><div data-page-node-id="h8wRW7KsHKmHChJnIsc7Uj" class="cr-bd" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;flex:1;min-width:0"><div data-page-node-id="qob4pykvAYdiT7bSszZrZM" class="cr-tag" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;font-size:10px;color:#8E8E95;display:flex;align-items:center;gap:4px"><svg data-page-node-id="KH08OkcOgtwpBWLD4wyOhZ" class="ic" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;font-size:11px;color:#FF2442"><use data-page-node-id="ahVLHTlOVYJQt4DGquCEup" href="#i-link" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important"></use></svg>引用笔记</div><div data-page-node-id="lKM3tLMDS1AeEwL8svGSyC" class="cr-t" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;font-size:13px;color:#F2F2F4;font-weight:600;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">博尔盖塞美术馆排队买票经验</div></div></div><div data-page-node-id="y5K0OSAi4eqzJ6EiEEo3YR" class="day-photos" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;display:flex;gap:8px;margin-top:12px"><div data-page-node-id="gnUBKdHd9c8xnaZNczkBBF" class="ph-item" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;width:72px;height:72px;border-radius:8px;background:linear-gradient(160deg,#34343B,#2A2A30);flex:none"></div><div data-page-node-id="StyrBI59lrVnQMaS1kXet7" class="ph-add" onclick="alert('添加照片（演示）')" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;width:72px;height:72px;border-radius:8px;background:#26262C;display:flex;align-items:center;justify-content:center;color:#8E8E95;font-size:28px;font-weight:300;cursor:pointer">＋</div></div>
-            
-            
+                <div class="chain-day">
+          <div class="day-h"><span class="dot"></span>第 1 天 · 落地米兰 <span class="day-sub">交通</span></div>
+          <div class="cite">
+            <div class="c-label">米兰机场大巴乘坐攻略</div><div class="day-photos"><div class="ph-item"></div><div class="ph-item"></div><div class="ph-add" onclick="XHS.toast('添加照片（演示）')">＋</div></div>
+            <div class="body-edit" id="bodyEdit1"><span class="typed">坐的是机场大巴，可以线下去司机那里买票，也可以使用海关出来后的机器买。大巴到市区这段路看到了别样的风景（图1-5）。</span></div>
+            <div class="cite-chip" onclick="openNote('a','chain-edit')"><svg class="ic"><use href="#i-link"></use></svg>米兰机场大巴乘坐攻略</div>
           </div>
         </div>
 
-        <div class="chain-day" data-page-node-id="5vgXWw6tFMImF2KFeJDmtd" style="box-sizing: border-box; margin: 6px 12px 10px; padding: 0px; -webkit-tap-highlight-color: transparent;">
-          <div class="day-h" data-page-node-id="eVEoiWepANVZBCRV1iMDRo" style="box-sizing: border-box; margin: 0px; padding: 2px 4px 8px; -webkit-tap-highlight-color: transparent; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: rgb(242, 242, 244);"><span class="dot" data-page-node-id="t0WcuhIPCXzyZGlPZLNgC7" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; width: 8px; height: 8px; border-radius: 50%; background: rgb(255, 36, 66);"></span>第 3 天 · 佛罗伦萨 <span class="day-sub" data-page-node-id="kawJRjG8GSnzVCmOAi5PtB" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 11px; font-weight: 500; color: rgb(142, 142, 149);">美食</span></div>
-          <div class="cite" data-page-node-id="2EFM3vYWnrcSfoq9GSnOZ4" style="box-sizing: border-box; margin: 0px 0px 8px; padding: 12px; -webkit-tap-highlight-color: transparent; background: rgb(32, 32, 37); border-radius: 12px; position: relative;">
-            <div class="c-my" data-page-node-id="1SkKKVAzqCkCGbi8C2neCR" style="box-sizing: border-box; margin: 10px 0px 0px; padding: 0px; -webkit-tap-highlight-color: transparent; font-size: 13px; color: rgb(232, 232, 234); line-height: 1.6;">这家排 2 小时，提前 3 天约；隔壁那家不用排队更实在。</div><div data-page-node-id="OougKJHLCYQFdiGGXVxBvA" class="cite-ref" onclick="openNote('b','chain-edit')" style="box-sizing:border-box;margin:0;padding:8px 10px;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;display:flex;align-items:center;gap:10px;margin-top:10px;background:#26262C;border-radius:10px;cursor:pointer"><div data-page-node-id="eRGCgnEjodXQk9ELB582X6" class="cr-thumb" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;width:38px;height:38px;border-radius:6px;background:linear-gradient(160deg,#34343B,#2A2A30);flex:none"></div><div data-page-node-id="YU7uBBA85JquYOYeAw3bfM" class="cr-bd" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;flex:1;min-width:0"><div data-page-node-id="kl3EDQroraVD44q3kpunKU" class="cr-tag" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;font-size:10px;color:#8E8E95;display:flex;align-items:center;gap:4px"><svg data-page-node-id="zyebLt8BfGbSkfbB1L12pa" class="ic" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;font-size:11px;color:#FF2442"><use data-page-node-id="uLj8Mjpv2E1fu8X9B9SX0B" href="#i-link" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important"></use></svg>引用笔记</div><div data-page-node-id="IOEsHdT4erExBiv3YBQhDf" class="cr-t" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;font-size:13px;color:#F2F2F4;font-weight:600;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">佛罗伦萨美食探店笔记</div></div></div><div data-page-node-id="fng99z8Momq4kqw4uJ5Xug" class="day-photos" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;display:flex;gap:8px;margin-top:12px"><div data-page-node-id="8kb89mJHBHRR4BPSpck8Og" class="ph-item" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;width:72px;height:72px;border-radius:8px;background:linear-gradient(160deg,#34343B,#2A2A30);flex:none"></div><div data-page-node-id="HLoQtJajjhlz0rnkrY7umW" class="ph-add" onclick="alert('添加照片（演示）')" style="box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none !important;width:72px;height:72px;border-radius:8px;background:#26262C;display:flex;align-items:center;justify-content:center;color:#8E8E95;font-size:28px;font-weight:300;cursor:pointer">＋</div></div>
-            
-            
+        <div class="chain-day">
+          <div class="day-h"><span class="dot"></span>第 2 天 · 罗马博物馆 <span class="day-sub">买票</span></div>
+          <div class="cite">
+            <div class="c-label">博尔盖塞美术馆排队买票经验</div><div class="day-photos"><div class="ph-item"></div><div class="ph-item"></div><div class="ph-add" onclick="XHS.toast('添加照片（演示）')">＋</div></div>
+            <div class="c-my">现场 POS 机坏了只收现金，记得带现金，门票要提前 3 天约，可以去附近的超市用 monzo 卡取现金</div>
+            <div class="cite-chip" onclick="openNote('a','chain-edit')"><svg class="ic"><use href="#i-link"></use></svg>博尔盖塞美术馆排队买票经验</div>
           </div>
         </div>
 
-        <div class="chain-add" data-page-node-id="DrsvbdubT1EWoaXIMR544M" style="box-sizing: border-box; margin: 10px 16px 20px; padding: 0px; -webkit-tap-highlight-color: transparent; display: flex; flex-direction: column; gap: 8px;">
+        <div class="chain-day">
+          <div class="day-h"><span class="dot"></span>第 3 天 · 佛罗伦萨 <span class="day-sub">美食</span></div>
+          <div class="cite">
+            <div class="day-photos"><div class="ph-item"></div><div class="ph-item"></div><div class="ph-add" onclick="XHS.toast('添加照片（演示）')">＋</div></div>
+            <div class="c-my">这家排 2 小时，提前 3 天约；隔壁那家不用排队更实在，记得留现金，店家只收现金。</div>
+            <div class="cite-chip" onclick="openNote('b','chain-edit')"><svg class="ic"><use href="#i-link"></use></svg>佛罗伦萨美食探店笔记</div>
+          </div>
+        </div>
+
+<div class="chain-add" data-page-node-id="DrsvbdubT1EWoaXIMR544M" style="box-sizing: border-box; margin: 10px 16px 20px; padding: 0px; -webkit-tap-highlight-color: transparent; display: flex; flex-direction: column; gap: 8px;">
         </div>
       </div>
       <div class="pub-meta" data-page-node-id="pubMeta1" style="box-sizing:border-box;margin:0;padding:10px 16px;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;gap:8px;flex:none;overflow-x:auto;background:#141418">
         <span data-page-node-id="tp1" class="topic-chip" style="box-sizing:border-box;flex:none"># 意大利旅行</span>
         <span data-page-node-id="tp2" class="topic-chip" style="box-sizing:border-box;flex:none"># 欧洲自由行</span>
-        <span data-page-node-id="5lyqHRJctPVRhd05BAKasz" class="topic-add" onclick="alert('添加话题（演示）')" style="box-sizing:border-box;flex:none"><svg class="ic" style="font-size:12px"><use href="#i-plus"/></svg>话题</span>
+        <span data-page-node-id="5lyqHRJctPVRhd05BAKasz" class="topic-add" onclick="XHS.toast('添加话题（演示）')" style="box-sizing:border-box;flex:none"><svg class="ic" style="font-size:12px"><use href="#i-plus"/></svg>话题</span>
       </div>
       <div class="pub-toolbar" data-page-node-id="pubToolbar1">
         <div class="tools">
-          <span class="tool" onclick="alert('语音输入（演示）')"><svg class="ic"><use href="#i-voice"/></svg></span>
-          <span class="tool" onclick="alert('表情（演示）')"><svg class="ic"><use href="#i-smile"/></svg></span>
-          <span class="tool" onclick="alert('插入话题（演示）')"><svg class="ic"><use href="#i-hash"/></svg></span>
-          <span class="tool" onclick="alert('@提及（演示）')"><svg class="ic"><use href="#i-at"/></svg></span>
+          <span class="tool" onclick="XHS.toast('语音输入（演示）')"><svg class="ic"><use href="#i-voice"/></svg></span>
+          <span class="tool" onclick="XHS.toast('表情（演示）')"><svg class="ic"><use href="#i-smile"/></svg></span>
+          <span class="tool" onclick="XHS.toast('插入话题（演示）')"><svg class="ic"><use href="#i-hash"/></svg></span>
+          <span class="tool" onclick="XHS.toast('@提及（演示）')"><svg class="ic"><use href="#i-at"/></svg></span>
           <span class="tool ref" onclick="openInsertNote()"><svg class="ic"><use href="#i-cite-note"/></svg></span>
         </div>
-        <span class="done" onclick="alert('收起键盘（演示）')">完成</span>
+        <span class="done" onclick="XHS.toast('收起键盘（演示）')">完成</span>
       </div>
       <div class="mock-kb" data-page-node-id="mockKb1">
         <div class="k fn">.^:</div><div class="k">Q</div><div class="k">W</div><div class="k">E</div><div class="k">R</div><div class="k">T</div><div class="k">Y</div><div class="k">U</div><div class="k">I</div><div class="k fn">⌫</div>
@@ -1350,6 +1380,7 @@ body {
     <div class="d">点点会把这段对话收进去，并按主题建好收藏夹。之后这个收藏夹里的内容，可以继续向点点提问这个主题，也可以只总结收藏夹里的内容。</div>
     <div class="b"><div class="no" onclick="ansDlgNo()">先不用</div><div class="yes" onclick="ansDlgYes()">创建并收藏</div></div>
   </div>
+  <div class="undo-toast" id="undo-toast"><span class="t"></span><span class="u">撤销</span></div>
   <div class="qa-toast" id="qa-toast"></div>
 
   <!-- 分享面板（全局覆盖层，增量层 v3） -->
@@ -1393,6 +1424,8 @@ body {
   </section>
 </div>
 
+<a id="reset-demo" onclick="location.reload()">↺ 重置演示</a>
+
 <script data-page-node-id="LYnRUdLGNTV9RRhEk2u3QQ" style="box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent;">
 /* ==================== 基座层：交互 ==================== */
 /* 视口不足 812px 高时整体等比缩放手机壳，保证完整可见 */
@@ -1421,17 +1454,20 @@ body {
     var def = { title: ed.querySelector('.title-input').textContent, body: ed.querySelector('.body-edit').innerHTML, tag: ed.querySelector('.ai-tag').lastChild.textContent };
     window.resetEditor = function () {
       ed.querySelector('.title-input').textContent = def.title;
-      if (ed.querySelector('.body-edit .ai-draft')) ed.querySelector('.body-edit').innerHTML = def.body;
+      ed.querySelector('.body-edit').innerHTML = def.body;
+      var sm = document.getElementById('sumEdit'); sm.style.display = 'none'; sm.innerHTML = '';
       ed.querySelector('.ai-tag').lastChild.textContent = def.tag;
     };
   })();   // 链路编辑页的来源页（返回上一级用）
   function go(name) {
+    if (name === 'msg') setMsgDot(false);
     var cur = document.querySelector('.page.active'), curName = cur ? cur.id.replace('page-', '') : '';
     if (name === 'chain-edit' && ['cite-pick', 'note', 'chain-pub'].indexOf(curName) < 0 && curName) {
       chainFrom = curName;
       if (window.__draftFromSummary) { window.__draftFromSummary = false; } else if (window.resetEditor) { window.resetEditor(); }
     }
     if (name === 'chain-pub') {
+      addPublishedNote();
       var tt = document.querySelector('#page-chain-edit .title-input').textContent;
       var pt = document.querySelector('#page-chain-pub .pub-card .p-title'); if (pt) pt.textContent = tt;
       var pb = document.querySelector('#page-chain-pub .notif .n-body b'); if (pb) pb.textContent = '「' + tt + '」';
@@ -1521,6 +1557,8 @@ body {
   };
   window.shareToDD = function () {
     closeShare();
+    askFrom = 'note';
+    ddShareState();
     go('ask');
   };
   /* 建合集：询问气泡消失 → 完成气泡出现 → 收藏页「专辑」里新增合集卡片 */
@@ -1603,7 +1641,7 @@ body {
   window.genNoteFromSummary = function () {
     var ed = document.getElementById('page-chain-edit');
     ed.querySelector('.title-input').textContent = '意大利旅行 · 合集总结';
-    ed.querySelector('.body-edit').innerHTML = '<span class="cursor"></span><span class="ai-draft">' + SUMMARY_DRAFT + '</span>';
+    var sm = document.getElementById('sumEdit'); sm.contentEditable = 'true'; sm.style.display = 'block'; sm.textContent = SUMMARY_DRAFT;
     ed.querySelector('.ai-tag').lastChild.textContent = ' 点点按合集总结起草，请改成你自己的话再发布';
     window.__draftFromSummary = true;
     XHS.go('chain-edit');
@@ -1674,6 +1712,8 @@ body {
     var sel = card.querySelector('.q-opt.on');
     var q = sel.querySelector('.q-opt-t').textContent.trim() || QA.q;
     QA.q = q; QA.ai = sel.dataset.k === 'ai'; QA.a = ''; QA.noAns = false; QA.repushed = false; QA.closed = false;
+    ['qa-row-noans', 'qa-row-thanks', 'qa-row-reply'].forEach(function (id) { var o = document.getElementById(id); if (o) o.remove(); });
+    setReplyBadge(0);
     var st = document.createElement('div'); st.className = 'qa-card';
     st.innerHTML = '<div class="q-lbl">已发布到「点点问题」</div>' +
       qaStep('fg', '已发出', '以你的头像公开发布', '') +
@@ -1686,6 +1726,7 @@ body {
     /* 后台推送：只在被问者的消息里出现，提问者看不到推给了谁 */
     addMsgRow('qa-row-ask', '<div class="ava white"></div><div class="mid"><div class="nm">点点问题</div><div class="sub"></div></div><span class="tm">刚刚</span><span class="dot"></span>', 'openQaPost(\'answerer\', \'msg\')');
     document.querySelector('#qa-row-ask .sub').textContent = '有人在问你可能知道的：' + q;
+    setMsgDot(true);
     showHomeQA(q);
     addScrollBottom();
   };
@@ -1735,7 +1776,7 @@ body {
     NOTES.q = qaPostData(role);
     noteFrom = QA.from;
     renderNote('q');
-    if (role === 'asker') { ['#qa-row-reply .dot', '#qa-row-noans .dot'].forEach(function (q) { var d = document.querySelector(q); if (d) d.remove(); }); }
+    if (role === 'asker') { setReplyBadge(0); ['#qa-row-reply .dot', '#qa-row-noans .dot'].forEach(function (q) { var d = document.querySelector(q); if (d) d.remove(); }); }
     go('note');
   };
   window.qaDecline = function () {
@@ -1783,6 +1824,7 @@ body {
     var input = document.getElementById('np-q-input');
     var v = input ? input.value.trim() : '';
     QA.a = v || '前阵子去过，现场已经能刷卡了，不过还是建议带点现金备用。';
+    setReplyBadge(1); setMsgDot(true);
     hideHomeQA();
     var r = document.getElementById('qa-row-ask'); if (r) r.remove();
     openQaPost('answerer', QA.from);
@@ -1891,8 +1933,13 @@ body {
       if (e.target.closest('.lp-x') || (!a)) { closeLpMenu(); return; }
       if (a.dataset.a === 'dislike') {
         closeLpMenu(); card.classList.add('lp-gone');
+        var lpParent = card.parentNode, lpNext = card.nextSibling;
         setTimeout(function () { card.remove(); }, 260);
-        qaToast('已减少此类内容的推荐');
+        showUndo('已减少此类内容的推荐', function () {
+          if (!lpParent) return;
+          card.classList.remove('lp-gone');
+          lpParent.insertBefore(card, (lpNext && lpNext.parentNode === lpParent) ? lpNext : null);
+        });
       } else { closeLpMenu(); qaToast('已收到你的举报（演示）'); }
     });
     card.appendChild(m);
@@ -1916,6 +1963,171 @@ body {
   document.getElementById('ab-invite').addEventListener('click', function () { qaToast('邀请好友共享（演示）'); });
   /* 发布「＋」按钮 → 发笔记器（合集页不再有「生成笔记」按钮后，从这里进入创作） */
   document.querySelector('.tab.plus').addEventListener('click', function () { go('chain-edit'); });
+
+  /* ================= 走查修复 ================= */
+  window.XHS.toast = qaToast;
+  var askFrom = 'home';
+  var undoTimer, undoFn = null;
+  function showUndo(msg, fn) {
+    var t = document.getElementById('undo-toast'); t.querySelector('.t').textContent = msg; t.style.display = 'flex'; undoFn = fn;
+    clearTimeout(undoTimer); undoTimer = setTimeout(function () { t.style.display = 'none'; undoFn = null; }, 5000);
+  }
+  document.querySelector('#undo-toast .u').addEventListener('click', function () {
+    var t = document.getElementById('undo-toast'); t.style.display = 'none'; clearTimeout(undoTimer);
+    if (undoFn) { undoFn(); undoFn = null; qaToast('已撤销'); }
+  });
+  /* 消息 Tab 红点、「评论和 @」角标 */
+  (function () {
+    var tab = document.querySelector('.tab[data-page="msg"]'); var dot = document.createElement('i'); dot.className = 'tdot'; dot.id = 'msg-dot'; tab.appendChild(dot);
+    var e3 = document.querySelectorAll('.msg-entries .e')[2]; var sq = e3.querySelector('.sq'); var bd = document.createElement('i'); bd.className = 'ebadge'; bd.id = 'reply-badge'; bd.style.display = 'none'; sq.appendChild(bd);
+    e3.style.cursor = 'pointer';
+    e3.addEventListener('click', function () { if (bd.style.display !== 'none') { openQaPost('asker', 'msg'); } else { qaToast('演示：暂无新评论'); } });
+  })();
+  function setMsgDot(on) { var d = document.getElementById('msg-dot'); if (d) d.classList.toggle('on', on); }
+  function setReplyBadge(n) { var b = document.getElementById('reply-badge'); if (b) { b.textContent = n; b.style.display = n ? 'flex' : 'none'; } }
+  window.goFavAlbums = function () {
+    go('me'); document.querySelector('#me-tabs [data-k=fav]').click(); document.querySelector('#fav-sub [data-f=falbum]').click();
+  };
+  /* 分享 → 问点点：按合集是否已建显示 */
+  var DD_DONE_P = null;
+  function ddShareState() {
+    var askB = document.getElementById('dd-ask-bubble'), doneB = document.getElementById('dd-done-bubble'), decB = document.getElementById('dd-decline-bubble');
+    var key = window.__curNote || 'a'; var title = (NOTES[key] && NOTES[key].title) || '';
+    var ub = document.querySelector('#dd-chat .msg.user .bubble'); if (ub) ub.textContent = '[分享笔记] ' + title;
+    var ps = doneB.querySelectorAll('p');
+    if (DD_DONE_P === null) DD_DONE_P = [ps[0].innerHTML, ps[1].innerHTML];
+    decB.style.display = 'none';
+    if (window.__albumBuilt) {
+      askB.style.display = 'none'; doneB.style.display = 'block';
+      var dup = albumState.notes.indexOf(key) >= 0;
+      if (!dup) addNoteToItaly(key);
+      ps[0].innerHTML = dup ? '这篇已经在合集 <b style="color:#3DDC84">「意大利旅行」</b> 里了' : '已放进合集 <b style="color:#3DDC84">「意大利旅行」</b>';
+      ps[1].textContent = '现在合集里共 ' + albumState.notes.length + ' 篇笔记。去收藏页看看吧。';
+    } else {
+      askB.style.display = 'block'; doneB.style.display = 'none'; ps[0].innerHTML = DD_DONE_P[0]; ps[1].innerHTML = DD_DONE_P[1];
+    }
+  }
+  window.buildAlbumFromShare = function () {
+    buildAlbum();
+    var k = window.__curNote; if (k && k !== 'a' && NOTES[k]) addNoteToItaly(k);
+  };
+  /* 推荐问题：已建合集 → 交给专属点点 */
+  $$('.chips-q span').forEach(function (sp) {
+    sp.addEventListener('click', function () {
+      if (window.__albumBuilt) { go('album-dd'); askDD(sp.textContent); } else { qaToast('先建好合集，专属点点才能回答（演示）'); }
+    });
+  });
+  /* 其他笔记（演示用）：点开是一篇占位笔记 */
+  window.openGeneric = function (title, likes, from) {
+    NOTES.gen = {
+      author: '用户', n: [likes || '0', '', '1'], cover: 'photo', count: '1/3', coverH: 400,
+      title: title, text: ['（演示内容）这篇笔记在原型里不展开，真实产品里这里是完整的正文和图片。'],
+      tags: '#罗马 #意大利旅行', album: '意大利碎片记录', sug: title.slice(0, 10), date: '09-20 · 已声明原创', total: 1,
+      comments: [{ n: '用户', t: '收藏了，谢谢分享～', d: '09-21', loc: '广东', lk: 2 }]
+    };
+    openNote('gen', from || 'home');
+  };
+  $$('#page-search .sr-card:not([data-note])').forEach(function (c) {
+    c.addEventListener('click', function () { openGeneric(c.querySelector('.tt').textContent, (c.querySelector('.lk') || {}).textContent || '0', 'search'); });
+  });
+  /* 发布后：新笔记出现在「我 → 笔记」 */
+  /* 把编辑器正文转成笔记正文：引用卡片变成行内链接，附在所引段落文末 */
+  function buildMineNote(title) {
+    var paras = [];
+    function esc(t) { return t.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+    var sm = document.getElementById('sumEdit'); if (sm && sm.style.display !== 'none' && sm.textContent.trim()) paras.push(esc(sm.textContent.trim()));
+    $$('#page-chain-edit .chain-day').forEach(function (dy) {
+      var head = dy.querySelector('.day-h').childNodes[1].textContent.trim();
+      var txt = [];
+      var be = dy.querySelector('.body-edit');
+      if (be) { var c = be.cloneNode(true); Array.prototype.forEach.call(c.querySelectorAll('.cite-chip'), function (x) { x.remove(); }); txt.push(c.textContent.replace('添加正文', '').trim()); }
+      var my = dy.querySelector('.c-my'); if (my) txt.push(my.textContent.trim());
+      var body = txt.filter(Boolean).join('');
+      paras.push(esc(head + (body ? '。' + body : '')));
+      Array.prototype.forEach.call(dy.querySelectorAll('.cite-chip'), function (ch) {
+        var m = /openNote\('(\w+)'/.exec(ch.getAttribute('onclick') || ''); if (!m || !NOTES[m[1]]) return;
+        paras.push('<div class="cite-chip" onclick="openNote(\'' + m[1] + '\',\'mine\')"><svg class="ic"><use href="#i-link"/></svg>' + esc(ch.textContent.trim()) + '</div>');
+      });
+    });
+    return { author: '用户', n: ['0', '0', '0'], cover: 'photo', count: '1/3', coverH: 400, title: title, text: paras,
+      tags: '#意大利旅行 #欧洲自由行', album: '意大利旅行', sug: '意大利5日游攻略', date: '刚刚 · 已声明原创', total: 0, comments: [] };
+  }
+  function addPublishedNote() {
+    var col = document.querySelector('#waterfall-me .wf-col'); if (!col) return;
+    var title = document.querySelector('#page-chain-edit .title-input').textContent.trim() || '我的笔记';
+    var old = document.getElementById('my-published'); if (old) old.remove();
+    var c = document.createElement('div'); c.className = 'card sr-card'; c.id = 'my-published';
+    c.innerHTML = '<div class="cover" style="height:200px"></div><div class="tt"></div><div class="au"><span class="avatar"></span><div class="who"><b>用户</b><span>刚刚发布</span></div><span class="lk"><svg class="ic" style="font-size:16px"><use href="#i-heart"/></svg>0</span></div>';
+    c.querySelector('.tt').textContent = title; c.style.cursor = 'pointer';
+    var mine = buildMineNote(title);
+    c.addEventListener('click', function () { NOTES.mine = mine; openNote('mine', 'me'); });
+    col.insertBefore(c, col.firstChild);
+  }
+  /* 未展开的控件：统一给「演示」提示 */
+  var DEMO_SEL = ".top-tabs span:not(.on), .channels span:not(.on), .channels .more, #page-search .sr-field .go, #page-search .sr-tabs span:not(.dd):not(.on), #page-search .sr-filter span, .me-actions *, #page-msg .chat-row:not([id]), .dd-nav > .nb:last-child";
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest && e.target.closest(DEMO_SEL);
+    if (t && !t.closest('.lp-menu')) qaToast('演示：此处暂未展开');
+  });
+  document.getElementById('fav-create').addEventListener('click', function () { qaToast('创建新专辑（演示）'); });
+  $$('#fav-album-list .fab').forEach(function (el) { if (el.id !== 'album-italy') el.addEventListener('click', function () { qaToast('这是示例专辑（演示）'); }); });
+  /* 笔记底栏的评论图标 → 滚到评论区 */
+  document.querySelector('.np-bar > .np-act:last-child').addEventListener('click', function () {
+    var sc = document.getElementById('np-scroll'); var h = sc.querySelector('.np-cm-head'); if (!h) return;
+    var k = document.getElementById('phone').getBoundingClientRect().width / 375 || 1;
+    sc.scrollTop += (h.getBoundingClientRect().top - sc.getBoundingClientRect().top) / k - 12;
+  });
+  /* 分享面板：每个目标都有反馈；「引用发笔记」接到发笔记器 */
+  window.shareToCite = function () {
+    closeShare();
+    var key = window.__curNote || 'a';
+    if (window.resetEditor) resetEditor();
+    chainFrom = 'note';
+    insertCite(key);
+  };
+  document.getElementById('share-sheet').addEventListener('click', function (e) {
+    var it = e.target.closest('.s-item'); if (!it || it.getAttribute('onclick')) return;
+    var lbl = ((it.querySelector('.lbl') || {}).textContent || '').trim();
+    if (lbl === '引用发笔记') { shareToCite(); return; }
+    closeShare();
+    qaToast(lbl === '复制链接' ? '链接已复制' : lbl === '生成分享图' ? '已生成分享图（演示）' : '已分享（演示）');
+  });
+  /* 市集：给个占位内容流，不再是空白 */
+  (function () {
+    var mp = document.getElementById('page-market'); var ph = mp.querySelector('.market-ph'); if (ph) ph.remove();
+    mp.insertAdjacentHTML('beforeend', '<div class="msg-nav"><span class="t">市集</span></div><div class="mk-chips"><span class="on">推荐</span><span>旅行好物</span><span>美食</span><span>穿搭</span><span>家居</span></div><div class="scroll"><div class="waterfall mk-feed"><div class="wf-col" id="mk1"></div><div class="wf-col" id="mk2"></div></div></div>');
+    var items = [['意大利手工皮具钱包', '¥199', '1.2万'], ['罗马旅行随身分装瓶', '¥29', '8654'], ['欧洲通用转换插头', '¥45', '3.4万'], ['折叠防水旅行包', '¥89', '2.1万'], ['地中海风情餐盘', '¥68', '5230'], ['便携颈枕', '¥39', '1.8万']];
+    items.forEach(function (it, i) {
+      var c = document.createElement('div'); c.className = 'card sr-card'; c.style.cursor = 'pointer';
+      c.innerHTML = '<div class="cover" style="height:' + (i % 2 ? 160 : 200) + 'px"></div><div class="tt"></div><div class="au"><span class="mk-price"></span><span class="mk-sold"></span></div>';
+      c.querySelector('.tt').textContent = it[0]; c.querySelector('.mk-price').textContent = it[1]; c.querySelector('.mk-sold').textContent = '已售 ' + it[2];
+      c.addEventListener('click', function () { qaToast('演示：商品详情未展开'); });
+      document.getElementById(i % 2 ? 'mk2' : 'mk1').appendChild(c);
+    });
+  })();
+  /* 发笔记器：标题、正文可以输入；模拟键盘能打字 */
+  (function () {
+    var ti = document.querySelector('#page-chain-edit .title-input'), be = document.getElementById('bodyEdit1');
+    ti.contentEditable = 'true'; be.contentEditable = 'true';
+    var BODY_PH = be.innerHTML;
+    be.addEventListener('focus', function () { if (be.querySelector('.cursor') && !be.querySelector('.cite-chip') && be.textContent.trim() === '添加正文') be.innerHTML = ''; });
+    be.addEventListener('blur', function () { if (!be.textContent.trim() && !be.querySelector('.cite-chip')) be.innerHTML = BODY_PH; });
+    $$('.mock-kb .k').forEach(function (k) {
+      k.style.cursor = 'pointer';
+      k.addEventListener('mousedown', function (e) { e.preventDefault(); });
+      k.addEventListener('click', function () {
+        var t = k.textContent.trim(); be.focus();
+        if (be.querySelector('.cursor') && !be.querySelector('.cite-chip') && be.textContent.trim() === '添加正文') be.innerHTML = '';
+        var sel = window.getSelection();
+        if (!be.contains(sel.anchorNode)) { var r = document.createRange(); r.selectNodeContents(be); r.collapse(false); sel.removeAllRanges(); sel.addRange(r); }
+        if (k.classList.contains('sp')) document.execCommand('insertText', false, ' ');
+        else if (t === '⌫') document.execCommand('delete');
+        else if (t === '换行') document.execCommand('insertLineBreak');
+        else if (t === '，' || t === '。') document.execCommand('insertText', false, t);
+        else if (/^[A-Z]$/.test(t)) document.execCommand('insertText', false, t.toLowerCase());
+      });
+    });
+  })();
 
   function ddReply(key) {
     var chat = document.getElementById('add-chat');
@@ -1969,7 +2181,7 @@ body {
       text: [
         '提前 1-2 个月放票，建议多刷新官网。',
         '<span class="sec">💳【现场付款】</span><br><span class="cash">近期 POS 机故障，只收现金</span>，记得带欧元。',
-        '没约到的话，可以试试清晨的退票。'
+        '没约到的话，可以试试8点半去排队，每个小时放11张。'
       ],
       tags: '#罗马 #博尔盖塞美术馆 #订票攻略',
       album: '罗马攻略合集', sug: '博尔盖塞美术馆门票', date: '03-09 · 已声明原创', total: 3,
@@ -2026,13 +2238,14 @@ body {
     var f = $('#np-follow'); f.textContent = '关注'; f.classList.remove('on');
     $('#np-n1').textContent = d.n[0]; $('#np-n2').textContent = d.n[1]; $('#np-n3').textContent = d.n[2];
     $('#nb-heart').classList.remove('on'); $('#nb-star').classList.remove('on');
-    var cover = d.cover === 'poster'
+    var phU = d.cover === 'none' ? '' : photoFor(d.title, key === 'b' ? 13 : 0, key);
+    var cover = phU ? '' : d.cover === 'poster'
       ? '<div class="mock"><div class="sk" style="width:90%"></div><div class="sk" style="width:70%"></div><div class="sk" style="width:80%"></div></div><div class="band">预订流程 一图看懂</div><div class="band2">官方渠道 · 分时段 · 带现金</div>'
       : '';
-    var html = (d.cover === 'none' ? '' : '<div class="np-cover" style="height:' + d.coverH + 'px">' + (d.live ? '<span class="live">实况</span>' : '') + '<span class="cnt">' + d.count + '</span>' + cover + '</div>' +
+    var html = (d.cover === 'none' ? '' : '<div class="np-cover" style="height:' + d.coverH + 'px' + (phU ? ';background:url(' + phU + ') center/cover no-repeat' : '') + '">' + (d.live ? '<span class="live">实况</span>' : '') + '<span class="cnt">' + d.count + '</span>' + cover + '</div>' +
       '<div class="np-dots"><i></i><i></i><i></i></div>') +
       '<div class="np-body">' + (d.askerRow || '') + '<div class="np-title">' + d.title + '</div>' +
-      '<div class="np-text">' + d.text.map(function (t) { return '<p>' + t + '</p>'; }).join('') + '<p class="tags">' + d.tags + '</p></div>' +
+      '<div class="np-text">' + d.text.map(function (t) { return t.indexOf('<div') === 0 ? t : '<p>' + t + '</p>'; }).join('') + '<p class="tags">' + d.tags + '</p></div>' +
       '<div class="np-chip"><svg class="ic"><use href="#i-star"/></svg><span>合集 <b>' + d.album + '</b></span></div>' +
       '<div class="np-chip"><svg class="ic"><use href="#i-search"/></svg><span>猜你想搜 <b>' + d.sug + '</b></span></div>' +
       '<div class="np-meta"><span>' + d.date + '</span><span>不喜欢</span></div>' +
@@ -2095,9 +2308,10 @@ body {
     ]
   };
   function citeRefHtml(key) {
+    var dd = NOTES[key]; if (dd) return '<div class="cite-chip" contenteditable="false" onclick="openNote(\'' + key + '\',\'chain-edit\')"><svg class="ic"><use href="#i-link"/></svg>' + dd.title + '</div>';
     var d = window.API ? window.API.getNote(key) : NOTES[key];
     if (!d) return '';
-    return '<div class="cite-ref" onclick="openNote(\'' + key + '\',\'chain-edit\')">' +
+    return '<div class="cite-ref" contenteditable="false" onclick="openNote(\'' + key + '\',\'chain-edit\')">' +
       '<div class="cr-thumb"></div>' +
       '<div class="cr-bd"><div class="cr-tag"><svg class="ic"><use href="#i-link"/></svg>引用笔记</div>' +
       '<div class="cr-t">' + d.title + '</div></div></div>';
@@ -2145,7 +2359,7 @@ body {
     if (sc) sc.scrollTop = 0;
   };
 
-  $('#np-back').addEventListener('click', function () { if (noteFrom === 'q-post') { openQaPost(QA.role, QA.from); } else { go(noteFrom); } });
+  $('#np-back').addEventListener('click', function () { if (noteFrom === 'q-post') { openQaPost(QA.role, QA.from); } else if (noteFrom === 'mine') { openNote('mine', 'me'); } else { go(noteFrom); } });
   $('#np-follow').addEventListener('click', function () { this.classList.toggle('on'); this.textContent = this.classList.contains('on') ? '已关注' : '关注'; });
   $('#np-share').addEventListener('click', openShare);
   $('#nb-heart').addEventListener('click', function () { this.classList.toggle('on'); });
@@ -2160,18 +2374,23 @@ body {
 
   /* 首页瀑布流第一张卡片 → 笔记详情页（给首张卡片加点击） */
   function makeFirstCardClickable() {
-    $$('#waterfall .card[data-home]').forEach(function (c) {
+    $$('#waterfall .card').forEach(function (c) {
       c.style.cursor = 'pointer';
-      c.addEventListener('click', function () { var k = c.dataset.home; if (k === 'q2') { openQ2(); } else { openNote(k, 'home'); } });
+      c.addEventListener('click', function () {
+        var k = c.dataset.home;
+        if (k === 'q2') { openQ2(); }
+        else if (k) { openNote(k, 'home'); }
+        else { openGeneric(c.querySelector('.tt').textContent, (c.querySelector('.lk') || {}).textContent || '0', 'home'); }
+      });
     });
   }
 
   $$('.tab[data-page]').forEach(function (t) { t.addEventListener('click', function () { go(t.dataset.page); }); });
   /* 首页左上角气泡图标 / 右上角搜索图标 → 点点对话页（问一问）；右上角 ··· → 点点设置；X / 返回 逐级退出 */
-  $('#chat-entry').addEventListener('click', function () { go('ask'); });
+  $('#chat-entry').addEventListener('click', function () { askFrom = 'home'; go('ask'); });
   $('#search-entry').addEventListener('click', function () { go('search'); });   // 搜索图标 → 搜索结果页（含「问点点」）
   $$('.tg').forEach(function (t) { t.addEventListener('click', function () { t.classList.toggle('on'); }); });
-  $('#ask-back').addEventListener('click', function () { go('home'); });
+  $('#ask-back').addEventListener('click', function () { go(askFrom === 'note' ? 'note' : 'home'); });
   $('#toast-x').addEventListener('click', function () { $('#toast').style.display = 'none'; });
 
   /* 通用「单选切换」：点击 trigger 后高亮自己，并显示对应面板 */
@@ -2249,6 +2468,34 @@ body {
   $$('.np-act, .np-follow').forEach(function (e) { e.classList.remove('on'); });
   $('#me-tabs [data-k=note]').click();
   $('#fav-sub [data-f=fdd]').click();
+  /* ---------- 照片填充：按标题分配 assets/ 里的真实照片，其余轮换 ---------- */
+  var PH_POOL = ['3283', '3297_1', '3313_1', '3431', '3439', '3544', '3572', '3686', '3740', '3873', '3865', '4072', '4100', '4132', '4220', '3375_1', '3463'];
+  var PH_MAP = [['订票攻略', '3881'], ['没提前约上', '3865'], ['佛罗伦萨', 'food1'], ['美食', 'food2'], ['周边一日游', '3822'], ['三天两晚', '4041'], ['米兰机场', '3196'], ['威尼斯', '3297_1'], ['意大利行程', '3283'], ['合集总结', '3873'], ['我走过的路', '3283']];
+  function photoFor(title, idx, key) {
+    if (key === 'a') return 'assets/p3881.jpg';
+    for (var i = 0; i < PH_MAP.length; i++) if (title && title.indexOf(PH_MAP[i][0]) >= 0) return 'assets/p' + PH_MAP[i][1] + '.jpg';
+    return 'assets/p' + PH_POOL[(idx || 0) % PH_POOL.length] + '.jpg';
+  }
+  var phCount = 0;
+  function applyPhotos() {
+    document.querySelectorAll('.card .cover').forEach(function (cv) {
+      if (cv.dataset.ph) return;
+      var card = cv.closest('.card');
+      if (!card || card.id === 'album-chat-card' || card.querySelector('.qa-tg')) return;
+      if (cv.children.length && !cv.querySelector('.poster-t')) return;
+      var tt = card.querySelector('.tt'); var title = tt ? tt.textContent : '';
+      cv.style.background = 'url(' + photoFor(title, phCount++) + ') center/cover no-repeat';
+      cv.dataset.ph = '1';
+      var pt = cv.querySelector('.poster-t'); if (pt) pt.remove();
+    });
+  }
+  var phTimer = null;
+  new MutationObserver(function () { clearTimeout(phTimer); phTimer = setTimeout(applyPhotos, 0); }).observe(document.getElementById('phone'), { childList: true, subtree: true });
+  applyPhotos();
+
+  /* 数据出口：接口层（window.API）通过它读取 mock 数据 */
+  window.__DATA = { NOTES: NOTES, DD_ANSWERS: DD_ANSWERS, OUTLINE: OUTLINE };
+  Object.defineProperty(window.__DATA, 'albumState', { get: function () { return albumState; } });
   go('home');
 })();
 
@@ -2265,6 +2512,7 @@ body {
    核心原则：引用是「指向」（citation），不是「搬运」——卡片文字是用户自己的话，原帖只挂链接。
 =========================================================================== */
 </script>
+
 
 <script>
 /* ============================================================================
@@ -2290,6 +2538,7 @@ body {
    ============================================================================ */
 
 window.API = (function () {
+  var D = window.__DATA || {};
 
   /* ============================ 一、内容数据 ============================ */
   /* 笔记数据：现在来自同页的 mock 变量 NOTES；上线来自后端笔记服务。
@@ -2298,11 +2547,11 @@ window.API = (function () {
                GET /api/search?q=:keyword  （搜索） */
   function getNote(key) {
     // TODO(上线)：return fetch('/api/notes/' + key).then(r => r.json());
-    return (typeof NOTES !== 'undefined') ? NOTES[key] : null;
+    return D.NOTES ? D.NOTES[key] : null;
   }
   function listNotes() {
     // TODO(上线)：return fetch('/api/notes').then(r => r.json());
-    return (typeof NOTES !== 'undefined') ? NOTES : {};
+    return D.NOTES || {};
   }
   function searchNotes(keyword) {
     // TODO(上线)：return fetch('/api/search?q=' + encodeURIComponent(keyword)).then(r => r.json());
@@ -2320,21 +2569,21 @@ window.API = (function () {
     // mock：关键词规则 + 预置答案
     var key = (text.indexOf('订票') >= 0 || text.indexOf('买票') >= 0 || text.indexOf('现金') >= 0) ? 'default'
       : (text.indexOf('注意事项') >= 0 || text.indexOf('重点') >= 0) ? 'note' : 'default';
-    return (typeof DD_ANSWERS !== 'undefined') ? DD_ANSWERS[key] : null;
+    return D.DD_ANSWERS ? D.DD_ANSWERS[key] : null;
   }
 
   /* 点点总结：输入合集，返回整条路线的主脉络（只总结「结构/分类」，不转述原文内容）
      对应后端：POST /api/ai/summarize  body={ albumId } */
   function aiSummarize(albumId) {
     // TODO(上线)：return fetch('/api/ai/summarize', { method:'POST', body: JSON.stringify({albumId}) }).then(r=>r.json());
-    return (typeof DD_ANSWERS !== 'undefined' && DD_ANSWERS.summary) ? DD_ANSWERS.summary : null;
+    return (D.DD_ANSWERS && D.DD_ANSWERS.summary) ? D.DD_ANSWERS.summary : null;
   }
 
   /* 点点大纲：输入合集 + 对话历史，产出「方向大纲」（只给结构，不转述内容，防洗稿）
      对应后端：POST /api/ai/outline  body={ albumId, chatHistory } */
   function aiOutline(albumId, chatHistory) {
     // TODO(上线)：return fetch('/api/ai/outline', { method:'POST', body: JSON.stringify({albumId, chatHistory}) }).then(r=>r.json());
-    return (typeof OUTLINE !== 'undefined') ? OUTLINE : [];
+    return D.OUTLINE || [];
   }
 
   /* ============================ 三、关系·社区 ============================ */
@@ -2359,7 +2608,7 @@ window.API = (function () {
        POST /api/albums            body={ name } */
   function listAlbums() {
     // TODO(上线)：return fetch('/api/albums').then(r => r.json());
-    return (typeof albumState !== 'undefined') ? albumState : { notes: ['a'], chat: false };
+    return D.albumState || { notes: ['a'], chat: false };
   }
   function addNoteToAlbum(albumId, noteId) {
     // TODO(上线)：return fetch('/api/albums/' + albumId + '/notes', { method:'POST', body: JSON.stringify({noteId}) }).then(r=>r.json());
@@ -2404,7 +2653,6 @@ window.API = (function () {
   };
 })();
 </script>
-
 
 <!-- ========== 测试引导（界面外）：文字说明在手机外侧，高亮圈 + 点击动画落在目标上；不改动手机内任何元素 ========== -->
 <style>
