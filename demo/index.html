@@ -2238,10 +2238,11 @@ body {
     var f = $('#np-follow'); f.textContent = '关注'; f.classList.remove('on');
     $('#np-n1').textContent = d.n[0]; $('#np-n2').textContent = d.n[1]; $('#np-n3').textContent = d.n[2];
     $('#nb-heart').classList.remove('on'); $('#nb-star').classList.remove('on');
-    var cover = d.cover === 'poster'
+    var phU = d.cover === 'none' ? '' : photoFor(d.title, key === 'b' ? 13 : 0, key);
+    var cover = phU ? '' : d.cover === 'poster'
       ? '<div class="mock"><div class="sk" style="width:90%"></div><div class="sk" style="width:70%"></div><div class="sk" style="width:80%"></div></div><div class="band">预订流程 一图看懂</div><div class="band2">官方渠道 · 分时段 · 带现金</div>'
       : '';
-    var html = (d.cover === 'none' ? '' : '<div class="np-cover" style="height:' + d.coverH + 'px">' + (d.live ? '<span class="live">实况</span>' : '') + '<span class="cnt">' + d.count + '</span>' + cover + '</div>' +
+    var html = (d.cover === 'none' ? '' : '<div class="np-cover" style="height:' + d.coverH + 'px' + (phU ? ';background:url(' + phU + ') center/cover no-repeat' : '') + '">' + (d.live ? '<span class="live">实况</span>' : '') + '<span class="cnt">' + d.count + '</span>' + cover + '</div>' +
       '<div class="np-dots"><i></i><i></i><i></i></div>') +
       '<div class="np-body">' + (d.askerRow || '') + '<div class="np-title">' + d.title + '</div>' +
       '<div class="np-text">' + d.text.map(function (t) { return t.indexOf('<div') === 0 ? t : '<p>' + t + '</p>'; }).join('') + '<p class="tags">' + d.tags + '</p></div>' +
@@ -2467,6 +2468,31 @@ body {
   $$('.np-act, .np-follow').forEach(function (e) { e.classList.remove('on'); });
   $('#me-tabs [data-k=note]').click();
   $('#fav-sub [data-f=fdd]').click();
+  /* ---------- 照片填充：按标题分配 assets/ 里的真实照片，其余轮换 ---------- */
+  var PH_POOL = ['3283', '3297_1', '3313_1', '3431', '3439', '3544', '3572', '3686', '3740', '3873', '3865', '4072', '4100', '4132', '4220', '3375_1', '3463'];
+  var PH_MAP = [['订票攻略', '3881'], ['没提前约上', '3865'], ['佛罗伦萨', '3670'], ['周边一日游', '3822'], ['三天两晚', '4041'], ['米兰机场', '3196'], ['威尼斯', '3297_1'], ['意大利行程', '3283'], ['合集总结', '3873'], ['我走过的路', '3283']];
+  function photoFor(title, idx, key) {
+    if (key === 'a') return 'assets/p3881.jpg';
+    for (var i = 0; i < PH_MAP.length; i++) if (title && title.indexOf(PH_MAP[i][0]) >= 0) return 'assets/p' + PH_MAP[i][1] + '.jpg';
+    return 'assets/p' + PH_POOL[(idx || 0) % PH_POOL.length] + '.jpg';
+  }
+  var phCount = 0;
+  function applyPhotos() {
+    document.querySelectorAll('.card .cover').forEach(function (cv) {
+      if (cv.dataset.ph) return;
+      var card = cv.closest('.card');
+      if (!card || card.id === 'album-chat-card' || card.querySelector('.qa-tg')) return;
+      if (cv.children.length && !cv.querySelector('.poster-t')) return;
+      var tt = card.querySelector('.tt'); var title = tt ? tt.textContent : '';
+      cv.style.background = 'url(' + photoFor(title, phCount++) + ') center/cover no-repeat';
+      cv.dataset.ph = '1';
+      var pt = cv.querySelector('.poster-t'); if (pt) pt.remove();
+    });
+  }
+  var phTimer = null;
+  new MutationObserver(function () { clearTimeout(phTimer); phTimer = setTimeout(applyPhotos, 0); }).observe(document.getElementById('phone'), { childList: true, subtree: true });
+  applyPhotos();
+
   go('home');
 })();
 
